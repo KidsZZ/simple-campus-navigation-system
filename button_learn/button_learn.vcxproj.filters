@@ -15,25 +15,8 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="final_assignment.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="abstract_house.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="map.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="roads.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="road.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="option.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>
