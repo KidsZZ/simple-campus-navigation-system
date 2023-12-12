@@ -131,6 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="abstract_house.h" />
+    <ClInclude Include="abstract_page.h" />
     <ClInclude Include="option.h" />
     <ClInclude Include="map.h" />
     <ClInclude Include="road.h" />
