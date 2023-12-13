@@ -9,12 +9,11 @@
 
 #include <iostream>
 #include <graphics.h>
-
+#include "Widget.h"
 
 int main()
 {
-    initgraph(1280, 720);
-    while (1) {
-
-    }
+    Widget myWindow(1920, 1080);
+    myWindow.run();
+    myWindow.close();
 }

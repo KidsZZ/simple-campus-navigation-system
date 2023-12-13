@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{d8428a8a-df05-449b-b53f-087cddaf9500}</ProjectGuid>
-    <RootNamespace>finalassignment</RootNamespace>
+    <ProjectGuid>{468244ba-e436-445c-b201-20ca3fca48bb}</ProjectGuid>
+    <RootNamespace>test</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -43,7 +43,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -127,21 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="final_assignment.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="abstract_house.h" />
-    <ClInclude Include="abstract_page.h" />
-    <ClInclude Include="canteen.h" />
-    <ClInclude Include="dorminory.h" />
-    <ClInclude Include="home_page.h" />
-    <ClInclude Include="house_management.h" />
-    <ClInclude Include="museum.h" />
-    <ClInclude Include="option.h" />
-    <ClInclude Include="map.h" />
-    <ClInclude Include="roads.h" />
-    <ClInclude Include="teaching_building.h" />
-    <ClInclude Include="Widget.h" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
