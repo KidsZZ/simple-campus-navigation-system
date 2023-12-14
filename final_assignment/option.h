@@ -1,33 +1,34 @@
 #pragma once
 //option类是选项的基类,如开始界面的选项，地图界面的选项
-//包括选项的名字，位置
+//包括选项的内容，位置
+#include <string>
+#include <functional>
 class option {
 public:
-	//默认构造函数，初始化selected，scale
-	option();
-	//构造函数，初始化selected，width，length，x,y,scale
-	option(int width, int length, int x, int y);
-	//当前选项是否被选中（更新数据成员）
-	void is_selected(bool);
+	//构造函数，初始化selected，width，height，x,y,scale
+	option(int width, int height, int x, int y, const std::wstring& text, const std::function<void()>& my_fun);
+	//检查鼠标是否在选项上（更新数据成员）
+	bool checkMouseOver(int mouse_x, int mouse_y);
+
+	//检测鼠标是否按下按钮
+	bool checkMouseClick(int mouse_x, int mouse_y);
 
 	//选项的绘制函数
 	//1.判断选项是否被选中（用不同颜色和放缩比例）
 	//2.根据选项坐标和横宽比绘制选项选项
 	void draw();
 
-	//set函数
-	void set_x(int x);
-	void set_y(int y);
-	void set_w(int w);
-	void set_l(int l);
-
 protected:
+	//回调函数(检测到按钮按下时调用)
+	std::function<void()> on_Click;
+	//按钮文本信息
+	std::wstring text;
 
 	//记录当前选项是否被选中
-	bool selected;
+	bool is_mouse_over;
 
-	//选项的横宽比
-	int width, length;
+	//选项的宽高
+	int width, height;
 
 	//选项的位置
 	int x, y;
