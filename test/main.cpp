@@ -1,32 +1,16 @@
-#include <iostream>
 #include <cstdio>
-using namespace std;
-class base {
+
+class A {
 public:
-	virtual void print();
-protected:
-	void fun();
+    A(int& value) : a(value) {}  // 使用构造函数初始化列表将成员a绑定到一个整数引用上
+    int& a;
 };
-void base::fun() {
-	printf("base fun()\n");
-}
-void base::print() {
-	fun();
-}
-class son :public base {
-private:
-	virtual void print()override;
-protected:
-	void fun();
-};
-void son::print() {
-	fun();
-}
-void son::fun() {
-	printf("son fun()\n");
-}
 
 int main() {
-	base* b = new son();
-	b->print();
+    int value = 5;
+    A obj(value);
+    obj.a = 9;
+    printf("%d", value);
+    // 现在成员a已经被初始化并绑定到变量value上
+    return 0;
 }

@@ -26,11 +26,15 @@ visual studio 2022
 
 git+github
 
-## 项目思路
+## 项目预设
 
 1. 通过easyX创建gui程序
 2. 制定文件保存格式
 3. 使用键盘输入
+
+## 项目架构
+
+1. map类中包含houses类和roads类，通过调用map的draw()函数调用houses和roads的draw()函数
 
 ## 窗口设计
 

@@ -3,7 +3,10 @@
 //包括选项的名字，位置
 class option {
 public:
-
+	//默认构造函数，初始化selected，scale
+	option();
+	//构造函数，初始化selected，width，length，x,y,scale
+	option(int width, int length, int x, int y);
 	//当前选项是否被选中（更新数据成员）
 	void is_selected(bool);
 
@@ -12,7 +15,13 @@ public:
 	//2.根据选项坐标和横宽比绘制选项选项
 	void draw();
 
-private:
+	//set函数
+	void set_x(int x);
+	void set_y(int y);
+	void set_w(int w);
+	void set_l(int l);
+
+protected:
 
 	//记录当前选项是否被选中
 	bool selected;

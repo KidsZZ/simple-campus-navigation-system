@@ -128,19 +128,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="final_assignment.cpp" />
+    <ClCompile Include="Widget.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="abstract_house.h" />
+    <ClInclude Include="houses.h" />
     <ClInclude Include="abstract_page.h" />
-    <ClInclude Include="canteen.h" />
-    <ClInclude Include="dorminory.h" />
     <ClInclude Include="home_page.h" />
     <ClInclude Include="house_management.h" />
-    <ClInclude Include="museum.h" />
-    <ClInclude Include="option.h" />
     <ClInclude Include="map.h" />
+    <ClInclude Include="map_editing.h" />
+    <ClInclude Include="map_select_page.h" />
+    <ClInclude Include="navigation.h" />
+    <ClInclude Include="option.h" />
+    <ClInclude Include="maps.h" />
+    <ClInclude Include="picture_option.h" />
     <ClInclude Include="roads.h" />
-    <ClInclude Include="teaching_building.h" />
     <ClInclude Include="Widget.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
