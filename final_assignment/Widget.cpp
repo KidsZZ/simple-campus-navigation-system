@@ -50,6 +50,7 @@ void Widget::run() {
 }
 
 void Widget::close() {
+	closegraph();
 	for (int i = 0; i < 4; i++) {
 		delete my_page[i];
 	}

@@ -21,6 +21,9 @@
     <ClCompile Include="Widget.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="home_page.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="houses.h">
