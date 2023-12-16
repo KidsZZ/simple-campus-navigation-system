@@ -4,6 +4,7 @@
 #include <string>
 #include "abstract_page.h"
 #include "maps.h"
+#include "enum_lib.h"
 class Widget {
 public:
 	//构造函数，将三个页面载入my_page,设置页面长宽比，将now_page_id设为home_page_id
@@ -14,14 +15,8 @@ public:
 	~Widget();
 private:
 	std::vector<abstract_page*> my_page;
-	//页面id设置
-	enum {
-		HOME_PAGE = 0,
-		MAP_SELECT_PAGE,
-		MAP_EDITING,
-		NAVIGATION
-	};
-	int previous_page_id = HOME_PAGE;
+	//页面id设置(废弃，使用统一my_mpas传参)
+	//int previous_page_id = HOME_PAGE;
 	//下一帧的页面id
 	int now_page_id = HOME_PAGE;
 	//页面的宽和高

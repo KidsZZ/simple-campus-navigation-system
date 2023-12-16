@@ -20,7 +20,7 @@ public:
 private:
 	//使用枚举类记录房子编号
 	
-	//储存房子的
+	//储存房子的图片
 	std::vector<IMAGE*> house_img;
 	//储存大门的朝向，使用上左右下的顺序存储
 	//开门为true，不开门为false
