@@ -133,6 +133,7 @@
     <ClCompile Include="Widget.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="enum_lib.h" />
     <ClInclude Include="houses.h" />
     <ClInclude Include="abstract_page.h" />
     <ClInclude Include="home_page.h" />

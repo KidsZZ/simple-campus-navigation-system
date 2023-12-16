@@ -68,5 +68,8 @@
     <ClInclude Include="navigation.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="enum_lib.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

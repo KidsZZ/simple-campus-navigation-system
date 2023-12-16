@@ -1,6 +1,7 @@
 #pragma once
 //option类是选项的基类,如开始界面的选项，地图界面的选项
 //包括选项的内容，位置
+//在创建option类时，要注册回调函数（lambda表达式）
 #include <string>
 #include <functional>
 class option {

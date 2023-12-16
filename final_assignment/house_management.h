@@ -1,5 +1,5 @@
 #pragma once
-#include "abstract_house.h"
+#include "houses.h"
 #include "map.h"
 #include <vector>
 class house_management {
@@ -11,5 +11,5 @@ public:
 	//Îö¹¹º¯Êý
 	~house_management();
 private:
-	std::vector <abstract_house*> my_house;
+	std::vector <houses*> my_house;
 };
