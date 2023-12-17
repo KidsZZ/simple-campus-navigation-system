@@ -27,4 +27,10 @@ private:
 	double unselected_scale;
 	//地图选择后的缩放比
 	double selected_scale;
+	//按钮尺寸
+	int button_width, button_height;
+	std::wstring first_button_text;
+	std::wstring second_button_text;
+	int first_button_x, first_button_y;
+	int second_button_x, second_button_y;
 };
