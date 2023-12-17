@@ -28,6 +28,8 @@ public:
 	void change_road(int x, int y);
 	//连接两地（最短路）
 	bool connect_houses(int house_type1, int house_type2);
+	//返回给定的地图id是否被编辑过
+	bool is_edited(int page_id);
 private:
 	int selected_map_id;
 	std::wstring path;

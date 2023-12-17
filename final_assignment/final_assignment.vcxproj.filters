@@ -45,6 +45,9 @@
     <ClCompile Include="option.cpp">
       <Filter>源文件\small_widget</Filter>
     </ClCompile>
+    <ClCompile Include="map_select_page.cpp">
+      <Filter>源文件\page</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Widget.h">

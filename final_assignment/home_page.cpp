@@ -6,13 +6,13 @@ home_page::home_page(int next_id, int w, int h) :abstract_page(next_id, w, h), m
 
 
 	//设置标题文本
-	title_text = L"欢迎使用简易校园导航系统";
+	title_text = L"简易校园导航系统";
 	//设置标题尺寸
 	title_size = 100;
 	//设置标题的尺寸
-	settextstyle(title_size, 0, L"仿宋");
+	settextstyle(title_size, 0, L"华文新魏");
 	//设置标题位置
-	title_x = (width - textwidth(title_text.c_str())*1.3) / 2;//居中
+	title_x = (width - textwidth(title_text.c_str())) / 2;//居中
 	title_y = height * 0.15;//距离顶部20%的宽度
 
 
@@ -25,15 +25,15 @@ home_page::home_page(int next_id, int w, int h) :abstract_page(next_id, w, h), m
 	// 按钮文本
 	first_button_text = L"开始游戏";
 	//按钮坐标
-	first_button_x = (width - button_width*1.8) / 2;
+	first_button_x = (width - button_width) / 2;
 	first_button_y = (height / 2);
 
 	//设置第二个按钮参数
 	// 按钮文本
 	second_button_text = L"退出游戏";
 	//按钮坐标
-	second_button_x = (width - button_width*1.8) / 2;
-	second_button_y = (height * 0.65);
+	second_button_x = (width - button_width) / 2;
+	second_button_y = (height * 0.75);
 
 
 	//放置按钮

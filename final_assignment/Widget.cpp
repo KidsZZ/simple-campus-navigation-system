@@ -1,7 +1,7 @@
 #include "Widget.h"
 #include "home_page.h"
 //#include "navigation_page.h"
-//#include "map_select_page.h"
+#include "map_select_page.h"
 //#include "map_editing_page.h"
 #include <graphics.h>
 #include "enum_lib.h"
@@ -12,8 +12,8 @@ Widget::Widget(int w, int h) :width(w),height(h),now_page_id(page_id::HOME_PAGE)
 	//my_maps.read_file();
 	//初始化四个页面
 	my_page.push_back(new home_page(page_id::HOME_PAGE, width, height));
-	/*my_page.push_back(new map_select_page(page_id::MAP_SELECT_PAGE, width, height,my_maps));
-	my_page.push_back(new map_editing_page(page_id:: MAP_EDITING_PAGE, width, height, my_maps));
+	//my_page.push_back(new map_select_page(page_id::MAP_SELECT_PAGE, width, height,my_maps));
+	/*my_page.push_back(new map_editing_page(page_id::MAP_EDITING_PAGE, width, height, my_maps));
 	my_page.push_back(new navigation_page(page_id::NAVIGATION_PAGE, width, height,my_maps));*/
 }
 

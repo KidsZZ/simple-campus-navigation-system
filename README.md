@@ -35,6 +35,7 @@ git+github
 ## 项目架构
 
 1. map类中包含houses类和roads类，通过调用map的draw()函数调用houses和roads的draw()函数
+2. 对每个页面的构造函数中只设置各种页面需要的值，不实际绘制页面相关画面，绘制画面函数统一放到draw（）函数中。
 
 ## 窗口设计
 

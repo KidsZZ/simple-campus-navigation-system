@@ -13,7 +13,7 @@
 
 int main()
 {
-    Widget myWindow(1920, 1080);
+    Widget myWindow(1280,720);
     myWindow.run();
     myWindow.close();
 }
