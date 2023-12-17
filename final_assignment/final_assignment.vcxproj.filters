@@ -53,12 +53,6 @@
     <ClInclude Include="enum_lib.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="abstract_page.h">
-      <Filter>头文件\page</Filter>
-    </ClInclude>
-    <ClInclude Include="home_page.h">
-      <Filter>头文件\page</Filter>
-    </ClInclude>
     <ClInclude Include="map_editing_page.h">
       <Filter>头文件\page</Filter>
     </ClInclude>
@@ -68,23 +62,29 @@
     <ClInclude Include="navigation_page.h">
       <Filter>头文件\page</Filter>
     </ClInclude>
-    <ClInclude Include="houses.h">
-      <Filter>头文件\maps_and_tools</Filter>
-    </ClInclude>
-    <ClInclude Include="maps.h">
-      <Filter>头文件\maps_and_tools</Filter>
-    </ClInclude>
-    <ClInclude Include="map.h">
-      <Filter>头文件\maps_and_tools</Filter>
-    </ClInclude>
-    <ClInclude Include="roads.h">
-      <Filter>头文件\maps_and_tools</Filter>
-    </ClInclude>
     <ClInclude Include="option.h">
       <Filter>头文件\small_widget</Filter>
     </ClInclude>
     <ClInclude Include="picture_option.h">
       <Filter>头文件\small_widget</Filter>
+    </ClInclude>
+    <ClInclude Include="roads.h">
+      <Filter>头文件\maps_and_tools</Filter>
+    </ClInclude>
+    <ClInclude Include="houses.h">
+      <Filter>头文件\maps_and_tools</Filter>
+    </ClInclude>
+    <ClInclude Include="map.h">
+      <Filter>头文件\maps_and_tools</Filter>
+    </ClInclude>
+    <ClInclude Include="maps.h">
+      <Filter>头文件\maps_and_tools</Filter>
+    </ClInclude>
+    <ClInclude Include="abstract_page.h">
+      <Filter>头文件\page</Filter>
+    </ClInclude>
+    <ClInclude Include="home_page.h">
+      <Filter>头文件\page</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

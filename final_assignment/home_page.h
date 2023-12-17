@@ -14,6 +14,7 @@ private:
 	std::wstring first_button_text;
 	std::wstring second_button_text;
 	std::vector<option*> my_option;
+	int title_size;
 	int mouse_x, mouse_y;
 	int title_x, title_y;
 	int button_width, button_height;

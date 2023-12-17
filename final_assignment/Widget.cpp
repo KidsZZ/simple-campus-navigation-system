@@ -1,12 +1,13 @@
 #include "Widget.h"
 #include "home_page.h"
-#include "navigation_page.h"
-#include "map_select_page.h"
-#include "map_editing_page.h"
+//#include "navigation_page.h"
+//#include "map_select_page.h"
+//#include "map_editing_page.h"
 #include <graphics.h>
 #include "enum_lib.h"
 
 Widget::Widget(int w, int h) :width(w),height(h),now_page_id(page_id::HOME_PAGE)/*,my_maps(path)*/ {
+	initgraph(width, height);
 	//初始化my_maps
 	//my_maps.read_file();
 	//初始化四个页面
@@ -29,7 +30,7 @@ void Widget::run() {
 		my_page[now_page_id]->draw();
 
 		//处理页面交换
-		if ((now_page_id = my_page[now_page_id]->return_page_id()) == page_id::EXIT) {
+		if ((now_page_id = (my_page[now_page_id]->return_page_id())) == page_id::EXIT) {
 			running = false;
 		}
 		//切换画布

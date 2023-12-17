@@ -2,7 +2,7 @@
 #include <graphics.h>
 
 option::option(int width, int height, int x, int y, const std::wstring& text, const std::function<void()>& on_Click) :text(text), is_mouse_over(false), width(width), height(height), x(x), y(y), scale(1.0), on_Click(on_Click){
-	draw();
+	//draw();
 }
 
 void option::draw() {

@@ -12,7 +12,7 @@ public:
 	virtual void get_keyboard_message() = 0;
 	//绘制画面
 	virtual void draw() = 0;
-	//返回下一个页面序号(当返回-1时结束程序)
+	//返回下一个页面序号(当返回EXIT时结束程序)
 	int return_page_id() {
 		return next_id;
 	}
