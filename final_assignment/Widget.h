@@ -3,7 +3,7 @@
 #include <vector>
 #include <string>
 #include "abstract_page.h"
-#include "maps.h"
+//#include "maps.h"
 #include "enum_lib.h"
 class Widget {
 public:
@@ -12,18 +12,17 @@ public:
 	//主成员函数
 	void run();
 	void close();
-	~Widget();
 private:
 	std::vector<abstract_page*> my_page;
 	//页面id设置(废弃，使用统一my_mpas传参)
 	//int previous_page_id = HOME_PAGE;
 	//下一帧的页面id
-	int now_page_id = HOME_PAGE;
+	int now_page_id;
 	//页面的宽和高
 	int width, height;
 	//使用4个地图存档
 	static const int show_maps_num = 4;
 	//保存地图信息
-	maps<show_maps_num> my_maps;
+	//maps<show_maps_num> my_maps;
 	const static std::string path;
 };

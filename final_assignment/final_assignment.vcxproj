@@ -129,8 +129,11 @@
   <ItemGroup>
     <ClCompile Include="final_assignment.cpp" />
     <ClCompile Include="home_page.cpp" />
+    <ClCompile Include="map_select_page.cpp" />
     <ClCompile Include="option.cpp" />
-    <ClCompile Include="Widget.cpp" />
+    <ClCompile Include="Widget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="enum_lib.h" />

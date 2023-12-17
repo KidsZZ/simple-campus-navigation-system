@@ -2,7 +2,7 @@
 #include <graphics.h>
 
 option::option(int width, int height, int x, int y, const std::wstring& text, const std::function<void()>& on_Click) :text(text), is_mouse_over(false), width(width), height(height), x(x), y(y), scale(1.0), on_Click(on_Click){
-	draw();
+	//draw();
 }
 
 void option::draw() {
@@ -21,7 +21,7 @@ void option::draw() {
 	fillrectangle(scaledX, scaledY, scaledX + scaledWidth, scaledY + scaledHeight); // 绘制按钮
 	settextcolor(BLACK); // 设置文本颜色为黑色
 	setbkmode(TRANSPARENT); // 设置文本背景透明
-	settextstyle(20 * scale, 0, _T("微软雅黑"));
+	settextstyle(35 * scale, 0, _T("微软雅黑"));//文本大小
 	//居中显示按钮文本
 	int textX = scaledX + (scaledWidth - textwidth(text.c_str())) / 2; // 计算文本在按钮中央的x坐标
 	int textY = scaledY + (scaledHeight - textheight(_T("TEST"))) / 2; // 计算文本在按钮中央的y坐标

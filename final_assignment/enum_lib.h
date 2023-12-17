@@ -12,7 +12,8 @@ enum roads_direction{
 };
 //∑øŒ›÷÷¿‡
 enum house_type {
-	museum = 1,
+	road,
+	library,
 	dorminory,
 	teaching_building,
 	canteen
@@ -29,5 +30,6 @@ enum page_id {
 	HOME_PAGE = 0,
 	MAP_SELECT_PAGE,
 	MAP_EDITING_PAGE,
-	NAVIGATION_PAGE
+	NAVIGATION_PAGE,
+	EXIT
 };
