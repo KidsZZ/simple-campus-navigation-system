@@ -8,7 +8,7 @@
 class houses {
 public:
 	//构造函数，初始化img对象(传入对象地址的通配形式，如img/img*.png，使用实际照片序号替换*标记）
-	houses(std::string path,int n);
+	houses(std::wstring path,int n);
 	//绘制函数:传入当前地图数据，并将房屋绘制上
 	void draw(int width,int height,int x,int y);
 	//为绘制道路提供此种类的房子是否在这个方向开门

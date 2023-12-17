@@ -12,7 +12,8 @@ enum roads_direction{
 };
 //·¿ÎÝÖÖÀà
 enum house_type {
-	museum = 1,
+	road,
+	library,
 	dorminory,
 	teaching_building,
 	canteen
