@@ -3,6 +3,7 @@
 #include "abstract_page.h"
 #include "maps.h"
 #include <vector>
+#include "option.h"
 class map_select_page :public abstract_page {
 public:
 	//构造函数，要通过基类初始化页面的宽高和下一个页面id
@@ -15,6 +16,7 @@ public:
 private:
 	//使用maps类实现地图保存及操作(引用传递）
 	maps<show_maps_num> &my_maps;
+	std::vector<option*> my_option;
 	//默认选择第一张地图
 	int now_selected_page_id = page_id::HOME_PAGE;
 	//左地图选择模块的宽高
@@ -29,8 +31,11 @@ private:
 	double selected_scale;
 	//按钮尺寸
 	int button_width, button_height;
+	//按钮文本
 	std::wstring first_button_text;
 	std::wstring second_button_text;
+	//按钮位置
 	int first_button_x, first_button_y;
 	int second_button_x, second_button_y;
+	bool is_map_select[2][2];
 };

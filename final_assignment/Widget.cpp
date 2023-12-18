@@ -51,7 +51,8 @@ void Widget::run() {
 
 void Widget::close() {
 	closegraph();
-	for (int i = 0; i < 4; i++) {
-		delete my_page[i];
+	while (my_page.empty()) {
+		delete my_page.back();
+		my_page.pop_back();
 	}
 }
