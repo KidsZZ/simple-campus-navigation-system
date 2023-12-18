@@ -33,3 +33,27 @@ enum page_id {
 	NAVIGATION_PAGE,
 	EXIT
 };
+
+bool houses::is_door(int direction, int house_type) 
+{
+	if (house_type == »Œ“‚∑øŒ›) 
+	{
+		if (direction == up)
+		{
+			return true;
+		}
+		if (direction == left)
+		{
+			return true;
+		}
+		if (direction == right)
+		{
+			return true;
+		}
+		if (direction == down)
+		{
+			return true;
+		}
+	}
+	
+}

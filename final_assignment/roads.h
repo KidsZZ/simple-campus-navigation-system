@@ -4,6 +4,7 @@
 #include <graphics.h>
 #include "map.h"
 #include "enum_lib.h"
+#include<string>
 class roads {
 public:
 	//构造函数，载入道路图片
