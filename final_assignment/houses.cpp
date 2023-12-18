@@ -1,32 +1,33 @@
 #include"houses.h"
 
 //构造函数，初始化img对象(传入对象地址的通配形式，如img/img*.png，使用实际照片序号替换*标记）
+//**************************  0索引用于给道路占位（道路索引为0）  ************************************
 houses::houses(std::wstring path, int n) 
-{
-	house_orientation=
-	{
-		//后期需要进行扩展
-		{true, true, true, true, },//library
-		{ true,true,true,true, },//dorminory
-		{ true,true,true,true, },//teaching_building
-		{ true,true,true,true, },//canteen
-		{ true,true,true,true, },
-	};
+{	
+	//先全设为true，注意vector不能直接放值，要push进去
+	for (int i = 0; i <= n; i++) {
+		house_orientation.push_back({ true,true,true,true });
+	}
 
+	house_img.push_back(nullptr);
+	//加载图片
+	IMAGE* img;//使用new在堆区创建IMAGE类型地址
 	for (int i = 1; i <= n; i++)
-	{
-		std::wstring filename = path + std::to_wstring(n) + L".png";//拼接图片完整文件路径，具有普遍扩展性
-		IMAGE* img = new IMAGE;//使用new在堆区创建IMAGE类型地址
+	{	
+		//拼接图片完整文件路径，具有普遍扩展性
+		//注意这里的图片顺序要和enum.lib中的一一对应，从1开始标号
+		std::wstring filename = path + std::to_wstring(i) + L".png";
+		img = new IMAGE();
 		loadimage(img, filename.c_str());//加载图片
-		house_img.push_back(img);//将只想图片地址的指针数据存放到house_img中保存
+		house_img.push_back(img);//将图片地址的指针数据存放到house_img中保存
 	}
 	
 };
 
 //绘制函数:传入当前地图数据，并将房屋绘制上
-void houses::draw(int width, int height, int x, int y)
-{
-	putimage(x, y, width, height,house_img[0],x,y);//渲染绘制图片
+void houses::draw(int length, int x, int y,int house_type)
+{	//渲染绘制图片
+	putimage(x, y, length,length,house_img[house_type],0,0);//最后两个值是偏移量
 };
 
 //为绘制道路提供此种类的房子是否在这个方向开门
