@@ -24,13 +24,5 @@ private:
 	std::vector<IMAGE*> house_img;
 	//储存大门的朝向，使用上左右下的顺序存储
 	//开门为true，不开门为false
-	std::vector<bool[4]> house_orientation=
-	{
-		//后期需要进行扩展
-		{true,true,true,true,},//library
-		{true,true,true,true,},//dorminory
-		{true,true,true,true,},//teaching_building
-		{true,true,true,true,},//canteen
-		{true,true,true,true,},
-	};;
+	std::vector<bool[4]> house_orientation;
 };
