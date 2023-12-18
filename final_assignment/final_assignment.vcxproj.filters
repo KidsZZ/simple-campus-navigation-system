@@ -48,6 +48,18 @@
     <ClCompile Include="map_select_page.cpp">
       <Filter>源文件\page</Filter>
     </ClCompile>
+    <ClCompile Include="roads.cpp">
+      <Filter>源文件\maps_and_tools</Filter>
+    </ClCompile>
+    <ClCompile Include="houses.cpp">
+      <Filter>源文件\maps_and_tools</Filter>
+    </ClCompile>
+    <ClCompile Include="map.cpp">
+      <Filter>源文件\maps_and_tools</Filter>
+    </ClCompile>
+    <ClCompile Include="maps.cpp">
+      <Filter>源文件\maps_and_tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Widget.h">

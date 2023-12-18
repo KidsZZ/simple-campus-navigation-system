@@ -8,7 +8,7 @@
 class houses {
 public:
 	//构造函数，初始化img对象(传入对象地址的通配形式，如img/img*.png，使用实际照片序号替换*标记）
-	houses(std::wstring path,int n);
+	houses(std::wstring path, int n);
 	//绘制函数:传入当前地图数据，并将房屋绘制上
 	void draw(int width,int height,int x,int y);
 	//为绘制道路提供此种类的房子是否在这个方向开门
@@ -24,5 +24,13 @@ private:
 	std::vector<IMAGE*> house_img;
 	//储存大门的朝向，使用上左右下的顺序存储
 	//开门为true，不开门为false
-	std::vector<bool[4]> house_orientation;
+	std::vector<bool[4]> house_orientation=
+	{
+		//后期需要进行扩展
+		{true,true,true,true,},//library
+		{true,true,true,true,},//dorminory
+		{true,true,true,true,},//teaching_building
+		{true,true,true,true,},//canteen
+		{true,true,true,true,},
+	};;
 };
