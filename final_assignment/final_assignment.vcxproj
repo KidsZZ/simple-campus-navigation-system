@@ -133,7 +133,7 @@
     <ClCompile Include="map.cpp" />
     <ClCompile Include="maps.cpp" />
     <ClCompile Include="map_select_page.cpp" />
-    <ClCompile Include="option.cpp" />
+    <ClCompile Include="button.cpp" />
     <ClCompile Include="roads.cpp" />
     <ClCompile Include="Widget.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -148,9 +148,9 @@
     <ClInclude Include="map_editing_page.h" />
     <ClInclude Include="map_select_page.h" />
     <ClInclude Include="navigation_page.h" />
-    <ClInclude Include="option.h" />
+    <ClInclude Include="button.h" />
     <ClInclude Include="maps.h" />
-    <ClInclude Include="picture_option.h" />
+    <ClInclude Include="picture_button.h" />
     <ClInclude Include="roads.h" />
     <ClInclude Include="Widget.h" />
   </ItemGroup>

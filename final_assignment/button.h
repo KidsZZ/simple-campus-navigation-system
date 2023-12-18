@@ -1,13 +1,13 @@
 #pragma once
-//option类是选项的基类,如开始界面的选项，地图界面的选项
+//button类是选项的基类,如开始界面的选项，地图界面的选项
 //包括选项的内容，位置
-//在创建option类时，要注册回调函数（lambda表达式）
+//在创建button类时，要注册回调函数（lambda表达式）
 #include <string>
 #include <functional>
-class option {
+class button {
 public:
 	//构造函数，初始化selected，width，height，x,y,scale
-	option(int width, int height, int x, int y, const std::wstring& text, const std::function<void()>& my_fun);
+	button(int width, int height, int x, int y, const std::wstring& text, const std::function<void()>& my_fun);
 	//检查鼠标是否在选项上（更新数据成员）
 	bool checkMouseOver(int mouse_x, int mouse_y);
 

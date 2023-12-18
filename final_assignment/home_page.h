@@ -1,7 +1,7 @@
 #pragma once
 #include "abstract_page.h"
 #include <string>
-#include "option.h"
+#include "button.h"
 #include <vector>
 class home_page :public abstract_page {
 public:
@@ -13,7 +13,7 @@ private:
 	std::wstring title_text;
 	std::wstring first_button_text;
 	std::wstring second_button_text;
-	std::vector<option*> my_option;
+	std::vector<button*> my_button;
 	int title_size;
 	int mouse_x, mouse_y;
 	int title_x, title_y;

@@ -42,7 +42,7 @@
     <ClCompile Include="home_page.cpp">
       <Filter>源文件\page</Filter>
     </ClCompile>
-    <ClCompile Include="option.cpp">
+    <ClCompile Include="button.cpp">
       <Filter>源文件\small_widget</Filter>
     </ClCompile>
     <ClCompile Include="map_select_page.cpp">
@@ -77,10 +77,10 @@
     <ClInclude Include="navigation_page.h">
       <Filter>头文件\page</Filter>
     </ClInclude>
-    <ClInclude Include="option.h">
+    <ClInclude Include="button.h">
       <Filter>头文件\small_widget</Filter>
     </ClInclude>
-    <ClInclude Include="picture_option.h">
+    <ClInclude Include="picture_button.h">
       <Filter>头文件\small_widget</Filter>
     </ClInclude>
     <ClInclude Include="roads.h">

@@ -1,11 +1,11 @@
-#include "option.h"
+#include "button.h"
 #include <graphics.h>
 
-option::option(int width, int height, int x, int y, const std::wstring& text, const std::function<void()>& on_Click) :text(text), is_mouse_over(false), width(width), height(height), x(x), y(y), scale(1.0), on_Click(on_Click){
+button::button(int width, int height, int x, int y, const std::wstring& text, const std::function<void()>& on_Click) :text(text), is_mouse_over(false), width(width), height(height), x(x), y(y), scale(1.0), on_Click(on_Click){
 	//draw();
 }
 
-void option::draw() {
+void button::draw() {
 	if (is_mouse_over) {
 		setlinecolor(RGB(BRS, BGS, BBS));
 		setfillcolor(RGB(FRS, FGS, FBS));
@@ -30,7 +30,7 @@ void option::draw() {
 
 
 //判断鼠标是否在选项上，并据此修改is_mouse_over和scale
-bool option::checkMouseOver(int mouse_x,int mouse_y) {
+bool button::checkMouseOver(int mouse_x,int mouse_y) {
 	if (is_mouse_over = (mouse_x >= x) && (mouse_x <= (x + width)) && (mouse_y >= y) && (mouse_y <= (y + height))) {
 		scale = 0.9;
 		return true;
@@ -41,7 +41,7 @@ bool option::checkMouseOver(int mouse_x,int mouse_y) {
 	}
 }
 
-bool option::checkMouseClick(int mouse_x, int mouse_y)
+bool button::checkMouseClick(int mouse_x, int mouse_y)
 {
 	if ((mouse_x >= x) && (mouse_x <= (x + width)) && (mouse_y >= y) && (mouse_y <= (y + height))) {
 		on_Click();

@@ -6,6 +6,7 @@
 #include "houses.h"
 #include "roads.h"
 
+
 template<int NUM=4>
 class maps {
 public:
@@ -18,19 +19,25 @@ public:
 	//将编辑过的地图数据载入文件(为了方便，全部重写）
 	void write_file();
 	//绘制指定id的地图
-	void draw(int length, int x, int y, int id);
+	void draw(int width,int height, int x, int y, int id);
 	//绘制当前选择的地图
-	void draw_selected(int length, int x, int y);
+	void draw_selected(int width,int height, int x, int y);
 	//下面三个函数都作用于selected_map_id
+	//增加东西(如果已经有了就替代
 	//给定坐标和房子id
-	void change_house(int x, int y, int house_type);
+	void add_house(int x, int y, int house_type);
 	//给定坐标
-	void change_road(int x, int y);
+	void add_road(int x, int y);
+	//删除东西
+	// 给定坐标(删除房子和道路用一个函数，如果本来就没有东西就不变）
+	void delete_build
 	//连接两地（最短路）
 	bool connect_houses(int house_type1, int house_type2);
 	//返回给定的地图id是否被编辑过
 	bool is_edited(int page_id);
 private:
+	//计算给定的x，y所对应的格子(传入一个数组保存算出来的值)
+	void tranlate_xy(int* ans, int x, int y);
 	int selected_map_id;
 	std::wstring path;
 	map my_map[NUM];

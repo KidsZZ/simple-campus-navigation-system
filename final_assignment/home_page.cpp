@@ -37,8 +37,8 @@ home_page::home_page(int next_id, int w, int h) :abstract_page(next_id, w, h), m
 
 
 	//放置按钮
-	my_option.push_back(new option(button_width, button_height, first_button_x, first_button_y, first_button_text, [this]() {set_next_id(page_id::MAP_SELECT_PAGE); }));
-	my_option.push_back(new option(button_width, button_height, second_button_x, second_button_y, second_button_text, [this]() {set_next_id(page_id::EXIT); }));
+	my_button.push_back(new button(button_width, button_height, first_button_x, first_button_y, first_button_text, [this]() {set_next_id(page_id::MAP_SELECT_PAGE); }));
+	my_button.push_back(new button(button_width, button_height, second_button_x, second_button_y, second_button_text, [this]() {set_next_id(page_id::EXIT); }));
 
 	//draw();
 
@@ -48,13 +48,13 @@ void home_page::get_keyboard_message() {
 	ExMessage msg;
 	while (peekmessage(&msg)) {
 		if (msg.message == WM_MOUSEMOVE) {
-			for (option* toption_ptr : my_option) {
-				toption_ptr->checkMouseOver(msg.x, msg.y);
+			for (button* tbutton_ptr : my_button) {
+				tbutton_ptr->checkMouseOver(msg.x, msg.y);
 			}
 		}
 		else if (msg.message == WM_LBUTTONDOWN) {
-			for (option* toption_ptr : my_option) {
-				toption_ptr->checkMouseClick(msg.x,msg.y);
+			for (button* tbutton_ptr : my_button) {
+				tbutton_ptr->checkMouseClick(msg.x,msg.y);
 			}
 		}
 	}
@@ -67,14 +67,14 @@ void home_page::draw() {
 	settextstyle(title_size, 0, L"仿宋");
 	outtextxy(title_x, title_y, title_text.c_str());
 	//绘制按钮
-	for (option* toption_ptr : my_option) {
-		toption_ptr->draw();
+	for (button* tbutton_ptr : my_button) {
+		tbutton_ptr->draw();
 	}
 }
 
 home_page::~home_page() {
-	while (!my_option.empty()) {
-		delete my_option.back();
-		my_option.pop_back();
+	while (!my_button.empty()) {
+		delete my_button.back();
+		my_button.pop_back();
 	}
 }
