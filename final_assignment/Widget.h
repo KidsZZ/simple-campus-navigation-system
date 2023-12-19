@@ -3,7 +3,7 @@
 #include <vector>
 #include <string>
 #include "abstract_page.h"
-//#include "maps.h"
+#include "maps.h"
 #include "enum_lib.h"
 class Widget {
 public:
@@ -23,6 +23,6 @@ private:
 	//使用4个地图存档
 	static const int show_maps_num = 4;
 	//保存地图信息
-	//maps<show_maps_num> my_maps;
+	maps my_maps;
 	const static std::string path;
 };
