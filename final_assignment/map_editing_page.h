@@ -1,6 +1,8 @@
 #pragma once
 #include "abstract_page.h"
 #include "maps.h"
+#include "picture_button.h"
+#include <vector>
 //class map_editing实现对地图的编辑
 class map_editing_page :public abstract_page {
 public:
@@ -12,6 +14,8 @@ public:
 private:
 	//使用maps类实现地图保存及操作(引用传递）
 	maps& my_maps;
+	//创建右边的建筑选项
+	std::vector<picture_button*> my_picture_button;
 	// 左边地图部分占比
 	int left_width, left_height;
 	// 右边选项部分占比

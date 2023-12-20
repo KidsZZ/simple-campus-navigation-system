@@ -1,5 +1,5 @@
 #include "map_editing_page.h"
-
+#include "enum_lib.h"
 map_editing_page::map_editing_page(int next_id, int w, int h, maps& my_maps) :abstract_page(next_id, w, h) ,my_maps(my_maps){
 	//左右模块尺寸
 	left_width = width * 0.8;
@@ -12,5 +12,10 @@ map_editing_page::map_editing_page(int next_id, int w, int h, maps& my_maps) :ab
 	// 一个建筑选项的长宽(指右边选项中的建筑）（外层尺寸）
 	single_object_width = right_width;
 	single_object_height = right_height / 5;
+	//初始化picture_button
+	for (int i = 0; i < building_num; i++) {
+		std::wstring temp_path = L"";
+		my_picture_button.push_back(new picture_button())
+	}
 
 }
