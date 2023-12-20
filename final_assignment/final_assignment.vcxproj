@@ -132,8 +132,10 @@
     <ClCompile Include="houses.cpp" />
     <ClCompile Include="map.cpp" />
     <ClCompile Include="maps.cpp" />
+    <ClCompile Include="map_editing_page.cpp" />
     <ClCompile Include="map_select_page.cpp" />
     <ClCompile Include="button.cpp" />
+    <ClCompile Include="picture_button.cpp" />
     <ClCompile Include="roads.cpp" />
     <ClCompile Include="Widget.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>

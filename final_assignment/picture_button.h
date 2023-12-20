@@ -1,16 +1,31 @@
 #pragma once
-//class picture_button用于放置有图片的选择框（用于地图选择页的存档绘制及地图编辑页的选项绘制）
-#include "button.h"
+//class picture_button用于放置有图片的选择框（用于地图编辑页的建筑及道路选项绘制）
 #include <graphics.h>
 #include <string>
-class picture_button :public button {
+class picture_button {
 public:
-	picture_button(std::string path,std::string exp);
-	picture_button(int width,int length,int x,int y,std::string path,std::string exp);
-	void draw(int width, int length, int x, int y);
+	picture_button(std::wstring path,std::wstring exp,int width,int height,int x,int y);
+	void checkMouseOver(int mouse_x, int mouse_y);
+	void checkMouseClick(int mouse_x, int mouse_y);
+	//给定height要比width宽，且不保证一定处于给定范围内
+	void draw();
 private:
 	//保存图片
 	IMAGE* opt_img;
-	//保存图片说明
-	std::string exp；
+	//保存图片说明（放于图片下方）
+	std::wstring exp;
+	//保存图片缩放
+	double scale;
+	double over_scale;
+	//选项最外层尺寸
+	int width, height;
+	//选项坐标
+	int x, y;
+	int real_img_x;
+	int real_img_y;
+	int real_img_length;
+	bool is_mouse_over;
+	//文字位置
+	int real_text_x;
+	int real_text_y;
 };
