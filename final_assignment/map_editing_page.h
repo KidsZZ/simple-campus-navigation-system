@@ -3,6 +3,7 @@
 #include "maps.h"
 #include "picture_button.h"
 #include <vector>
+#include "button.h"
 //class map_editing实现对地图的编辑
 class map_editing_page :public abstract_page {
 public:
@@ -14,10 +15,16 @@ public:
 private:
 	//使用maps类实现地图保存及操作(引用传递）
 	maps& my_maps;
+	//设置当前选择的建筑id
+	void set_now_select_building_id(int id) {
+		now_select_building = id;
+	}
 	//创建右边的建筑选项
 	std::vector<picture_button*> my_picture_button;
+	//返回按键
+	button* return_button;
 	//当前选择的建筑
-	int now_select_building
+	int now_select_building;
 	// 左边地图部分占比
 	int left_width, left_height;
 	// 右边选项部分占比
