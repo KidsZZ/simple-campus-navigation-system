@@ -16,6 +16,8 @@ private:
 	maps& my_maps;
 	//创建右边的建筑选项
 	std::vector<picture_button*> my_picture_button;
+	//当前选择的建筑
+	int now_select_building
 	// 左边地图部分占比
 	int left_width, left_height;
 	// 右边选项部分占比
@@ -25,8 +27,8 @@ private:
 	// 地图实际宽度
 	int map_height;
 	//地图左边的空间
-	int map_left_space_x;
-	int map_left_space_y;
+	int map_real_x;
+	int map_real_y;
 	// 一个建筑选项的长宽(指右边选项中的建筑）（外层尺寸）
 	int single_object_width;
 	int single_object_height;
