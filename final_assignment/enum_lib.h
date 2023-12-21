@@ -12,7 +12,7 @@ enum roads_direction{
 };
 //·¿ÎÝÖÖÀà
 enum house_type {
-	road,
+	road=0,
 	library,
 	dorminory,
 	teaching_building,

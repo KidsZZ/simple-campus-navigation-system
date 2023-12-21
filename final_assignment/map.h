@@ -5,6 +5,7 @@
 #include "houses.h"
 #include "roads.h"
 #include "enum_lib.h"
+#include<fstream>
 class map {
 public:
 	map(std::string path,const houses &my_house,const roads& my_roads);
