@@ -26,7 +26,7 @@ private:
 	int real_img_x;
 	int real_img_y;
 	int real_img_length;
-	bool is_mouse_over;
+	bool is_selected;
 	//ÎÄ×ÖÎ»ÖÃ
 	int real_text_x;
 	int real_text_y;

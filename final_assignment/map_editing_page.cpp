@@ -32,7 +32,11 @@ map_editing_page::map_editing_page(int next_id, int w, int h, maps& my_maps) :ab
 	//默认不选择建筑(-1)
 	now_select_building = -1;
 	//返回按键
-	return_button = new button(150, 50, 0, 0, L"返回", [this]() {set_next_id(page_id::MAP_SELECT_PAGE); });
+	return_button = new button(150, 50, 0, 0, L"返回", [this,&my_maps]() {
+		//切换页面，保存信息
+		set_next_id(page_id::MAP_SELECT_PAGE); 
+		my_maps.write_file();
+		});
 }
 
 void map_editing_page::get_keyboard_message() {

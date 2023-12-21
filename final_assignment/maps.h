@@ -33,6 +33,8 @@ public:
 	void delete_build(int x, int y);
 	//连接两地（最短路）
 	bool connect_houses(int house_type1, int house_type2);
+	//清除导航路线
+	void clear_connnect_houses();
 	//返回给定的地图id是否被编辑过
 	bool is_edited(int page_id);
 private:
