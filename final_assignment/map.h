@@ -20,11 +20,15 @@ public:
 	//给定坐标和房子id(road id 为0）
 	void add_building(int x, int y, int house_type);
 
-	// 给定坐标(删除房子和道路用一个函数，如果本来就没有东西就不变）
+	// 给定坐标(删除房子和道路用一个函数）
 	void delete_build(int x, int y);
 
 	//返回给定的地图id是否被编辑过
 	bool is_edited(int page_id);
+
+	//判断若绘制道路的话属于哪种道路类型
+	int select_road_type(int i,int j);
+	
 private:
 	//计算给定的x，y所对应的格子(传入一个数组保存算出来的值)
 	void tranlate_xy(int* ans, int x, int y);
@@ -37,4 +41,5 @@ private:
 	//存档文件的路径
 	std::wstring path;
 	bool is_edited(int page_id);
+	//bool类型的数组用于判断道路的种类
 };

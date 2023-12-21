@@ -4,7 +4,7 @@
 enum roads_direction{
 	//对道路情况进行编号（编号遵循上左右下）
 	//两个路口
-	up_left, up_right, up_down, left_right, left_down, right_down,
+	up_left=1, up_right, up_down, left_right, left_down, right_down,
 	//三岔路
 	no_up, no_left, no_right, no_down,
 	//十字路口
@@ -20,7 +20,7 @@ enum house_type {
 };
 //判断房门朝向所使用的传参常量
 enum direction {
-	up,
+	up=1,
 	left,
 	right,
 	down
