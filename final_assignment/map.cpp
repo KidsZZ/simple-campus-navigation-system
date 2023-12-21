@@ -176,7 +176,5 @@ bool map::is_edited(int page_id)
 //计算给定的x，y所对应的格子(传入一个数组保存算出来的值)
 void map::tranlate_xy(int* ans, int x, int y)
 {
-	std::vector<int>real_coord;
-	ans = new std::vector<int >;
 
 }

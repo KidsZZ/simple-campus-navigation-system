@@ -40,6 +40,8 @@ private:
 	int row;
 	//存档文件的路径
 	std::wstring path;
-	bool is_edited(int page_id);
 	//bool类型的数组用于判断道路的种类
+	bool is_edited(int page_id);
+	//记录(x,y)所对应的格子
+	static int real_coord[2];
 };
