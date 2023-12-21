@@ -14,6 +14,7 @@ public:
 
 	virtual ~map_select_page();
 private:
+	//设置当前选择的建筑
 	//使用maps类实现地图保存及操作(引用传递）
 	maps &my_maps;
 	std::vector<button*> my_button;

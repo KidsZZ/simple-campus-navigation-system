@@ -25,10 +25,9 @@ public:
 	void draw_selected(int width,int height, int x, int y);
 	//下面三个函数都作用于selected_map_id
 	//增加东西(如果已经有了就替代
-	//给定坐标和房子id
-	void add_house(int x, int y, int house_type);
+	//给定坐标和房子id(road id 为0）
+	void add_building(int x, int y, int house_type);
 	//给定坐标
-	void add_road(int x, int y);
 	//删除东西
 	// 给定坐标(删除房子和道路用一个函数，如果本来就没有东西就不变）
 	void delete_build(int x, int y);

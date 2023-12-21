@@ -33,3 +33,5 @@ enum page_id {
 	NAVIGATION_PAGE,
 	EXIT
 };
+
+const int building_num = 5;
