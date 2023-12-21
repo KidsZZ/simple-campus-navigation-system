@@ -11,7 +11,8 @@ public:
 	map(std::string path,const houses &my_house,const roads& my_roads);
 	void draw(int length, int x, int y);
 private:
-	const houses& my_house;
+	const houses& my_houses;
 	const roads& my_roads;
+	std::vector<std::string>mapData;
 
 };
