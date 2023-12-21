@@ -1,7 +1,7 @@
 #include"roads.h"
 
 //构造函数，载入道路图片
-roads::	roads(std::wstring path, int n=11) 
+roads::	roads(std::wstring path, int n) 
 {
 	road_img.push_back(nullptr);
 	//加载图片

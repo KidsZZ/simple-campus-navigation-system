@@ -6,10 +6,9 @@
 #include "houses.h"
 #include "roads.h"
 
-//模板类实现起来太麻烦，不用了，没有必要
-
 class maps {
 public:
+	friend class map;
 	//将地图存档数据全都放在一个文件夹中，并将该文件夹的路径传入path
 	//构造函数，给出数据文件位置，调用read_file载入地图数据
 	maps(std::wstring path);//初始化列表
@@ -25,6 +24,7 @@ public:
 	void draw(int width,int height, int x, int y, int id);
 	//绘制当前选择的地图
 	void draw_selected(int width,int height, int x, int y);
+
 	//下面三个函数都作用于selected_map_id
 	//增加东西(如果已经有了就替代
 	//给定坐标和房子id(road id 为0）
@@ -33,6 +33,8 @@ public:
 	//删除东西
 	// 给定坐标(删除房子和道路用一个函数，如果本来就没有东西就不变）
 	void delete_build(int x, int y);
+
+
 	//连接两地（最短路）
 	bool connect_houses(int house_type1, int house_type2);
 	//清除导航路线
