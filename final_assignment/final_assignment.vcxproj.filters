@@ -66,6 +66,9 @@
     <ClCompile Include="picture_button.cpp">
       <Filter>源文件\small_widget</Filter>
     </ClCompile>
+    <ClCompile Include="navigation_page.cpp">
+      <Filter>源文件\page</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Widget.h">

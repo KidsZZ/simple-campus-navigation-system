@@ -135,6 +135,7 @@
     <ClCompile Include="map_editing_page.cpp" />
     <ClCompile Include="map_select_page.cpp" />
     <ClCompile Include="button.cpp" />
+    <ClCompile Include="navigation_page.cpp" />
     <ClCompile Include="picture_button.cpp" />
     <ClCompile Include="roads.cpp" />
     <ClCompile Include="Widget.cpp">
