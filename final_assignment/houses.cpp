@@ -25,7 +25,7 @@ houses::houses(std::wstring path, int n)
 };
 
 //绘制函数:传入当前地图数据，并将房屋绘制上
-void houses::draw(int length, int x, int y,int house_type)
+void houses::draw(int length, int x, int y,int house_type)const
 {	//渲染绘制图片
 	putimage(x, y, length,length,house_img[house_type],0,0);//最后两个值是偏移量
 };

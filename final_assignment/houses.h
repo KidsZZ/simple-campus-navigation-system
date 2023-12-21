@@ -10,7 +10,7 @@ public:
 	//构造函数，初始化img对象(传入对象地址的通配形式，如img/img*.png，使用实际照片序号替换*标记）
 	houses(std::wstring path, int n);
 	//绘制函数:传入当前地图数据，并将房屋绘制上
-	void draw(int length,int x,int y,int house_type);
+	void draw(int length,int x,int y,int house_type)const;
 	//为绘制道路提供此种类的房子是否在这个方向开门
 	bool is_door(int direction, int house_type);
 	//析构函数，析构img对象
