@@ -1,23 +1,25 @@
 #pragma once
-//class maps 用于储存地图及其信息
-//模板类，实现文件要放在头文件中
+//class maps 用于管理map类，处理多地图存档及其文档写入
+//实现的地图为15列10行
 #include <string>
 #include "map.h"
 #include "houses.h"
 #include "roads.h"
 
 //模板类实现起来太麻烦，不用了，没有必要
+
 class maps {
 public:
-	//构造函数，给出数据文件位置
+	//将地图存档数据全都放在一个文件夹中，并将该文件夹的路径传入path
+	//构造函数，给出数据文件位置，调用read_file载入地图数据
 	maps(std::string path);
-	//将文件中的数据载入内存
-	void read_file();
+	//将指定地图id的存档文件中的数据载入内存
+	void read_file(int id);
 	//返回当前选择的地图id
 	int now_selected_map_id();
 	//更改当前选择的地图
 	void set_selected_map_id(int n);
-	//将编辑过的地图数据载入文件(为了方便，全部重写）
+	//将当前选择的地图载入存档文件
 	void write_file();
 	//绘制指定id的地图
 	void draw(int width,int height, int x, int y, int id);
@@ -39,9 +41,9 @@ public:
 	bool is_edited(int page_id);
 private:
 	const static int NUM = 4;
-	//计算给定的x，y所对应的格子(传入一个数组保存算出来的值)
-	void tranlate_xy(int* ans, int x, int y);
+	
 	int selected_map_id;
+	//存放地图数据的文件夹位置
 	std::wstring path;
 	map my_map[NUM];
 	roads my_roads;
