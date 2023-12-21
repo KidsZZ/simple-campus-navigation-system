@@ -12,7 +12,7 @@ class maps {
 public:
 	//将地图存档数据全都放在一个文件夹中，并将该文件夹的路径传入path
 	//构造函数，给出数据文件位置，调用read_file载入地图数据
-	maps(std::string path);
+	maps(std::wstring path);//初始化列表
 	//将指定地图id的存档文件中的数据载入内存
 	void read_file(int id);
 	//返回当前选择的地图id
@@ -45,7 +45,7 @@ private:
 	int selected_map_id;
 	//存放地图数据的文件夹位置
 	std::wstring path;
-	map my_map[NUM];
+	map* my_map[NUM];
 	roads my_roads;
 	houses my_houses;
 	//每个地图15列，10行

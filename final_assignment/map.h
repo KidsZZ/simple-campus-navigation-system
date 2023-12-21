@@ -1,6 +1,7 @@
 #pragma once
 //单个map，使用maps进行管理
-//具体存储单张地图数据，并
+// 逻辑判断在此实现
+//具体存储单张地图数据
 #include <string>
 #include "houses.h"
 #include "roads.h"
@@ -10,7 +11,7 @@
 class map {
 public:
 	//传入存档路径，houses
-	map(std::wstring path,const houses &my_house,const roads& my_roads);
+	map(std::wstring path,const houses &my_house,const roads& my_roads,int column,int row);
 	void draw(int width,int height, int x, int y);
 	void read_file();
 	void write_file();
@@ -19,10 +20,11 @@ private:
 	void tranlate_xy(int* ans, int x, int y);
 	const houses& my_houses;
 	const roads& my_roads;
-	std::vector<std::string>mapData;
+	std::vector<std::vector<char>>mapData;
 	//地图行列
 	int column;
 	int row;
 	//存档文件的路径
 	std::wstring path;
+	bool is_edited;
 };
