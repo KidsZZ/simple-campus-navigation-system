@@ -12,7 +12,7 @@
 class map {
 public:
 	//传入存档路径，houses
-	map(std::wstring path,const houses &my_house,const roads& my_roads,int column,int row);
+	map(std::wstring path,const houses &my_house,const roads& my_roads,int column,int row, int width, int height);
 	void read_file();
 	void write_file();
 	void draw(int width, int height, int x, int y);
@@ -38,6 +38,9 @@ private:
 	//地图行列
 	int column;
 	int row;
+	//地图长宽
+	int height;
+	int width;
 	//存档文件的路径
 	std::wstring path;
 	//bool类型的数组用于判断道路的种类

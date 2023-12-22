@@ -4,11 +4,14 @@
 //具体存储单张地图数据
 
 	//传入存档路径，houses
-map::map (std::wstring path, const houses& my_house, const roads& my_roads, int column, int row)
+map::map (std::wstring path, const houses& my_house, const roads& my_roads, 
+	int column, int row,int width,int height)
 	:my_houses(my_house), my_roads(my_roads),column(column),row(row),path(path), 
      mapData((row + 1), std::vector<char>(column, '-'))
 {
 	//先初始化mapDate数组
+	this->height = height;
+	this->width = width;
 		
 }
 
@@ -155,15 +158,19 @@ void map::draw(int width, int height, int x, int y)
 //给定坐标和房子id(road id 为0）
 void map::add_building(int x, int y, int house_type)
 {
+	//首先计算此时鼠标的位置信息；
+	tranlate_xy(real_coord, x, y);
 	//因为第一行储存的是地图行数，列数以及是否被更改的bool变量，第二行开始才存储地图地标数据
-	mapData[x + 1][y] = house_type;
+	mapData[real_coord[0]][real_coord[1]] = house_type;
 }
 
 // 给定坐标(删除房子和道路用一个函数，如果本来就没有东西就不变）
 void map::delete_build(int x, int y)
 {
+	//首先计算此时鼠标的位置信息；
+	tranlate_xy(real_coord, x, y);
 	//因为第一行储存的是地图行数，列数以及是否被更改的bool变量，第二行开始才存储地图地标数据
-	mapData[x + 1][y] = '-';
+	mapData[real_coord[0]][real_coord[1]] = '-';
 }
 
 //返回给定的地图id是否被编辑过
@@ -176,5 +183,7 @@ bool map::is_edited(int page_id)
 //计算给定的x，y所对应的格子(传入一个数组保存算出来的值)
 void map::tranlate_xy(int* ans, int x, int y)
 {
-
+	int length = height/ row;
+	ans[0] = (x / length) + 1;
+	ans[0] = y / length;
 }
