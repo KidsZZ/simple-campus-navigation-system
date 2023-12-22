@@ -31,11 +31,18 @@ void houses::draw(int length, int x, int y,int house_type)const
 };
 
 //为绘制道路提供此种类的房子是否在这个方向开门
-bool houses::is_door(int direction, int house_type) const
+bool houses::is_door(int direction, char c) const
 {
+	int house_type = char_to_int(c);
 	return (house_orientation[house_type][direction]);//后期可拓展
 };
 
+//将char类型转化为int类型
+int houses::char_to_int(char c)const
+{
+	int intvalue = std::atoi(&c);
+	return intvalue;
+}
 	//析构函数，析构img对象
 	//不用设为虚函数，在子类中没有新的数据成员
 houses::~houses()

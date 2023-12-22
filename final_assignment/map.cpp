@@ -151,31 +151,207 @@ int map::select_road_type(int i,int j)
 {
 	//首先创建一个bool类型的vector数组来存储此道路上下左右四个方向的信息
 	std::vector<bool>road_type(4, false);
-	if (j == 0)
+	if (j == 0 && i != 0 && i != row)
 	{
-		if (mapData[i - 1][j] == '0' || 
-			(mapData[i-1][j]!='-' && my_houses.is_door())
+		//利用||短路的性质，进行逻辑运算
+		if (mapData[i - 1][j] == '0' ||
+			((mapData[i - 1][j] != '-' && my_houses.is_door(4, mapData[i - 1][j]))))
+		{
 			road_type[0] = true;
+		}
+
 		//此坐标左侧为地图边界，默认为false
 
-		if (mapData[i][j + 1] == '0' && (my_houses.house_orientation[(int)mapData[i][j + 1]][2]))
+		if (mapData[i][j + 1] == '0' ||
+			((mapData[i][j + 1] != '-' && my_houses.is_door(2, mapData[i][j + 1]))))
+		{
 			road_type[2] = true;
-		if (mapData[i + 1][j] == '0' && (my_houses.house_orientation[(int)mapData[i + 1][j]][4]))
-			road_type[3] = true;
-	}
-	else if()
+		}
 
-	else
-	{
-		if (mapData[i - 1][j] == '0' && (my_houses.house_orientation[(int)mapData[i - 1][j]][4]))
-			road_type[0] = true;
-		if (mapData[i][j - 1] == '0' && (my_houses.house_orientation[(int)mapData[i][j - 1]][3]))
-			road_type[1] = true;
-		if (mapData[i][j + 1] == '0' && (my_houses.house_orientation[(int)mapData[i][j + 1]][2]))
-			road_type[2] = true;
-		if (mapData[i + 1][j] == '0' && (my_houses.house_orientation[(int)mapData[i + 1][j]][4]))
+		if (mapData[i + 1][j] == '0' ||
+			((mapData[i + 1][j] != '-' && my_houses.is_door(1, mapData[i + 1][j]))))
+		{
 			road_type[3] = true;
-		
+		}
+	}
+
+	if (i == 0 && j != 0 && j != column);
+	{
+		//此坐标上侧为地图边界，默认为false
+
+		if (mapData[i][j - 1] == '0' ||
+			((mapData[i][j - 1] != '-' && my_houses.is_door(3, mapData[i][j - 1]))))
+		{
+			road_type[1] = true;
+		}
+
+		if (mapData[i][j + 1] == '0' ||
+			((mapData[i][j + 1] != '-' && my_houses.is_door(2, mapData[i][j + 1]))))
+		{
+			road_type[2] = true;
+		}
+
+		if (mapData[i + 1][j] == '0' ||
+			((mapData[i + 1][j] != '-' && my_houses.is_door(1, mapData[i + 1][j]))))
+		{
+			road_type[3] = true;
+		}
+	}
+
+	if (j == column && i != 0 && i != row)
+	{
+		//利用||短路的性质，进行逻辑运算
+		if (mapData[i - 1][j] == '0' ||
+			((mapData[i - 1][j] != '-' && my_houses.is_door(4, mapData[i - 1][j]))))
+		{
+			road_type[0] = true;
+		}
+
+		if (mapData[i][j - 1] == '0' ||
+			((mapData[i][j - 1] != '-' && my_houses.is_door(3, mapData[i][j - 1]))))
+		{
+			road_type[1] = true;
+		}
+
+		//此坐标右侧为地图边界，默认为false
+
+		if (mapData[i + 1][j] == '0' ||
+			((mapData[i + 1][j] != '-' && my_houses.is_door(1, mapData[i + 1][j]))))
+		{
+			road_type[3] = true;
+		}
+	}
+
+	if (i == row && j != 0 && j != column)
+	{
+		//利用||短路的性质，进行逻辑运算
+		if (mapData[i - 1][j] == '0' ||
+			((mapData[i - 1][j] != '-' && my_houses.is_door(4, mapData[i - 1][j]))))
+		{
+			road_type[0] = true;
+		}
+
+		if (mapData[i][j - 1] == '0' ||
+			((mapData[i][j - 1] != '-' && my_houses.is_door(3, mapData[i][j - 1]))))
+		{
+			road_type[1] = true;
+		}
+
+		if (mapData[i][j + 1] == '0' ||
+			((mapData[i][j + 1] != '-' && my_houses.is_door(2, mapData[i][j + 1]))))
+		{
+			road_type[2] = true;
+		}
+
+		//此坐标下侧为地图边界，默认为false
+	}
+
+	if (i == 0 && j == 0)
+	{
+		//利用||短路的性质，进行逻辑运算
+		//此坐标上侧为地图边界，默认为false
+
+		//此坐标左侧为地图边界，默认为false
+
+		if (mapData[i][j + 1] == '0' ||
+			((mapData[i][j + 1] != '-' && my_houses.is_door(2, mapData[i][j + 1]))))
+		{
+			road_type[2] = true;
+		}
+
+		if (mapData[i + 1][j] == '0' ||
+			((mapData[i + 1][j] != '-' && my_houses.is_door(1, mapData[i + 1][j]))))
+		{
+			road_type[3] = true;
+		}
+	}
+
+	if (i == 0 && j == column)
+	{
+		//利用||短路的性质，进行逻辑运算
+		//此坐标上侧为地图边界，默认为false
+
+		if (mapData[i][j - 1] == '0' ||
+			((mapData[i][j - 1] != '-' && my_houses.is_door(3, mapData[i][j - 1]))))
+		{
+			road_type[1] = true;
+		}
+
+		//此坐标右侧为地图边界，默认为false
+
+		if (mapData[i + 1][j] == '0' ||
+			((mapData[i + 1][j] != '-' && my_houses.is_door(1, mapData[i + 1][j]))))
+		{
+			road_type[3] = true;
+		}
+	}
+
+	if (i == row && j == 0)
+	{
+		//利用||短路的性质，进行逻辑运算
+		if (mapData[i - 1][j] == '0' ||
+			((mapData[i - 1][j] != '-' && my_houses.is_door(4, mapData[i - 1][j]))))
+		{
+			road_type[0] = true;
+		}
+
+		//此坐标左侧为地图边界，默认为false
+
+		if (mapData[i][j + 1] == '0' ||
+			((mapData[i][j + 1] != '-' && my_houses.is_door(2, mapData[i][j + 1]))))
+		{
+			road_type[2] = true;
+		}
+
+		//此坐标下侧为地图边界，默认为false
+	}
+
+	if (i == row && j == column)
+	{
+		//利用||短路的性质，进行逻辑运算
+		if (mapData[i - 1][j] == '0' ||
+			((mapData[i - 1][j] != '-' && my_houses.is_door(4, mapData[i - 1][j]))))
+		{
+			road_type[0] = true;
+		}
+
+		if (mapData[i][j - 1] == '0' ||
+			((mapData[i][j - 1] != '-' && my_houses.is_door(3, mapData[i][j - 1]))))
+		{
+			road_type[1] = true;
+		}
+
+		//此坐标右侧为地图边界，默认为false
+
+		//此坐标下侧为地图边界，默认为false
+	}
+
+	if((i>0&&i<row)&&(j>0&&j<column))
+	{
+		//利用||短路的性质，进行逻辑运算
+		if (mapData[i - 1][j] == '0' ||
+			((mapData[i - 1][j] != '-' && my_houses.is_door(4, mapData[i - 1][j]))))
+		{
+			road_type[0] = true;
+		}
+
+		if (mapData[i][j - 1] == '0' ||
+			((mapData[i][j - 1] != '-' && my_houses.is_door(3, mapData[i][j - 1]))))
+		{
+			road_type[1] = true;
+		}
+
+		if (mapData[i][j + 1] == '0' ||
+			((mapData[i][j + 1] != '-' && my_houses.is_door(2, mapData[i][j + 1]))))
+		{
+			road_type[2] = true;
+		}
+
+		if (mapData[i + 1][j] == '0' ||
+			((mapData[i + 1][j] != '-' && my_houses.is_door(1, mapData[i + 1][j]))))
+		{
+			road_type[3] = true;
+		}
 	}
 
 	if (road_type[0] == 1 && road_type[1] == 1 && road_type[2] == 0 && road_type[3] == 0) {
@@ -212,6 +388,7 @@ int map::select_road_type(int i,int j)
 		return 11;
 	}
 }
+
 void map::draw(int width, int height, int x, int y)
 {
 	//计算每格的边长
