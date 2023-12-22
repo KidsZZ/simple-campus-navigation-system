@@ -68,7 +68,10 @@ private:
 	//包含houses对象用于调用houses中封装的函数
 	houses my_houses;
 	//包含lines对象用于调用lines中封装的函数
-	lines my_lines;
+	
+	// 之后用于绘制辅助线
+	//lines my_lines
+	// 
 	//每个地图15列，10行
 	const static int column = 15;
 	const static int row = 10;
