@@ -44,7 +44,7 @@ public:
 private:
 	const static int NUM = 4;
 	
-	int selected_map_id;
+	static int selected_map_id;
 	//存放地图数据的文件夹位置
 	std::wstring path;
 	map* my_map[NUM];

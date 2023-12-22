@@ -15,6 +15,12 @@ map::map (std::wstring path, const houses& my_house, const roads& my_roads,
 		
 }
 
+map::map(std::wstring path, const houses& my_house, const roads& my_roads, int column, int row)
+{
+	map(path, my_house, my_roads, column, row, 0, 0);
+}
+
+
 void map::read_file()
 {
 	mapData.clear();
@@ -63,6 +69,7 @@ void map::read_file()
 void map::write_file()
 {
 	std::ofstream file(path);
+	file << row << " " << column << " " << char(1);
 	if (file.is_open())
 	{
 		for (const auto& row : mapData)

@@ -11,8 +11,10 @@
 #include <string>
 class map {
 public:
+	friend maps;
 	//´«Èë´æµµÂ·¾¶£¬houses
 	map(std::wstring path,const houses &my_house,const roads& my_roads,int column,int row, int width, int height);
+	map(std::wstring path, const houses& my_house, const roads& my_roads, int column, int row);
 	void read_file();
 	void write_file();
 	void draw(int width, int height, int x, int y);
