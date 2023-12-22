@@ -3,79 +3,127 @@
 // 逻辑判断在此实现
 //具体存储单张地图数据
 
-	//传入存档路径，houses
-map::map(std::wstring path, const houses& my_house, const roads& my_roads, lines& my_lines,
-	int column, int row, int width, int height)
-	:my_houses(my_house), my_roads(my_roads), my_lines(my_lines), column(column), row(row), path(path),
-	mapData((row + 1), std::vector<char>(column, '-'))
+//传入存档路径，houses
+
+map::map(std::wstring path, const houses& my_house, const roads& my_roads, 
+	int column, int row)
+	:my_houses(my_house), my_roads(my_roads), path(path)
 {
 	//先初始化mapDate数组
 	this->height = height;
 	this->width = width;
+	this->column = column;
+	this->row = row;
 	for (int i = 0; i < 2; i++)real_coord[i] = 0;
 	for (int i = 0; i < 4; i++)position[i] = 0;
-
-
+	Building_num = 0;
+	is_edited()
+	//如果是投入
+	read_file();
 		
 }
 
-map::map(std::wstring path, const houses& my_house, const roads& my_roads, lines& my_lines, int column, int row)
-	:my_houses(my_house), my_roads(my_roads),my_lines(my_lines)
+map::map(std::wstring path, const houses& my_house, const roads& my_roads, int column, int row)
+	:my_houses(my_house), my_roads(my_roads)
 {
-	map(path, my_house, my_roads, my_lines, column, row, 0, 0);
+	map(path, my_house, my_roads, column, row);
 }
 
 
 void map::read_file()
 {
-	mapData.clear();
-	std::ifstream file(path);
-	if (file.is_open())//检查文件是否能成功打开
+	//传入地图路径
+	std::ifstream file(path); 
+	// 判断文件是否成功打开
+	if (file.is_open())
 	{
-		std::string line;
-		std::getline(file ,line);
-		//先读取第一行，检查row与column是否异常
-		std::vector<char>rows;
-		for (char c : line)
+		// 定位到文件末尾
+		file.seekg(0, std::ios::end);
+		// 判断文件大小是否为0
+		if (file.tellg() == 0)
 		{
-			//如果不是空格则存入二维数组当中
-			if (c != ' ')
-			{
-				rows.push_back(c);
-			}
-		}
-		mapData.push_back(rows);
-		//下面是对于数据是否异常的判断
-		if (mapData[0][1] != char(column) || mapData[0][0] != char(row))
-		{
-			std::cout << "Error" << std::endl;
+			//对mapData进行初始化操作
+			//即全部用占位符来替代
+			std::vector<std::vector<char>>mapData_temp((row), std::vector<char>(column, '-'));
+			mapData = mapData_temp;
 		}
 
-		while (std::getline(file, line))//逐行读取数据
+		else
 		{
-			std::vector<char>rows;
-			for (char c : line)
+			//先读取第一行，检查row与column是否异常
+			std::string line1;
+			std::vector<char>rows1;
+			std::getline(file, line1);
+
+			for (char c : line1)
 			{
-				if (c != ' ')//如果不是空格则存入二维数组当中
+				//如果不是空格则暂时存入rows当中
+				if (c != ' ')
 				{
-					rows.push_back(c);
+					rows1.push_back(c);
 				}
 			}
-			mapData.push_back(rows);
+
+			//下面是对于数据是否异常的判断
+			//即如果文件中记录的单元格行数和单元格列数，与传入参数不同则报错
+			if (rows1[0] != char(row) || rows1[1] != char(column))
+			{
+				std::cout << "Error" << std::endl;
+				return;
+			}
+
+			std::string line2;
+			//逐行读取数据
+			while (std::getline(file, line2))
+			{
+				std::vector<char>rows2;
+				int lineNumber = 0;
+				for (char c : line2)
+				{
+					//如果不是空格则存入二维数组当中
+					if (c != ' ')
+					{
+						rows2.push_back(c);
+					}
+				}
+
+				//实现了从文件第二行开始读入数据，计入mapData当中
+				if (lineNumber > 1)
+				{
+					//将row2数组压入mapData当中
+					mapData.push_back(rows2);
+				}
+			}
+
 		}
-		file.close();
+		file.close(); // 关闭文件
 	}
-	else
+
+	else 
 	{
-		std::cout << "无法打开文件" << std::endl;
+		std::cout << "无法打开指定文件" << std::endl;
 	}
+
+	//进行当前地图建筑数量初始化的操作
+	//读取二维数组中的数据判断是否为房屋类型，若是，则Building_num++
+	for (int i = 0; i < row; i++)
+	{
+		for (int j = 0; j < column; j++)
+		{
+			if (mapData[i][j] != '-' || mapData[i][j] != '0')
+			{
+				Building_num++;
+			}
+		}
+	}
+	
 }
 
 
 void map::write_file()
 {
 	std::ofstream file(path);
-	file << row << " " << column << " " << char(1);
+	file << row << " " << column << " " ;
 	if (file.is_open())
 	{
 		for (const auto& row : mapData)
@@ -105,14 +153,18 @@ int map::select_road_type(int i,int j)
 	std::vector<bool>road_type(4, false);
 	if (j == 0)
 	{
-		if (mapData[i - 1][j] == '0' && (my_houses.house_orientation[(int)mapData[i - 1][j]][4]))
+		if (mapData[i - 1][j] == '0' || 
+			(mapData[i-1][j]!='-' && my_houses.is_door())
 			road_type[0] = true;
 		//此坐标左侧为地图边界，默认为false
+
 		if (mapData[i][j + 1] == '0' && (my_houses.house_orientation[(int)mapData[i][j + 1]][2]))
 			road_type[2] = true;
 		if (mapData[i + 1][j] == '0' && (my_houses.house_orientation[(int)mapData[i + 1][j]][4]))
 			road_type[3] = true;
 	}
+	else if()
+
 	else
 	{
 		if (mapData[i - 1][j] == '0' && (my_houses.house_orientation[(int)mapData[i - 1][j]][4]))
@@ -125,6 +177,7 @@ int map::select_road_type(int i,int j)
 			road_type[3] = true;
 		
 	}
+
 	if (road_type[0] == 1 && road_type[1] == 1 && road_type[2] == 0 && road_type[3] == 0) {
 		return 1;
 	}
@@ -164,22 +217,23 @@ void map::draw(int width, int height, int x, int y)
 	//计算每格的边长
 	int length = (width / 15);
 
-	for (int i = 1; i <= row; i++)
+	for (int i =0; i <width; i++)
 	{
 		for (int j = 0; j < column; j++)
 		{
 			if (mapData[i][j] != '0' && mapData[i][j] != '-')
 			{
-				my_houses.draw(length, (x+((i - 1) * length)), (y+(j * length)), (mapData[i][j] - '0'));
+				my_houses.draw(length, (x+(i  * length)), (y+(j * length)), (mapData[i][j] - '0'));
 			}
 			if (mapData[i][j] == '0')
 			{
-				my_roads.draw(length, (x + ((i - 1) * length)), (y + (j * length)), select_road_type(i, j));
+				my_roads.draw(length, (x + (i  * length)), (y + (j * length)), select_road_type(i, j));
 			}
 			else break;
 		}
 	}
-	my_lines.draw(x, y);
+
+
 }
 
 
@@ -202,10 +256,13 @@ void map::delete_build(int x, int y)
 }
 
 //返回给定的地图id是否被编辑过
-bool map::is_edited(int page_id)
+bool map::is_edited()
 {
-	bool is_change = (bool)mapData[0][2];
-	return is_change;
+	if (count == 0)
+		return false;
+	else
+	{
+	}
 }
 
 //计算给定的x，y所对应的格子(传入一个数组保存算出来的值)
@@ -215,6 +272,7 @@ void map::tranlate_xy(int* ans, int x, int y)
 	ans[0] = (x / length) + 1;
 	ans[0] = y / length;
 }
+
 
 //用来记录两地在二维数组当中的具体位置
 void map::get_position(int* ans, int house_type1, int house_type2)
@@ -226,6 +284,7 @@ void map::get_position(int* ans, int house_type1, int house_type2)
 			if ((mapData[i][j] - '0') == house_type1)
 			{
 				position[0] = i;
+
 				position[1] = j;
 			}
 			if ((mapData[i][j] - '0') == house_type2)
@@ -244,7 +303,7 @@ void map::show_house_type(std::string& name,int x, int y)
 	tranlate_xy(real_coord, x, y);
 	int indexX = real_coord[0];
 	int indexY = real_coord[1];
-	int house_type = mapData[indexX][indexY];
+	int house_type = mapData[indexX][indexY]-'0';
 
 	switch (house_type)
 	{

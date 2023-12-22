@@ -6,22 +6,29 @@
 #include "houses.h"
 #include "roads.h"
 
-class maps {
+class maps 
+{
 public:
-	friend class map;
-	//将地图存档数据全都放在一个文件夹中，并将该文件夹的路径传入path
-	//构造函数，给出数据文件位置，调用read_file载入地图数据
+	//构造函数
+	// 将地图存档数据全都放在一个文件夹中，并将该文件夹的路径传入path
+	//给出数据文件位置，调用read_file载入地图数据
 	maps(std::wstring path);//初始化列表
+
 	//将指定地图id的存档文件中的数据载入内存
 	void read_file(int id);
+
 	//返回当前选择的地图id
 	int now_selected_map_id();
+
 	//更改当前选择的地图
 	void set_selected_map_id(int n);
+
 	//将当前选择的地图载入存档文件
 	void write_file();
+
 	//绘制指定id的地图
 	void draw(int width,int height, int x, int y, int id);
+
 	//绘制当前选择的地图
 	void draw_selected(int width,int height, int x, int y);
 

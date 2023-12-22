@@ -12,8 +12,16 @@ maps::maps(std::wstring path)
 {
 	//默认地图ID为0，即索引地图
 	selected_map_id = 0;
-	//利用new创建数据地址
-	my_map[selected_map_id] = new map(path,my_houses,my_roads,my_lines,column,row);
+	//利用for循环初始化四张地图，并且载入地图数据
+	for (int i = 0; i < 4; i++)
+	{
+		//利用new创建数据地址
+		//拼接出每张地图的路径，文件名
+		//再传递给map构造函数
+		std::wstring filename = path + L"map"+std::to_wstring(i) + L".txt";
+		my_map[i] = new map(filename, this->my_houses, this->my_roads,column, row);
+		read_file(i);
+	}
 
 }
 
@@ -87,11 +95,6 @@ void maps::clear_connnect_houses()
 //返回给定的地图id是否被编辑过(用于之后扩展)
 bool maps::is_edited(int page_id) 
 {
-	my_map[page_id]->is_edited(page_id);
+	return my_map[page_id]->is_edited();
 };
 
-//显示鼠标所停放地标图标所代表的房屋类型
-void maps::show_house_type(int x, int y)
-{
-	my_map[selected_map_id]->show_house_type(x,y);
-}

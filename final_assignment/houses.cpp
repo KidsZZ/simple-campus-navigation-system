@@ -31,7 +31,7 @@ void houses::draw(int length, int x, int y,int house_type)const
 };
 
 //为绘制道路提供此种类的房子是否在这个方向开门
-bool houses::is_door(int direction, int house_type) 
+bool houses::is_door(int direction, int house_type) const
 {
 	return (house_orientation[house_type][direction]);//后期可拓展
 };
