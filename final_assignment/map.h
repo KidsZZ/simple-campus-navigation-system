@@ -6,6 +6,7 @@
 #include<iostream>
 #include "houses.h"
 #include "roads.h"
+#include"lines.h"
 #include "enum_lib.h"
 #include<fstream>
 #include <string>
@@ -13,8 +14,9 @@ class map {
 public:
 	friend maps;
 	//传入存档路径，houses
-	map(std::wstring path,const houses &my_house,const roads& my_roads,int column,int row, int width, int height);
-	map(std::wstring path, const houses& my_house, const roads& my_roads, int column, int row);
+	map(std::wstring path,const houses &my_house,const roads& my_roads, lines& my_lines, int column,int row, int width, int height);
+	//在maps初始化时调用下方此函数
+	map(std::wstring path, const houses& my_house, const roads& my_roads,  lines& my_lines, int column, int row);
 	void read_file();
 	void write_file();
 	void draw(int width, int height, int x, int y);
@@ -36,6 +38,7 @@ private:
 	void tranlate_xy(int* ans, int x, int y);
 	const houses& my_houses;
 	const roads& my_roads;
+	lines& my_lines;
 	std::vector<std::vector<char>>mapData;
 	//地图行列
 	int column;

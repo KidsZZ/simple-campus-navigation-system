@@ -69,6 +69,9 @@
     <ClCompile Include="navigation_page.cpp">
       <Filter>源文件\page</Filter>
     </ClCompile>
+    <ClCompile Include="lines.cpp">
+      <Filter>源文件\maps_and_tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Widget.h">
@@ -109,6 +112,9 @@
     </ClInclude>
     <ClInclude Include="home_page.h">
       <Filter>头文件\page</Filter>
+    </ClInclude>
+    <ClInclude Include="lines.h">
+      <Filter>头文件\maps_and_tools</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

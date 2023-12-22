@@ -11,7 +11,7 @@ maps::maps(std::wstring path)
 	: my_houses(L"picture_hub/", 5), my_roads(L"picture_hub/", 11)
 {
 	selected_map_id = 0;
-	my_map[selected_map_id] = new map(path,my_houses,my_roads,column,row);
+	my_map[selected_map_id] = new map(path,my_houses,my_roads,my_lines,column,row);
 
 }
 
@@ -71,7 +71,7 @@ void maps::delete_build(int x, int y)
 //连接两地（最短路）
 bool maps::connect_houses(int house_type1, int house_type2) 
 {
-
+	int 
 };
 
 //清除导航路线

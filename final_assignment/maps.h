@@ -50,6 +50,7 @@ private:
 	map* my_map[NUM];
 	roads my_roads;
 	houses my_houses;
+	lines my_lines;
 	//每个地图15列，10行
 	const static int column = 15;
 	const static int row = 10;

@@ -4,9 +4,9 @@
 //具体存储单张地图数据
 
 	//传入存档路径，houses
-map::map (std::wstring path, const houses& my_house, const roads& my_roads, 
+map::map (std::wstring path, const houses& my_house, const roads& my_roads,  lines& my_lines,
 	int column, int row,int width,int height)
-	:my_houses(my_house), my_roads(my_roads),column(column),row(row),path(path), 
+	:my_houses(my_house), my_roads(my_roads),my_lines(my_lines),column(column),row(row),path(path), 
      mapData((row + 1), std::vector<char>(column, '-'))
 {
 	//先初始化mapDate数组
@@ -15,9 +15,10 @@ map::map (std::wstring path, const houses& my_house, const roads& my_roads,
 		
 }
 
-map::map(std::wstring path, const houses& my_house, const roads& my_roads, int column, int row)
+map::map(std::wstring path, const houses& my_house, const roads& my_roads, lines& my_lines, int column, int row)
+	:my_houses(my_house), my_roads(my_roads),my_lines(my_lines)
 {
-	map(path, my_house, my_roads, column, row, 0, 0);
+	map(path, my_house, my_roads, my_lines, column, row, 0, 0);
 }
 
 
@@ -40,6 +41,7 @@ void map::read_file()
 			}
 		}
 		mapData.push_back(rows);
+		//下面是对于数据是否异常的判断
 		if (mapData[0][1] != char(column) || mapData[0][0] != char(row))
 		{
 			std::cout << "Error" << std::endl;
@@ -85,7 +87,7 @@ void map::write_file()
 	}
 	else
 	{
-		//向标准错误设备发送错误信息，
+		//向标准错误设备发送错误信息，立即显示错误信息的情况
 		std::cerr << "无法打开文件" << std::endl;
 	}
 
@@ -97,15 +99,29 @@ int map::select_road_type(int i,int j)
 {
 	//首先创建一个bool类型的vector数组来存储此道路上下左右四个方向的信息
 	std::vector<bool>road_type(4, false);
-	if (mapData[i - 1][j] == '0' && (my_houses.house_orientation[(int)mapData[i - 1][j]][4]))
-		road_type[0] = true;
-	if (mapData[i][j-1] == '0' && (my_houses.house_orientation[(int)mapData[i ][j-1]][3]))
-		road_type[1] = true;
-	if (mapData[i][j+1] == '0' && (my_houses.house_orientation[(int)mapData[i ][j+1]][2]))
-		road_type[2] = true;
-	if (mapData[i +1][j] == '0' && (my_houses.house_orientation[(int)mapData[i + 1][j]][4]))
-		road_type[3] = true;
-	if (road_type[0] == 1 && road_type[1] == 1 && road_type[2] == 0 && road_type[3] == 0){
+	if (j == 0)
+	{
+		if (mapData[i - 1][j] == '0' && (my_houses.house_orientation[(int)mapData[i - 1][j]][4]))
+			road_type[0] = true;
+		//此坐标左侧为地图边界，默认为false
+		if (mapData[i][j + 1] == '0' && (my_houses.house_orientation[(int)mapData[i][j + 1]][2]))
+			road_type[2] = true;
+		if (mapData[i + 1][j] == '0' && (my_houses.house_orientation[(int)mapData[i + 1][j]][4]))
+			road_type[3] = true;
+	}
+	else
+	{
+		if (mapData[i - 1][j] == '0' && (my_houses.house_orientation[(int)mapData[i - 1][j]][4]))
+			road_type[0] = true;
+		if (mapData[i][j - 1] == '0' && (my_houses.house_orientation[(int)mapData[i][j - 1]][3]))
+			road_type[1] = true;
+		if (mapData[i][j + 1] == '0' && (my_houses.house_orientation[(int)mapData[i][j + 1]][2]))
+			road_type[2] = true;
+		if (mapData[i + 1][j] == '0' && (my_houses.house_orientation[(int)mapData[i + 1][j]][4]))
+			road_type[3] = true;
+		
+	}
+	if (road_type[0] == 1 && road_type[1] == 1 && road_type[2] == 0 && road_type[3] == 0) {
 		return 1;
 	}
 	if (road_type[0] == 1 && road_type[1] == 0 && road_type[2] == 1 && road_type[3] == 0) {
@@ -159,6 +175,7 @@ void map::draw(int width, int height, int x, int y)
 			else break;
 		}
 	}
+	my_lines.draw(x, y);
 }
 
 
