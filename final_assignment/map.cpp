@@ -4,14 +4,18 @@
 //具体存储单张地图数据
 
 	//传入存档路径，houses
-map::map (std::wstring path, const houses& my_house, const roads& my_roads,  lines& my_lines,
-	int column, int row,int width,int height)
-	:my_houses(my_house), my_roads(my_roads),my_lines(my_lines),column(column),row(row),path(path), 
-     mapData((row + 1), std::vector<char>(column, '-'))
+map::map(std::wstring path, const houses& my_house, const roads& my_roads, lines& my_lines,
+	int column, int row, int width, int height)
+	:my_houses(my_house), my_roads(my_roads), my_lines(my_lines), column(column), row(row), path(path),
+	mapData((row + 1), std::vector<char>(column, '-'))
 {
 	//先初始化mapDate数组
 	this->height = height;
 	this->width = width;
+	for (int i = 0; i < 2; i++)real_coord[i] = 0;
+	for (int i = 0; i < 4; i++)position[i] = 0;
+
+
 		
 }
 
@@ -193,7 +197,7 @@ void map::delete_build(int x, int y)
 {
 	//首先计算此时鼠标的位置信息；
 	tranlate_xy(real_coord, x, y);
-	//因为第一行储存的是地图行数，列数以及是否被更改的bool变量，第二行开始才存储地图地标数据
+	//重置数据为‘-’
 	mapData[real_coord[0]][real_coord[1]] = '-';
 }
 
@@ -211,3 +215,71 @@ void map::tranlate_xy(int* ans, int x, int y)
 	ans[0] = (x / length) + 1;
 	ans[0] = y / length;
 }
+
+//用来记录两地在二维数组当中的具体位置
+void map::get_position(int* ans, int house_type1, int house_type2)
+{
+	for (int i = 1; i <= row; i++)
+	{
+		for (int j = 0; j < column; j++)
+		{
+			if ((mapData[i][j] - '0') == house_type1)
+			{
+				position[0] = i;
+				position[1] = j;
+			}
+			if ((mapData[i][j] - '0') == house_type2)
+			{
+				position[2] = i;
+				position[3] = j;
+			}
+		}
+	}
+}
+
+
+//显示鼠标所停放地标图标所代表的房屋类型
+void map::show_house_type(std::string& name,int x, int y)
+{
+	tranlate_xy(real_coord, x, y);
+	int indexX = real_coord[0];
+	int indexY = real_coord[1];
+	int house_type = mapData[indexX][indexY];
+
+	switch (house_type)
+	{
+	case 1:
+		name = "library";
+		break;
+	case 2:
+		name = "dormitory";
+		break;
+	case 3:
+		name = "teaching_building";
+		break;
+	case 4:
+		name = "canteen";
+		break;
+	default:
+		break;
+	}
+}
+
+
+
+
+
+
+
+//连接两地（最短路）(用于之后扩展)
+bool map::connect_houses(int house_type1, int house_type2)
+{
+
+}
+
+//清除导航路线(用于之后扩展)
+void clear_connnect_houses()
+{
+
+}
+

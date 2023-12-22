@@ -31,25 +31,36 @@ public:
 	void add_building(int x, int y, int house_type);
 	//给定坐标
 	//删除东西
-	// 给定坐标(删除房子和道路用一个函数，如果本来就没有东西就不变）
+	// 给定坐标删除房子和道路用一个函数，
 	void delete_build(int x, int y);
 
 
-	//连接两地（最短路）
+	//连接两地（最短路）(用于之后扩展)
 	bool connect_houses(int house_type1, int house_type2);
-	//清除导航路线
+
+	//清除导航路线(用于之后扩展)
 	void clear_connnect_houses();
+
 	//返回给定的地图id是否被编辑过
 	bool is_edited(int page_id);
+
+	//显示鼠标所停放地标图标所代表的房屋类型
+	void show_house_type(int x, int y);
+
 private:
+	//目前地图有四张，所以将NUM设为4，可以后期更改
 	const static int NUM = 4;
-	
+	//动态储存地图编号，只有更改当前选择地图才会更高索引ID数据
 	static int selected_map_id;
 	//存放地图数据的文件夹位置
 	std::wstring path;
+	//包含map*指针用于调用map中封装的函数
 	map* my_map[NUM];
+	//包含roads对象用于调用roads中封装的函数
 	roads my_roads;
+	//包含houses对象用于调用houses中封装的函数
 	houses my_houses;
+	//包含lines对象用于调用lines中封装的函数
 	lines my_lines;
 	//每个地图15列，10行
 	const static int column = 15;

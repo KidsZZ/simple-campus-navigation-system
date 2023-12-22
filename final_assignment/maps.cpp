@@ -10,7 +10,9 @@
 maps::maps(std::wstring path)
 	: my_houses(L"picture_hub/", 5), my_roads(L"picture_hub/", 11)
 {
+	//默认地图ID为0，即索引地图
 	selected_map_id = 0;
+	//利用new创建数据地址
 	my_map[selected_map_id] = new map(path,my_houses,my_roads,my_lines,column,row);
 
 }
@@ -18,12 +20,14 @@ maps::maps(std::wstring path)
 //将指定地图id的存档文件中的数据载入内存
 void maps::read_file(int id)
 {
+	//调用map对象中函数
 	my_map[id]->read_file();
 }
 
 //将当前选择的地图载入存档文件
 void maps::write_file()
 {
+	//调用map对象中函数
 	my_map[selected_map_id]->write_file();
 };
 
@@ -71,18 +75,23 @@ void maps::delete_build(int x, int y)
 //连接两地（最短路）
 bool maps::connect_houses(int house_type1, int house_type2) 
 {
-	int 
+
 };
 
-//清除导航路线
+//清除导航路线(用于之后扩展)
 void maps::clear_connnect_houses() 
 {
 
 };
 
-//返回给定的地图id是否被编辑过
+//返回给定的地图id是否被编辑过(用于之后扩展)
 bool maps::is_edited(int page_id) 
 {
 	my_map[page_id]->is_edited(page_id);
 };
 
+//显示鼠标所停放地标图标所代表的房屋类型
+void maps::show_house_type(int x, int y)
+{
+	my_map[selected_map_id]->show_house_type(x,y);
+}
