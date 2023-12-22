@@ -17,9 +17,13 @@ map::map(std::wstring path, const houses& my_house, const roads& my_roads,
 	for (int i = 0; i < 2; i++)real_coord[i] = 0;
 	for (int i = 0; i < 4; i++)position[i] = 0;
 	Building_num = 0;
-	is_edited()
+	if (is_edited())
+	{
+		mapData.clear();
+		read_file();
+	}
 	//如果是投入
-	read_file();
+	
 		
 }
 
@@ -421,24 +425,38 @@ void map::add_building(int x, int y, int house_type)
 	tranlate_xy(real_coord, x, y);
 	//因为第一行储存的是地图行数，列数以及是否被更改的bool变量，第二行开始才存储地图地标数据
 	mapData[real_coord[0]][real_coord[1]] = house_type;
+	//该地图房屋数+1
+	Building_num++;
+	//记录房屋坐标
+	position_array[house_type][0] = x;
+	position_array[house_type][1] = y;
 }
 
 // 给定坐标(删除房子和道路用一个函数，如果本来就没有东西就不变）
-void map::delete_build(int x, int y)
+void map::delete_build(int x, int y,int house_type)
 {
 	//首先计算此时鼠标的位置信息；
 	tranlate_xy(real_coord, x, y);
 	//重置数据为‘-’
 	mapData[real_coord[0]][real_coord[1]] = '-';
+	//房屋数-1
+	Building_num--;
+	//防止误操作
+	if (Building_num < 0)Building_num = 0;
+	//重置房屋坐标
+	position_array[house_type][0] = -1;
+	position_array[house_type][1] = -1;
+
 }
 
 //返回给定的地图id是否被编辑过
 bool map::is_edited()
 {
-	if (count == 0)
+	if (Building_num == 0)
 		return false;
 	else
 	{
+		return true;
 	}
 }
 

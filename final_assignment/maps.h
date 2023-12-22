@@ -39,7 +39,7 @@ public:
 	//给定坐标
 	//删除东西
 	// 给定坐标删除房子和道路用一个函数，
-	void delete_build(int x, int y);
+	void delete_build(int x, int y,int house_type);
 
 
 	//连接两地（最短路）(用于之后扩展)

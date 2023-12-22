@@ -71,18 +71,14 @@ void maps::draw_selected(int width, int height, int x, int y)
 void maps::add_building(int x, int y, int house_type) 
 {
 	my_map[selected_map_id]->add_building(x, y, house_type);
+
 };
 //给定坐标
 //删除东西
 // 给定坐标(删除房子和道路用一个函数，如果本来就没有东西就不变）
-void maps::delete_build(int x, int y) 
+void maps::delete_build(int x, int y,int house_type) 
 {
-	my_map[selected_map_id]->delete_build(x, y);
-};
-
-//连接两地（最短路）
-bool maps::connect_houses(int house_type1, int house_type2) 
-{
+	my_map[selected_map_id]->delete_build(x, y,house_type);
 
 };
 

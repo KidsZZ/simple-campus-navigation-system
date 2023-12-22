@@ -31,7 +31,7 @@ public:
 	void add_building(int x, int y, int house_type);
 
 	// 给定坐标(删除房子和道路用一个函数）
-	void delete_build(int x, int y);
+	void delete_build(int x, int y,int house_type);
 
 	//返回给定的地图id是否被编辑过
 	bool is_edited();
@@ -67,7 +67,7 @@ private:
 	const roads& my_roads;
 
 	//lines my_lines;
-	//暂时可能不使用
+	//暂时可能不使用,后期用于绘制辅助线
 	
 	//用来存储当前地图的数据
 	std::vector<std::vector<char>>mapData;
@@ -84,13 +84,15 @@ private:
 	//存档文件的路径
 	std::wstring path;
 
-	//bool类型的数组用于判断道路的种类
-	bool is_edited(int page_id);
 
 	//以动态string来储存当前选中建筑的类型
 	static std::string house_name;
 
-	//创建Building_num变量来对于此地图进行计数操作
+	//用Building_num变量来对于此地图进行计数操作
 	int Building_num;
+
+	//用position_array二维数组来存储每个房屋的横纵坐标
+	//从1开始算一直到4，与enum.lib中设定相同，方便应用
+	int position_array[5][2];
 	
 };
