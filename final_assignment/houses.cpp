@@ -1,7 +1,16 @@
 #include"houses.h"
 
 //构造函数，初始化img对象(传入对象地址的通配形式，如img/img*.png，使用实际照片序号替换*标记）
-//**************************  0索引用于给道路占位（道路索引为0）  ************************************
+//**********************  0索引用于给道路占位（道路索引为0）  *****************
+
+//不绘制png的透明部分
+inline void putimage_alpha(int x, int y, int w,int h, IMAGE* img)
+{
+	
+	AlphaBlend(GetImageHDC(NULL), x, y, w, h,
+		GetImageHDC(img), 0, 0, w, h, { AC_SRC_OVER,0,255,AC_SRC_ALPHA });
+}
+
 houses::houses(std::wstring path, int n) 
 {	
 	//house_orientation下标为0的地方是给道路占位的
@@ -33,7 +42,7 @@ houses::houses(std::wstring path, int n)
 //绘制函数:传入当前地图数据，并将房屋绘制上
 void houses::draw(int length, int x, int y,int house_type)const
 {	//渲染绘制图片
-	putimage(x, y, length,length,house_img[house_type],0,0);//最后两个值是偏移量
+	putimage_alpha(x, y, length, length, house_img[house_type]);//最后两个值是偏移量
 }
 
 //为绘制道路提供此种类的房子是否在这个方向开门

@@ -1,5 +1,13 @@
 #include "picture_button.h"
 
+//不绘制png的透明部分
+inline void putimage_alpha(int x, int y, int w, int h, IMAGE* img)
+{
+
+	AlphaBlend(GetImageHDC(NULL), x, y, w, h,
+		GetImageHDC(img), 0, 0, w, h, { AC_SRC_OVER,0,255,AC_SRC_ALPHA });
+}
+
 picture_button::picture_button(std::wstring path, std::wstring exp, int width, int height, int x, int y, std::function<void()> my_fun) :exp(exp), width(width), height(height), x(x), y(y), my_fun(my_fun)
 {
 	//初始化选项图片
@@ -50,7 +58,7 @@ void picture_button::draw() {
 	real_img_y = y + (height - real_img_length * 1.1) / 2;
 
 	//放置选项图片
-	putimage(real_img_x, real_img_y, real_img_length, real_img_length, opt_img, 0, 0);
+	putimage_alpha(real_img_x, real_img_y, real_img_length, real_img_length, opt_img);
 
 	//放置文字
 	settextstyle(20, 0, L"黑体");
