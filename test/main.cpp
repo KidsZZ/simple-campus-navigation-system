@@ -1,9 +1,11 @@
 #include <graphics.h>
+#include <iostream>
+using namespace std;
 
 int main() {
-	initgraph(200, 200);
-	IMAGE* my_img = new IMAGE();
-	loadimage(my_img, L"pic\\background.png");
-	putimage(0, 0, 200, 200, my_img, 0, 0);
-	while (true);
+	int a = 2;
+	cout << char(a + '0');
+	char temp;
+	cin >> temp;
+	cout << int(temp-'0');
 }

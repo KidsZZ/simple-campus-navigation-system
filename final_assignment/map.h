@@ -3,14 +3,14 @@
 // 逻辑判断在此实现
 //具体存储单张地图数据
 #include <string>
-#include<iostream>
-#include<fstream>
-#include<vector>
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <string>
 #include "houses.h"
 #include "roads.h"
-#include"lines.h"
+#include "lines.h"
 #include "enum_lib.h"
-#include <string>
 class map 
 {
 public:
@@ -59,9 +59,6 @@ private:
 	//记录(x,y)所对应的格子（二维数组中的准确位置）
 	int real_coord[2];
 
-	//获得两地在二维数组中的具体位置
-	void get_position(int* ans, int house_type1, int house_type2);
-
 
 	//通过my_houses、my_roads对象来调用其中函数对象
 	houses my_houses;
@@ -71,6 +68,8 @@ private:
 	//暂时可能不使用,后期用于绘制辅助线
 	
 	//用来存储当前地图的数据
+	//使用char存储
+	//-是占位符，0为道路，其余数字为建筑
 	std::vector<std::vector<char>>mapData;
 
 	//地图单元格列数
@@ -78,9 +77,9 @@ private:
 	//地图单元格行数
 	int row;
 
-	//地图长宽
-	int height;
-	int width;
+	//保存最近一次绘制地图时的地图长宽和坐标，供后续算出地图中格子的坐标使用
+	int height,width;
+	int x, y;
 
 	//存档文件的路径
 	std::wstring path;

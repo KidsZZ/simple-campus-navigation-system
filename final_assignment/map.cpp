@@ -7,8 +7,8 @@
 
 map::map(std::wstring path, houses& my_house, roads& my_roads, 
 	int column, int row)
-	:my_houses(my_house), my_roads(my_roads), path(path)
-{
+	:my_houses(my_house), my_roads(my_roads), path(path),height(-1),width(-1)
+{	
 	//先初始化mapDate数组
 	this->column = column;
 	this->row = row;
@@ -59,7 +59,7 @@ void map::read_file()
 
 			//下面是对于数据是否异常的判断
 			//即如果文件中记录的单元格行数和单元格列数，与传入参数不同则报错
-			if (rows1[0] != char(row) || rows1[1] != char(column))
+			if (rows1[0] != char(row+'0') || rows1[1] != char(column+'0'))
 			{
 				std::cout << "Error" << std::endl;
 				return;
@@ -386,9 +386,17 @@ int map::select_road_type(int i,int j)
 void map::draw(int width, int height, int x, int y)
 {
 	//计算每格的边长
-	length = (width / 15);
+	length = (width / column);
 
-	for (int i =0; i <width; i++)
+	//保存最近一次绘制地图的长宽，供translate_xy使用
+	this->width = width;
+	this->height = height;
+	//保存最近一次绘制地图的坐标，供translate_xy使用
+	this->x = x;
+	this->y = y;
+	
+
+	for (int i =0; i <row; i++)
 	{
 		for (int j = 0; j < column; j++)
 		{
@@ -400,7 +408,6 @@ void map::draw(int width, int height, int x, int y)
 			{
 				my_roads.draw(length, (x + (i  * length)), (y + (j * length)), select_road_type(i, j));
 			}
-			else break;
 		}
 	}
 
@@ -455,33 +462,12 @@ bool map::is_edited()
 //计算给定的x，y所对应的格子(传入一个数组保存算出来的值)
 void map::tranlate_xy(int* ans, int x, int y)
 {
-	int length = height/ row;
-	ans[0] = (x / length);
-	ans[0] = y / length;
+	int length = width / column;
+	ans[0] = (x - this->x) / length;
+	ans[1] = (y - this->y) / length;
 }
 
 
-//用来记录两地在二维数组当中的具体位置
-void map::get_position(int* ans, int house_type1, int house_type2)
-{
-	for (int i = 1; i <= row; i++)
-	{
-		for (int j = 0; j < column; j++)
-		{
-			if ((mapData[i][j] - '0') == house_type1)
-			{
-				position[0] = i;
-
-				position[1] = j;
-			}
-			if ((mapData[i][j] - '0') == house_type2)
-			{
-				position[2] = i;
-				position[3] = j;
-			}
-		}
-	}
-}
 
 
 //显示鼠标所停放地标图标所代表的房屋类型
