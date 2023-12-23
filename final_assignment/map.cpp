@@ -115,6 +115,7 @@ void map::read_file()
 
 void map::write_file()
 {
+	//初始化构造函数	  读取file文件所在的位置
 	std::ofstream file(path);
 	file << row << " " << column << " " ;
 	if (file.is_open())

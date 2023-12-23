@@ -19,9 +19,12 @@ public:
 	map(std::wstring path, houses& my_house, roads& my_roads, int column, int row);
 
 	//读入数据传入mapData二维数组
+	// 此外对于文件的数据也进行了一次判断是否匹配
+	//由于有maps进行了地图管理所以读进数据时更加准确
 	void read_file();
 	
-	//对于mapData数组进行清空操作并传入当前数组数据
+	//首先写入该张地图的row和column
+	//其次再写入相对于的map.txt文件
 	void write_file();
 	
 	//渲染地图，调用roads与maps类中的draw函数，进行逻辑判断后绘图
