@@ -4,9 +4,6 @@
 #pragma once
 #include <string>
 #include "map.h"
-#include "houses.h"
-#include "roads.h"
-
 class maps 
 {
 public:
@@ -52,28 +49,31 @@ public:
 	//返回给定的地图id是否被编辑过
 	bool is_edited(int page_id);
 
-	//显示鼠标所停放地标图标所代表的房屋类型
-	void show_house_type(int x, int y);
-
 private:
 	//目前地图有四张，所以将NUM设为4，可以后期更改
 	const static int NUM = 4;
+
 	//动态储存地图编号，只有更改当前选择地图才会更高索引ID数据
 	static int selected_map_id;
+
 	//存放地图数据的文件夹位置
 	std::wstring path1;
+
 	//包含map*指针用于调用map中封装的函数
-	map* my_map[NUM];
+	map* m_map[NUM];
+
 	//包含roads对象用于调用roads中封装的函数
-	roads my_roads1;
+	roads m_roads1;
+
 	//包含houses对象用于调用houses中封装的函数
-	houses my_houses1;
+	houses m_houses1;
+
 	//包含lines对象用于调用lines中封装的函数
 	
 	// 之后用于绘制辅助线
 	//lines my_lines
 	// 
 	//每个地图15列，10行
-	const static int column = 15;
-	const static int row = 10;
+	const  int column = 15;
+	const  int row = 10;
 };

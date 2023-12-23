@@ -2,10 +2,10 @@
 //通过检索地图数据中的road位置，对道路图片进行渲染
 #include <vector>
 #include <graphics.h>
-#include "map.h"
 #include "enum_lib.h"
 #include<string>
-class roads {
+class roads 
+{
 public:
 	//构造函数，载入道路图片
 	roads(std::wstring path, int n);

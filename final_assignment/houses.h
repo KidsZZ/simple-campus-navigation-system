@@ -3,7 +3,6 @@
 #include <graphics.h>
 #include <string>
 #include <vector>
-#include "maps.h"
 #include "enum_lib.h"
 #include<cstdlib>
 class houses 
@@ -33,5 +32,5 @@ private:
 	std::vector<IMAGE*> house_img;
 	//储存大门的朝向，使用上左右下的顺序存储
 	//开门为true，不开门为false
-	std::vector<bool[4]> house_orientation;
+	bool house_orientation[4][4];
 };

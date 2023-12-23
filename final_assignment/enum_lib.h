@@ -10,6 +10,7 @@ enum roads_direction{
 	//十字路口
 	crossroads
 };
+
 //房屋种类
 enum house_type {
 	road=0,
@@ -18,6 +19,7 @@ enum house_type {
 	teaching_building,
 	canteen
 };
+
 //判断房门朝向所使用的传参常量
 enum direction {
 	up=1,
@@ -25,6 +27,7 @@ enum direction {
 	right,
 	down
 };
+
 //页面类型
 enum page_id {
 	HOME_PAGE = 0,

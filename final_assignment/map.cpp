@@ -5,13 +5,11 @@
 
 //传入存档路径，houses
 
-map::map(std::wstring path, const houses& my_house, const roads& my_roads, 
+map::map(std::wstring path, houses& my_house, roads& my_roads, 
 	int column, int row)
 	:my_houses(my_house), my_roads(my_roads), path(path)
 {
 	//先初始化mapDate数组
-	this->height = height;
-	this->width = width;
 	this->column = column;
 	this->row = row;
 	for (int i = 0; i < 2; i++)real_coord[i] = 0;
@@ -21,17 +19,9 @@ map::map(std::wstring path, const houses& my_house, const roads& my_roads,
 	{
 		mapData.clear();
 		read_file();
-	}
-	//如果是投入
-	
-		
+	}	
 }
 
-map::map(std::wstring path, const houses& my_house, const roads& my_roads, int column, int row)
-	:my_houses(my_house), my_roads(my_roads)
-{
-	map(path, my_house, my_roads, column, row);
-}
 
 
 void map::read_file()
@@ -179,7 +169,7 @@ int map::select_road_type(int i,int j)
 		}
 	}
 
-	if (i == 0 && j != 0 && j != column);
+	if (i == 0 && j != 0 && j != column)
 	{
 		//此坐标上侧为地图边界，默认为false
 
@@ -396,7 +386,7 @@ int map::select_road_type(int i,int j)
 void map::draw(int width, int height, int x, int y)
 {
 	//计算每格的边长
-	int length = (width / 15);
+	length = (width / 15);
 
 	for (int i =0; i <width; i++)
 	{
@@ -421,8 +411,10 @@ void map::draw(int width, int height, int x, int y)
 //给定坐标和房子id(road id 为0）
 void map::add_building(int x, int y, int house_type)
 {
+
 	//首先计算此时鼠标的位置信息；
 	tranlate_xy(real_coord, x, y);
+
 	//因为第一行储存的是地图行数，列数以及是否被更改的bool变量，第二行开始才存储地图地标数据
 	mapData[real_coord[0]][real_coord[1]] = house_type;
 	//该地图房屋数+1
@@ -464,7 +456,7 @@ bool map::is_edited()
 void map::tranlate_xy(int* ans, int x, int y)
 {
 	int length = height/ row;
-	ans[0] = (x / length) + 1;
+	ans[0] = (x / length);
 	ans[0] = y / length;
 }
 
@@ -526,14 +518,8 @@ void map::show_house_type(std::string& name,int x, int y)
 
 
 //连接两地（最短路）(用于之后扩展)
-bool map::connect_houses(int house_type1, int house_type2)
-{
-
-}
+//bool map::connect_houses(int house_type1, int house_type2){}
 
 //清除导航路线(用于之后扩展)
-void clear_connnect_houses()
-{
-
-}
+//void clear_connnect_houses(){}
 

@@ -4,20 +4,20 @@
 //具体存储单张地图数据
 #include <string>
 #include<iostream>
+#include<fstream>
 #include<vector>
 #include "houses.h"
 #include "roads.h"
 #include"lines.h"
 #include "enum_lib.h"
-#include<fstream>
 #include <string>
-class map {
+class map 
+{
 public:
 	//在maps初始化时调用下方此函数
-	//传入存档路径，my_houses,与my_roads与my_lines在此初始化
-	map(std::wstring path,const houses&my_house,const roads& my_roads,  int column,int row);
+	//传入存档路径，my_houses,与my_roads在此初始化
+	map(std::wstring path, houses& my_house, roads& my_roads, int column, int row);
 
-	
 	//读入数据传入mapData二维数组
 	void read_file();
 	
@@ -40,18 +40,18 @@ public:
 	int select_road_type(int i,int j);
 
 	//连接两地（最短路）(用于之后扩展)
-	bool connect_houses(int house_type1, int house_type2);
+	//bool connect_houses(int house_type1, int house_type2);
 
 	//清除导航路线(用于之后扩展)
-	void clear_connnect_houses();
+	//void clear_connnect_houses();
 
 	//显示鼠标所停放地标图标所代表的房屋类型
-	void show_house_type(std::string& name,int x, int y);
+	void show_house_type(std::string& name, int x, int y);
 
 	
 private:
 	//计算给定的x，y所对应的格子(传入一个数组保存算出来的值)
-	void tranlate_xy(int* ans, int x, int y);
+	void tranlate_xy(int *ans, int x, int y);
 
 	//记录(x,y)所对应的格子（二维数组中的准确位置）
 	static int real_coord[2];
@@ -63,8 +63,8 @@ private:
 	static int position[4];
 
 	//通过my_houses、my_roads对象来调用其中函数对象
-	const houses& my_houses;
-	const roads& my_roads;
+	houses my_houses;
+	roads my_roads;
 
 	//lines my_lines;
 	//暂时可能不使用,后期用于绘制辅助线
@@ -95,4 +95,6 @@ private:
 	//从1开始算一直到4，与enum.lib中设定相同，方便应用
 	int position_array[5][2];
 	
+	//以动态length来储存每格的边长
+	static int length;
 };
