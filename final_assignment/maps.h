@@ -33,7 +33,9 @@ public:
 	//下面三个函数都作用于selected_map_id
 	//增加东西(如果已经有了就替代
 	//给定坐标和房子id(road id 为0）
+	//而房子的话用enum.lib中的映射对应
 	void add_building(int x, int y, int house_type);
+
 	//给定坐标
 	//删除东西
 	// 给定坐标删除房子和道路用一个函数，
@@ -72,7 +74,7 @@ private:
 	
 	// 之后用于绘制辅助线
 	//lines my_lines
-	// 
+	//
 	//每个地图15列，10行
 	const  int column = 15;
 	const  int row = 10;

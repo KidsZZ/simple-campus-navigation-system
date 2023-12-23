@@ -16,6 +16,7 @@ public:
 	void draw(int length,int x,int y,int house_type)const;
 
 	//为绘制道路提供此种类的房子是否在这个方向开门
+	//在此函数中调用了char_to_int函数进行转化类型操作
 	bool is_door(int direction, char c)const;
 
 	//析构函数，析构img对象
@@ -23,13 +24,14 @@ public:
 	~houses();
 
 	//将char类型转化为int类型
+	//作用于is_door函数，防止类型在自动转化造成的数据丢失
 	int char_to_int(char c)const;
 
 private:
 	//使用枚举类记录房子编号
-	
 	//储存房子的图片
 	std::vector<IMAGE*> house_img;
+
 	//储存大门的朝向，使用上左右下的顺序存储
 	//开门为true，不开门为false
 	bool house_orientation[4][4];
