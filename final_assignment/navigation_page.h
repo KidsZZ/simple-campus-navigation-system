@@ -1,27 +1,44 @@
+//此页面主要实现对存在的地图的导航
+//左边放置地图，用于展示路径
+//右边放置建筑，用于用户点击后展示连接
+
 #pragma once
+#include <vector>
+#include <graphics.h>
 #include "abstract_page.h"
 #include "maps.h"
 #include "button.h"
-#include <vector>
 #include "picture_button.h"
-//class navigation实现对以编辑地图的一系列功能
+
 class navigation_page :public abstract_page {
 public:
+
+	//构造函数
 	navigation_page(int w, int h,maps& my_maps);
-	//virtual void update_maps()override;
+
+	//对基类虚函数的重载
 	virtual void get_keyboard_message()override;
 	virtual void draw()override;
 	virtual ~navigation_page();
+
 private:
+
 	//使用maps类实现地图保存及操作(引用传递）
 	maps& my_maps;
+
+	//背景图片
+	IMAGE* bk_img;
+
 	//返回按键
 	button* return_button;
+
 	//左右模块尺寸
 	int left_width, left_height;
 	int right_width, right_height;
+
 	 //放缩比例
 	double scale;
+
 	//地图实际坐标
 	int map_real_x;
 	int map_real_y;

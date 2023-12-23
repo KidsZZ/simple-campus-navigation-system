@@ -6,6 +6,8 @@ button::button(int width, int height, int x, int y, const std::wstring& text, co
 }
 
 void button::draw() {
+
+	//根据是否选择更改按钮的配色
 	if (is_mouse_over) {
 		setlinecolor(RGB(BRS, BGS, BBS));
 		setfillcolor(RGB(FRS, FGS, FBS));
@@ -14,18 +16,39 @@ void button::draw() {
 		setlinecolor(RGB(BR, BG, BB));
 		setfillcolor(RGB(FR, FG, FB));
 	}
-	int scaledWidth = width * scale; // 缩放后的按钮宽度
-	int scaledHeight = height * scale; // 缩放后的按钮高度
-	int scaledX = x + (width - scaledWidth) / 2; // 缩放后的按钮x坐标
-	int scaledY = y + (height - scaledHeight) / 2; // 缩放后的按钮y坐标
-	fillrectangle(scaledX, scaledY, scaledX + scaledWidth, scaledY + scaledHeight); // 绘制按钮
-	settextcolor(BLACK); // 设置文本颜色为黑色
-	setbkmode(TRANSPARENT); // 设置文本背景透明
-	settextstyle(35 * scale, 0, _T("微软雅黑"));//文本大小
+
+	// 缩放后的按钮宽度
+	int scaledWidth = width * scale; 
+
+	// 缩放后的按钮高度
+	int scaledHeight = height * scale; 
+
+	// 缩放后的按钮x坐标
+	int scaledX = x + (width - scaledWidth) / 2; 
+
+	// 缩放后的按钮y坐标
+	int scaledY = y + (height - scaledHeight) / 2; 
+
+	// 绘制按钮
+	fillrectangle(scaledX, scaledY, scaledX + scaledWidth, scaledY + scaledHeight); 
+
+	//设置文本颜色为黑色
+	settextcolor(BLACK); 
+
+	//设置文本背景透明
+	setbkmode(TRANSPARENT);
+
+	//文本大小
+	settextstyle(35 * scale, 0, _T("微软雅黑"));
+
 	//居中显示按钮文本
-	int textX = scaledX + (scaledWidth - textwidth(text.c_str())) / 2; // 计算文本在按钮中央的x坐标
-	int textY = scaledY + (scaledHeight - textheight(_T("TEST"))) / 2; // 计算文本在按钮中央的y坐标
-	outtextxy(textX, textY, text.c_str()); // 在按钮上绘制文本
+	//计算文本在按钮中央的x坐标
+	int textX = scaledX + (scaledWidth - textwidth(text.c_str())) / 2; 
+	//计算文本在按钮中央的y坐标
+
+	//在按钮上绘制文本
+	int textY = scaledY + (scaledHeight - textheight(_T("TEST"))) / 2; 
+	outtextxy(textX, textY, text.c_str()); 
 }
 
 
