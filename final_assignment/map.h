@@ -16,7 +16,7 @@ class map
 public:
 	//在maps初始化时调用下方此函数
 	//传入存档路径，my_houses,与my_roads在此初始化
-	map(std::wstring path, houses& my_house, roads& my_roads, int column, int row);
+	map(std::string path, houses& my_house, roads& my_roads, int column, int row);
 
 	//读入数据传入mapData二维数组
 	// 此外对于文件的数据也进行了一次判断是否匹配

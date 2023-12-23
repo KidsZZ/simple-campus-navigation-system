@@ -5,7 +5,7 @@
 
 //´«Èë´æµµÂ·¾¶£¬houses
 
-map::map(std::wstring path, houses& my_house, roads& my_roads, 
+map::map(std::string path, houses& my_house, roads& my_roads, 
 	int column, int row)
 	:my_houses(my_house), my_roads(my_roads), path(path),height(-1),width(-1)
 {	
