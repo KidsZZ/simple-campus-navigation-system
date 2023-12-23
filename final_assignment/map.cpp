@@ -37,7 +37,7 @@ void map::read_file()
 		{
 			//对mapData进行初始化操作
 			//即全部用占位符来替代
-			std::vector<std::vector<char>>mapData_temp((row), std::vector<char>(column, '-'));
+			std::vector<std::vector<char>> mapData_temp((row), std::vector<char>(column, '-'));
 			mapData = mapData_temp;
 		}
 

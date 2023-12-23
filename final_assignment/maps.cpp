@@ -20,7 +20,6 @@ maps::maps(std::wstring path)
 		//再传递给map构造函数
 		path1 = path + L"map"+std::to_wstring(i) + L".txt";
 		m_map[i] = new map(path1, this->m_houses1, this->m_roads1,column, row);
-		read_file(i);
 	}
 
 }
