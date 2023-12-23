@@ -521,11 +521,32 @@ void map::show_house_type(std::string& name,int x, int y)
 	}
 }
 
+//绘制虚线辅助线函数的辅助函数
+void map::drawDashedLine(int x1, int y1, int x2, int y2)
+{
+	//设置线条样式为虚线
+	setlinestyle(PS_DOT, 1);
+	//绘制虚线
+	line(x1, y1, x2, y2);
+
+}
+
 //绘制辅助线，帮助用户放置建筑
 //(x,y)为绘制地图的的左上角，后两位参数为地图的宽度和长度
 void map::draw_subline(int x, int y, int width, int height)
 {
-
+	//计算每格的边长 
+	length = (width / column);
+	//利用for循环绘制横线
+	for (int i = 0; i <= column;i++)
+	{
+		drawDashedLine(x + i * length, y, x + i * length, y + width);
+	}
+	//利用for循环绘制竖线
+	for (int j = 0; j <= row; j++)
+	{
+		drawDashedLine(x, y + j * length, x + height, y + j * length);
+	}
 }
 
 
