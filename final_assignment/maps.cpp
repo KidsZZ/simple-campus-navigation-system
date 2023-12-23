@@ -97,9 +97,9 @@ void maps::add_building(int x, int y, int house_type)
 //给定坐标
 //删除东西
 // 给定坐标(删除房子和道路用一个函数，如果本来就没有东西就不变）
-void maps::delete_build(int x, int y,int house_type) 
+void maps::delete_build(int x, int y) 
 {
-	my_maps[selected_map_id]->delete_build(x, y,house_type);
+	my_maps[selected_map_id]->delete_build(x, y);
 
 }
 

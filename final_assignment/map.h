@@ -3,7 +3,6 @@
 // 逻辑判断在此实现
 //具体存储单张地图数据
 #include <string>
-#include <iostream>
 #include <fstream>
 #include <vector>
 #include <string>
@@ -14,6 +13,7 @@
 class map 
 {
 public:
+
 	//在maps初始化时调用下方此函数
 	//传入存档路径，my_houses,与my_roads在此初始化
 	map(std::string path, houses& my_house, roads& my_roads, int column, int row);
@@ -34,7 +34,7 @@ public:
 	void add_building(int x, int y, int house_type);
 
 	// 给定坐标(删除房子和道路用一个函数）
-	void delete_build(int x, int y,int house_type);
+	void delete_build(int x, int y);
 
 	//返回给定的地图id是否被编辑过
 	bool is_edited();
@@ -88,18 +88,20 @@ private:
 	int x, y;
 
 	//存档文件的路径
-	std::wstring path;
+	std::string path;
 
 
 	//以动态string来储存当前选中建筑的类型
 	static std::string house_name;
 
-	//用Building_num变量来对于此地图进行计数操作
-	int Building_num;
+	//用building_num变量来对于此地图进行计数操作
+	int building_num;
 
-	//用position_array二维数组来存储每个房屋的横纵坐标
+	//用building_position二维数组来存储每个房屋的横纵坐标
 	//从1开始算一直到4，与enum.lib中设定相同，方便应用
-	int position_array[5][2];
+	int building_position[5][2];
+	//储存每个建筑是否都被放置，便于查找
+	bool is_building_present[5];
 	
 	//以length来储存每格的边长
 	int length;

@@ -5,47 +5,28 @@
 
 //传入存档路径，houses
 
-map::map(std::string path, houses& my_house, roads& my_roads, 
+map::map(std::string path, houses& my_house, roads& my_roads,
 	int column, int row)
-	:my_houses(my_house), my_roads(my_roads), path(path),height(-1),width(-1)
+	:my_houses(my_house), my_roads(my_roads), path(path),
+	//因为还没有绘制地图，所以将width,height,x,y都设置为-1
+	height(-1), width(-1), x(-1), y(-1)
 {	
 	//先初始化mapDate数组
 	this->column = column;
 	this->row = row;
-	for (int i = 0; i < 2; i++)real_coord[i] = 0;
 
-	//读入该章地图的建筑数量
-	std::ifstream file(path);
-	// 判断文件是否成功打开
-	if (file.is_open())
-	{
-		std::string line1;
-		std::vector<char>rows1;
-		std::getline(file, line1);
+	for (int i = 0; i < 2; i++)real_coord[i] = -1;
 
-		for (char c : line1)
-		{
-			//如果不是空格则暂时存入rows当中
-			if (c != ' ')
-			{
-				rows1.push_back(c);
-			}
-		}
-		Building_num = rows1[2];
-		//进行是否被编辑过的逻辑判断
-		if (is_edited())
-		{
-			mapData.clear();
-			read_file();
-		}
-	}
-	//若无法打开则报错，无法读入地图数据
-	else
-	{
-		std::cout << "无法读取地图数据" << std::endl;
+	//初始化设置building_num为0
+	building_num = 0;
+
+	for (int i = 0; i < 5; i++) {
+		//初始化将建筑都设为不存在
+		is_building_present[i] = false;
 	}
 
-	
+	//使用path找到并读入磁盘中的存档文件
+	read_file();
 }
 
 
@@ -59,8 +40,8 @@ void map::read_file()
 	{
 		// 定位到文件末尾
 		file.seekg(0, std::ios::end);
-		// 判断文件大小是否为0
-		if (file.tellg() == 0)
+		// 判断文件大小是否为0,及文件是否为空文件
+		if (file.tellg() == 0)//是空文件
 		{
 			//对mapData进行初始化操作
 			//即全部用占位符来替代
@@ -71,45 +52,48 @@ void map::read_file()
 		else
 		{
 			//先读取第一行，检查row与column是否异常
-			std::string line1;
-			std::vector<char>rows1;
-			std::getline(file, line1);
+			std::string line;
+			std::vector<char>rows;
+			std::getline(file, line);
 
-			for (char c : line1)
+			for (char c : line)
 			{
 				//如果不是空格则暂时存入rows当中
 				if (c != ' ')
 				{
-					rows1.push_back(c);
+					rows.push_back(c);
 				}
 			}
 
 			//下面是对于数据是否异常的判断
 			//即如果文件中记录的单元格行数和单元格列数，与传入参数不同则报错
-			if (rows1[0] != char(row+'0') || rows1[1] != char(column+'0'))
+			if (int(rows[0]) != (row+'0') || int(rows[1]) != (column+'0'))
 			{
 				std::cout << "Error the row or column is erroneous" << std::endl;
 				return;
 			}
 
-			std::string line2;
+			//清空string
+			line.clear();
+			//清空vector
+			rows.clear();
+
 			//逐行读取数据
-			while (std::getline(file, line2))
+			while (std::getline(file, line))
 			{
-				std::vector<char>rows2;
-				int lineNumber = 0;
-				for (char c : line2)
+				for (char c : line)
 				{
 					//如果不是空格则存入二维数组当中
 					if (c != ' ')
 					{
-						rows2.push_back(c);
+						rows.push_back(c);
 					}
 				}
 
 				//实现了从文件第二行开始读入数据，计入mapData当中
 				//将row2数组压入mapData当中
-				mapData.push_back(rows2);
+				mapData.push_back(rows);
+				rows.clear();
 			}
 
 		}
@@ -129,7 +113,10 @@ void map::read_file()
 		{
 			if (mapData[i][j] != '-' || mapData[i][j] != '0')
 			{
-				Building_num++;
+				building_num++;
+				is_building_present[(mapData[i][j] - '0')] = true;
+				building_position[(mapData[i][j] - '0')][0] = i;
+				building_position[(mapData[i][j] - '0')][1] = j;
 			}
 		}
 	}
@@ -140,8 +127,9 @@ void map::read_file()
 void map::write_file()
 {
 	//初始化构造函数	  读取file文件所在的位置
-	std::ofstream file(path);
-	file << row << " " << column << " " << Building_num;
+	std::ofstream file(path,std::ios::trunc);
+	//第一排放置第一的行数和列数
+	file << row << ' ' << column << ' ' << building_num<<std::endl;
 	if (file.is_open())
 	{
 		for (const auto& row : mapData)
@@ -372,6 +360,7 @@ int map::select_road_type(int i,int j)
 		}
 	}
 
+	//通过打表判断数组后，找到对应的图片
 	if (road_type[0] == 1 && road_type[1] == 1 && road_type[2] == 0 && road_type[3] == 0) {
 		return 1;
 	}
@@ -409,17 +398,22 @@ int map::select_road_type(int i,int j)
 
 void map::draw(int width, int height, int x, int y)
 {
+	//在地图后面绘制背景，放置看不清
+	setfillcolor(0xb4e014);
+	rectangle(x, y, x + width, y + height);
+
 	//计算每格的边长
 	length = (width / column);
 
 	//保存最近一次绘制地图的长宽，供translate_xy使用
 	this->width = width;
 	this->height = height;
+
 	//保存最近一次绘制地图的坐标，供translate_xy使用
 	this->x = x;
 	this->y = y;
 	
-
+	//通过检索数组中的数据项，分别调用roads和houses绘制地图
 	for (int i =0; i <row; i++)
 	{
 		for (int j = 0; j < column; j++)
@@ -428,8 +422,9 @@ void map::draw(int width, int height, int x, int y)
 			{
 				my_houses.draw(length, (x+(i  * length)), (y+(j * length)), (mapData[i][j] - '0'));
 			}
-			if (mapData[i][j] == '0')
+			else if (mapData[i][j] == '0')
 			{
+				//在绘制道路的时候，需要调用select_road_type得知道路种类
 				my_roads.draw(length, (x + (i  * length)), (y + (j * length)), select_road_type(i, j));
 			}
 		}
@@ -445,14 +440,17 @@ void map::add_building(int x, int y, int house_type)
 
 	//首先计算此时鼠标的位置信息；
 	tranlate_xy(real_coord, x, y);
+	
+	//当当前种类建筑没有被放置时，允许放置建筑
+	if (!is_building_present[house_type]) {
+		mapData[real_coord[0]][real_coord[1]] = house_type;
+		//该地图房屋数+1
+		building_num++;
 
-	//因为第一行储存的是地图行数，列数以及是否被更改的bool变量，第二行开始才存储地图地标数据
-	mapData[real_coord[0]][real_coord[1]] = house_type;
-	//该地图房屋数+1
-	Building_num++;
-	//记录房屋坐标
-	position_array[house_type][0] = x;
-	position_array[house_type][1] = y;
+		//记录房屋坐标
+		building_position[house_type][0] = x;
+		building_position[house_type][1] = y;
+	}
 }
 
 // 给定坐标(删除房子和道路用一个函数，如果本来就没有东西就不变）
@@ -460,23 +458,30 @@ void map::delete_build(int x, int y,int house_type)
 {
 	//首先计算此时鼠标的位置信息；
 	tranlate_xy(real_coord, x, y);
-	//重置数据为‘-’
-	mapData[real_coord[0]][real_coord[1]] = '-';
-	//房屋数-1
-	Building_num--;
-	//防止误操作
-	if (Building_num < 0)Building_num = 0;
-	//重置房屋坐标
-	position_array[house_type][0] = -1;
-	position_array[house_type][1] = -1;
+	
+	//如果不为占位符，则删除该位置建筑
+	if (mapData[real_coord[0]][real_coord[1]] != '-') {
+		//如果不为道路，则清楚相关标记
+		if (mapData[real_coord[0]][real_coord[1]] != '0') {
+			int house_type = mapData[real_coord[0]][real_coord[1]] - '0';
+			is_building_present[house_type] = false;
+			building_position[house_type][0] = -1;
+			building_position[house_type][1] = -1;
+			//房屋数-1
+			building_num--;
+		}
+		//重置数据为‘-’
+		mapData[real_coord[0]][real_coord[1]] = '-';
+	}
 
 }
 
 //返回给定的地图id是否被编辑过
 bool map::is_edited()
 {
-	if (Building_num == 0)
+	if (building_num == 0) {
 		return false;
+	}
 	else
 	{
 		return true;
@@ -486,12 +491,10 @@ bool map::is_edited()
 //计算给定的x，y所对应的格子(传入一个数组保存算出来的值)
 void map::tranlate_xy(int* ans, int x, int y)
 {
-	int length = width / column;
+	length = width / column;
 	ans[0] = (x - this->x) / length;
 	ans[1] = (y - this->y) / length;
 }
-
-
 
 
 //显示鼠标所停放地标图标所代表的房屋类型
