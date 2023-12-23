@@ -100,3 +100,9 @@ bool maps::is_edited(int page_id)
 }
 
 
+//绘制辅助线，帮助用户放置建筑
+//(x,y)为绘制地图的的左上角，后两位参数为地图的宽度和长度
+void maps::draw_subline(int x, int y, int width, int height)
+{
+	m_map[selected_map_id]->draw_subline(x, y, width, height);
+}

@@ -51,11 +51,16 @@ public:
 	//返回给定的地图id是否被编辑过
 	bool is_edited(int page_id);
 
+	//绘制辅助线，帮助用户放置建筑
+	//(x,y)为绘制地图的的左上角，后两位参数为地图的宽度和长度
+	void draw_subline(int x, int y, int width, int height);
+
 private:
 	//目前地图有四张，所以将NUM设为4，可以后期更改
 	const static int NUM = 4;
 
 	//动态储存地图编号，只有更改当前选择地图才会更高索引ID数据
+	//每次操作前都要确定此时的id
 	int selected_map_id;
 
 	//存放地图数据的文件夹位置

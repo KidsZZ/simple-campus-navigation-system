@@ -13,12 +13,39 @@ map::map(std::wstring path, houses& my_house, roads& my_roads,
 	this->column = column;
 	this->row = row;
 	for (int i = 0; i < 2; i++)real_coord[i] = 0;
-	Building_num = 0;
-	if (is_edited())
+
+	//读入该章地图的建筑数量
+	std::ifstream file(path);
+	// 判断文件是否成功打开
+	if (file.is_open())
 	{
-		mapData.clear();
-		read_file();
-	}	
+		std::string line1;
+		std::vector<char>rows1;
+		std::getline(file, line1);
+
+		for (char c : line1)
+		{
+			//如果不是空格则暂时存入rows当中
+			if (c != ' ')
+			{
+				rows1.push_back(c);
+			}
+		}
+		Building_num = rows1[2];
+		//进行是否被编辑过的逻辑判断
+		if (is_edited())
+		{
+			mapData.clear();
+			read_file();
+		}
+	}
+	//若无法打开则报错，无法读入地图数据
+	else
+	{
+		std::cout << "无法读取地图数据" << std::endl;
+	}
+
+	
 }
 
 
@@ -61,7 +88,7 @@ void map::read_file()
 			//即如果文件中记录的单元格行数和单元格列数，与传入参数不同则报错
 			if (rows1[0] != char(row+'0') || rows1[1] != char(column+'0'))
 			{
-				std::cout << "Error" << std::endl;
+				std::cout << "Error the row or column is erroneous" << std::endl;
 				return;
 			}
 
@@ -81,11 +108,8 @@ void map::read_file()
 				}
 
 				//实现了从文件第二行开始读入数据，计入mapData当中
-				if (lineNumber > 1)
-				{
-					//将row2数组压入mapData当中
-					mapData.push_back(rows2);
-				}
+				//将row2数组压入mapData当中
+				mapData.push_back(rows2);
 			}
 
 		}
@@ -117,7 +141,7 @@ void map::write_file()
 {
 	//初始化构造函数	  读取file文件所在的位置
 	std::ofstream file(path);
-	file << row << " " << column << " " ;
+	file << row << " " << column << " " << Building_num;
 	if (file.is_open())
 	{
 		for (const auto& row : mapData)
@@ -497,7 +521,12 @@ void map::show_house_type(std::string& name,int x, int y)
 	}
 }
 
+//绘制辅助线，帮助用户放置建筑
+//(x,y)为绘制地图的的左上角，后两位参数为地图的宽度和长度
+void map::draw_subline(int x, int y, int width, int height)
+{
 
+}
 
 
 

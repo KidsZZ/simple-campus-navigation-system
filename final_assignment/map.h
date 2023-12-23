@@ -51,7 +51,9 @@ public:
 	//显示鼠标所停放地标图标所代表的房屋类型
 	void show_house_type(std::string& name, int x, int y);
 
-	
+	//绘制辅助线，帮助用户放置建筑
+    //(x,y)为绘制地图的的左上角，后两位参数为地图的宽度和长度
+	void draw_subline(int x, int y, int width, int height);
 private:
 	//计算给定的x，y所对应的格子(传入一个数组保存算出来的值)
 	void tranlate_xy(int *ans, int x, int y);
