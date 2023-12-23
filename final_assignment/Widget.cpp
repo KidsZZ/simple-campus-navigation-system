@@ -9,7 +9,7 @@
 #include "navigation_page.h"
 #include "map_select_page.h"
 #include "map_editing_page.h"
-
+#include <iostream>
 //easyx头文件
 #include <graphics.h>
 
@@ -17,12 +17,12 @@
 //完成对类中各种变量的初始化
 //将将地图数据保存在项目的map_lib文件夹下
 //将初始的界面设置为home_page
-Widget::Widget(int w, int h) :width(w),height(h),now_page_id(page_id::HOME_PAGE),path(L"maps_lib/"),my_maps(path) {
+Widget::Widget(int w, int h) :width(w),height(h),now_page_id(page_id::MAP_SELECT_PAGE),path(L"maps_lib\\"),my_maps(path) {
 
 	//由widget类展开创建程序窗口
 	//各个页面实现对widget类创建的窗口的具体绘制
 	//通过绘制不同内容实现不同窗口
-	initgraph(width, height);
+	initgraph(width, height, EX_SHOWCONSOLE);
 
 	//初始化四个页面
 	//开始界面
@@ -54,13 +54,14 @@ void Widget::run() {
 		//处理输入
 		//页面对象会在此函数中更新相关参数
 		my_page[now_page_id]->get_keyboard_message();
-
 		//将结果输出到画布上
 		//页面对象将更新过的参数绘制到画布上
 		my_page[now_page_id]->draw();
 
 		//接收页面返回的下一个页面的索引
 		now_page_id = my_page[now_page_id]->return_page_id();
+
+		//!!!!!!!!if (now_page_id != page_id::HOME_PAGE)std::cout << now_page_id;
 
 		//如果页面返回的是exit，则退出循环，退出程序
 		if (now_page_id == page_id::EXIT) {

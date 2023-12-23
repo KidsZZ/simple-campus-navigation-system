@@ -8,7 +8,7 @@ home_page::home_page(int w, int h) :abstract_page(page_id::HOME_PAGE, w, h) {
 	//设置背景
 	bk_img = new IMAGE();
 	//背景图片放在项目文件的background_img下，命名background.png
-	loadimage(bk_img, L"background_img/background.png");
+	loadimage(bk_img, L"background_img\\background.png");
 
 	//设置标题文本
 	title_text = L"简易校园导航系统";
@@ -85,8 +85,6 @@ void home_page::draw() {
 	//使用背景图片填充
 	putimage(0, 0, width, height, bk_img, 0, 0);
 
-	//在easyx中，需要调用清楚画布的函数才能重新绘制背景
-	cleardevice();
 
 	//绘制标题
 	settextstyle(title_size, 0, L"仿宋");

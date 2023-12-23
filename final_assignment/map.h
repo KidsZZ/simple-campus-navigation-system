@@ -62,8 +62,6 @@ private:
 	//获得两地在二维数组中的具体位置
 	void get_position(int* ans, int house_type1, int house_type2);
 
-	//用来记录两地在二维数组当中的具体位置
-	int position[4];
 
 	//通过my_houses、my_roads对象来调用其中函数对象
 	houses my_houses;
