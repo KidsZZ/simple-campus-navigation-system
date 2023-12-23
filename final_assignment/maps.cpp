@@ -10,20 +10,32 @@
 maps::maps(std::wstring path)
 	: my_houses(L"picture_hub/", 5), my_roads(L"picture_hub/", 11)
 {
+	//默认地图ID为0，即索引地图
 	selected_map_id = 0;
-	my_map[selected_map_id] = new map(path,my_houses,my_roads,my_lines,column,row);
+	//利用for循环初始化四张地图，并且载入地图数据
+	for (int i = 0; i < 4; i++)
+	{
+		//利用new创建数据地址
+		//拼接出每张地图的路径，文件名
+		//再传递给map构造函数
+		std::wstring filename = path + L"map"+std::to_wstring(i) + L".txt";
+		my_map[i] = new map(filename, this->my_houses, this->my_roads,column, row);
+		read_file(i);
+	}
 
 }
 
 //将指定地图id的存档文件中的数据载入内存
 void maps::read_file(int id)
 {
+	//调用map对象中函数
 	my_map[id]->read_file();
 }
 
 //将当前选择的地图载入存档文件
 void maps::write_file()
 {
+	//调用map对象中函数
 	my_map[selected_map_id]->write_file();
 };
 
@@ -59,30 +71,26 @@ void maps::draw_selected(int width, int height, int x, int y)
 void maps::add_building(int x, int y, int house_type) 
 {
 	my_map[selected_map_id]->add_building(x, y, house_type);
+
 };
 //给定坐标
 //删除东西
 // 给定坐标(删除房子和道路用一个函数，如果本来就没有东西就不变）
-void maps::delete_build(int x, int y) 
+void maps::delete_build(int x, int y,int house_type) 
 {
-	my_map[selected_map_id]->delete_build(x, y);
+	my_map[selected_map_id]->delete_build(x, y,house_type);
+
 };
 
-//连接两地（最短路）
-bool maps::connect_houses(int house_type1, int house_type2) 
-{
-	int 
-};
-
-//清除导航路线
+//清除导航路线(用于之后扩展)
 void maps::clear_connnect_houses() 
 {
 
 };
 
-//返回给定的地图id是否被编辑过
+//返回给定的地图id是否被编辑过(用于之后扩展)
 bool maps::is_edited(int page_id) 
 {
-	my_map[page_id]->is_edited(page_id);
+	return my_map[page_id]->is_edited();
 };
 
