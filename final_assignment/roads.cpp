@@ -18,6 +18,11 @@ roads::	roads(std::wstring path, int n)
 
 }
 
+//绘制函数，传入存放地图信息的结构体进行绘制
+void roads:: draw(int length, int x, int y, int direction)const
+{
+	putimage(x, y, length, length, road_img[direction], 0, 0);//最后两个值是偏移量
+}
 
 //析构函数，释放道路图片
 roads::	~roads() 
@@ -29,9 +34,4 @@ roads::	~roads()
 }
 
 
-//绘制函数，传入存放地图信息的结构体进行绘制
-void roads:: draw(int length, int x, int y, int direction)const
-{
-	putimage(x, y, length, length, road_img[direction], 0, 0);//最后两个值是偏移量
-}
 

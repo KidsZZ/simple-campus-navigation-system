@@ -4,8 +4,9 @@
 //**************************  0索引用于给道路占位（道路索引为0）  ************************************
 houses::houses(std::wstring path, int n) 
 {	
+	//house_orientation下标为0的地方是给道路占位的
 	//先全设为true，注意vector不能直接放值，要push进去
-	for (int i = 0; i < n; i++)
+	for (int i = 0; i <= n; i++)
 	{
 		for (int j = 0; j < 4; j++)
 		{
