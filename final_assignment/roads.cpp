@@ -22,9 +22,9 @@ roads::	roads(std::wstring path, int n)
 //析构函数，释放道路图片
 roads::	~roads() 
 {
-	for (auto img : road_img)
-	{
-		delete(img);
+	while (!road_img.empty()) {
+		delete road_img.back();
+		road_img.pop_back();
 	}
 }
 
