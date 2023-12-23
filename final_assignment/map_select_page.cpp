@@ -155,6 +155,7 @@ void map_select_page::draw()
 {	
 	//»æÖÆ±³¾°
 	putimage(0, 0, width, height, bk_img, 0, 0);
+	cleardevice();
 
 	//»æÖÆ·µ»Ø°´Å¥
 	return_button->draw();
