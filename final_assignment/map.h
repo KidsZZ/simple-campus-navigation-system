@@ -15,7 +15,7 @@ class map {
 public:
 	//在maps初始化时调用下方此函数
 	//传入存档路径，my_houses,与my_roads与my_lines在此初始化
-	map(std::wstring path,const houses &my_house,const roads& my_roads,  int column,int row);
+	map(std::wstring path,const houses&my_house,const roads& my_roads,  int column,int row);
 
 	
 	//读入数据传入mapData二维数组
@@ -62,7 +62,7 @@ private:
 	//用来记录两地在二维数组当中的具体位置
 	static int position[4];
 
-	//通过my_houses、my_roads与my_lines对象来调用其中函数对象
+	//通过my_houses、my_roads对象来调用其中函数对象
 	const houses& my_houses;
 	const roads& my_roads;
 

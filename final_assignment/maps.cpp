@@ -8,7 +8,7 @@
 //构造函数，给出数据文件位置，调用read_file载入地图数据
 //初始化列表
 maps::maps(std::wstring path)
-	: my_houses(L"picture_hub/", 5), my_roads(L"picture_hub/", 11)
+	: my_houses1(L"picture_hub/", 5), my_roads1(L"picture_hub/", 11)
 {
 	//默认地图ID为0，即索引地图
 	selected_map_id = 0;
@@ -18,8 +18,8 @@ maps::maps(std::wstring path)
 		//利用new创建数据地址
 		//拼接出每张地图的路径，文件名
 		//再传递给map构造函数
-		std::wstring filename = path + L"map"+std::to_wstring(i) + L".txt";
-		my_map[i] = new map(filename, this->my_houses, this->my_roads,column, row);
+		path1 = path + L"map"+std::to_wstring(i) + L".txt";
+		my_map[i] = new map(path1, this->my_houses1, this->my_roads1,column, row);
 		read_file(i);
 	}
 

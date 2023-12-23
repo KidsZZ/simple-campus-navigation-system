@@ -61,13 +61,13 @@ private:
 	//动态储存地图编号，只有更改当前选择地图才会更高索引ID数据
 	static int selected_map_id;
 	//存放地图数据的文件夹位置
-	std::wstring path;
+	std::wstring path1;
 	//包含map*指针用于调用map中封装的函数
 	map* my_map[NUM];
 	//包含roads对象用于调用roads中封装的函数
-	roads my_roads;
+	roads my_roads1;
 	//包含houses对象用于调用houses中封装的函数
-	houses my_houses;
+	houses my_houses1;
 	//包含lines对象用于调用lines中封装的函数
 	
 	// 之后用于绘制辅助线
