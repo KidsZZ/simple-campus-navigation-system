@@ -17,14 +17,14 @@ public:
 	void draw(int x,int y);
 
 	//地图的行数
-	static int row;       
+	int row;       
 	//地图的列数
-	static int column;   
+	int column;   
 	//“线”的宽度
-	static int fixed_length;  
+	int fixed_length;  
 	//地图长度
-	static int length;       
+	int length;       
 	//地图宽度
-	static int width;       
+	int width;       
 
 };

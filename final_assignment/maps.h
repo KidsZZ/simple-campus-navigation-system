@@ -54,7 +54,7 @@ private:
 	const static int NUM = 4;
 
 	//动态储存地图编号，只有更改当前选择地图才会更高索引ID数据
-	static int selected_map_id;
+	int selected_map_id;
 
 	//存放地图数据的文件夹位置
 	std::wstring path1;

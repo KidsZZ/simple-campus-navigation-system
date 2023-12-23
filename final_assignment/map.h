@@ -54,13 +54,13 @@ private:
 	void tranlate_xy(int *ans, int x, int y);
 
 	//记录(x,y)所对应的格子（二维数组中的准确位置）
-	static int real_coord[2];
+	int real_coord[2];
 
 	//获得两地在二维数组中的具体位置
 	void get_position(int* ans, int house_type1, int house_type2);
 
 	//用来记录两地在二维数组当中的具体位置
-	static int position[4];
+	int position[4];
 
 	//通过my_houses、my_roads对象来调用其中函数对象
 	houses my_houses;
@@ -95,6 +95,6 @@ private:
 	//从1开始算一直到4，与enum.lib中设定相同，方便应用
 	int position_array[5][2];
 	
-	//以动态length来储存每格的边长
-	static int length;
+	//以length来储存每格的边长
+	int length;
 };

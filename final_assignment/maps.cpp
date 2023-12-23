@@ -83,6 +83,11 @@ void maps::delete_build(int x, int y,int house_type)
 
 }
 
+bool maps::connect_houses(int house_type1, int house_type2)
+{
+	return true;
+}
+
 //清除导航路线(用于之后扩展)
 void maps::clear_connnect_houses() 
 {
