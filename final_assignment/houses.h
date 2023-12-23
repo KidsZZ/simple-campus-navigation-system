@@ -23,9 +23,6 @@ public:
 	//不用设为虚函数，在子类中没有新的数据成员
 	~houses();
 
-	//将char类型转化为int类型
-	//作用于is_door函数，防止类型在自动转化造成的数据丢失
-	int char_to_int(char c)const;
 
 private:
 	//使用枚举类记录房子编号
@@ -34,5 +31,6 @@ private:
 
 	//储存大门的朝向，使用上左右下的顺序存储
 	//开门为true，不开门为false
-	bool house_orientation[4][4];
+	//预先开出足够的空间
+	bool house_orientation[30][4];
 };
