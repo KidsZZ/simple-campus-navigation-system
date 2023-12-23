@@ -6,6 +6,7 @@
 #include <vector>
 #include "abstract_page.h"
 #include "button.h"
+#include <graphics.h>
 
 //继承abstract_page实现具体功能
 class home_page :public abstract_page {
@@ -21,6 +22,9 @@ public:
 	virtual ~home_page()override;
 
 private:
+
+	//背景图片
+	IMAGE* bk_img;
 
 	//标题文本
 	std::wstring title_text;
