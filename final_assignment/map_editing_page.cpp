@@ -7,7 +7,7 @@ map_editing_page::map_editing_page(int w, int h, maps& my_maps) :abstract_page(p
 	//背景设置
 	bk_img = new IMAGE();
 	//背景图片放在项目文件的background_img下，命名background.png
-	loadimage(bk_img, L"background_img/background.png");
+	loadimage(bk_img, L"background_img\\background.png");
 
 	//左右模块尺寸，左边占比80%
 	left_width = width * 0.8;
@@ -38,7 +38,7 @@ map_editing_page::map_editing_page(int w, int h, maps& my_maps) :abstract_page(p
 
 	//依次设置建筑按钮
 	for (int i = 0; i < building_num; i++) {
-		std::wstring temp_path = L"picture_hub/house"+std::to_wstring(i)+L".png";
+		std::wstring temp_path = L"picture_hub\\house"+std::to_wstring(i)+L".png";
 		my_picture_button.push_back(new picture_button(temp_path, build_exp[i].
 			c_str(), single_object_width, single_object_height, left_width,single_object_height*i,[this,i](){
 				//为每个图片按钮设置lambda表达式
@@ -103,7 +103,6 @@ void map_editing_page::draw()
 {
 	//先画背景
 	putimage(0, 0, width, height, bk_img, 0, 0);
-	cleardevice();
 
 	//地图
 	my_maps.draw_selected(map_width, map_height, map_real_x, map_real_y);

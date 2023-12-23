@@ -7,7 +7,7 @@ navigation_page::navigation_page(int w, int h, maps& my_maps) :abstract_page(pag
 	//背景设置
 	bk_img = new IMAGE();
 	//背景图片放在项目文件的background_img下，命名background.png
-	loadimage(bk_img, L"background_img/background.png");
+	loadimage(bk_img, L"background_img\\background.png");
 
 	//设置页面模块尺寸
 	left_width = width * 0.8;
@@ -46,7 +46,7 @@ navigation_page::navigation_page(int w, int h, maps& my_maps) :abstract_page(pag
 	};
 
 	for (int i = 1; i < building_num; i++) {
-		std::wstring temp_path = L"picture_hub/house" + std::to_wstring(i) + L".png";
+		std::wstring temp_path = L"picture_hub\\house" + std::to_wstring(i) + L".png";
 		my_picture_button.push_back(new picture_button(temp_path, build_exp[i].
 			c_str(), single_object_width, single_object_height, left_width, single_object_height * (i - 1), [this, i]() {
 				//为每个图片按钮设置lambda表达式
@@ -158,7 +158,6 @@ void navigation_page::draw() {
 
 	//背景设置
 	putimage(0, 0, width, height, bk_img, 0, 0);
-	cleardevice();
 
 	//绘制地图
 	my_maps.draw_selected(map_width, map_height, map_real_x, map_real_y);

@@ -26,6 +26,7 @@ public:
 	//返回下一个页面序号(当返回EXIT时结束程序)
 	int return_page_id() {
 		return next_id;
+		//!!!!!!!!!!printf("\n%d", next_id);
 	}
 
 	//设置下一个页面的id

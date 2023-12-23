@@ -13,7 +13,6 @@ map::map(std::wstring path, houses& my_house, roads& my_roads,
 	this->column = column;
 	this->row = row;
 	for (int i = 0; i < 2; i++)real_coord[i] = 0;
-	for (int i = 0; i < 4; i++)position[i] = 0;
 	Building_num = 0;
 	if (is_edited())
 	{
