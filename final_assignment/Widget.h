@@ -52,7 +52,7 @@ private:
 
 	//保存储存地图数据的文件的地址
 	//因为easyx主要支持宽字符，所以项目中的字符串都由wstring保存，然后使用.c_str()函数转换为c风格的字符串
-	const std::wstring path;
+	const std::string path;
 
 	//保存地图信息
 	//项目逻辑核心对象，实现对地图数据的保存，绘制和运算

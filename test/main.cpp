@@ -1,11 +1,11 @@
 #include <graphics.h>
 #include <iostream>
+#include <fstream>
 using namespace std;
 
 int main() {
-	int a = 2;
-	cout << char(a + '0');
-	char temp;
-	cin >> temp;
-	cout << int(temp-'0');
+	ifstream my_file("index.txt");
+	int temp;
+	my_file >> temp;
+	cout << temp+'0';
 }

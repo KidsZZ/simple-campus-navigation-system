@@ -10,7 +10,7 @@ public:
 	//构造函数
 	// 将地图存档数据全都放在一个文件夹中，并将该文件夹的路径传入path
 	//给出数据文件位置，调用read_file载入地图数据
-	maps(std::wstring path);//初始化列表
+	maps(std::string path);//初始化列表
 
 	//将指定地图id的存档文件中的数据载入内存
 	void read_file(int id);
@@ -19,7 +19,7 @@ public:
 	int now_selected_map_id();
 
 	//更改当前选择的地图
-	void set_selected_map_id(int n);
+	void set_selected_map_id(int id);
 
 	//将当前选择的地图载入存档文件
 	void write_file();
@@ -55,7 +55,17 @@ public:
 	//(x,y)为绘制地图的的左上角，后两位参数为地图的宽度和长度
 	void draw_subline(int x, int y, int width, int height);
 
+	//析构函数
+	~maps();
+
 private:
+
+	//读取磁盘中保存的之前选择的地图id
+	int read_select_map_id();
+
+	//向磁盘中写入当前选择的地图id
+	void write_select_map_id();
+
 	//目前地图有四张，所以将NUM设为4，可以后期更改
 	const static int NUM = 4;
 
@@ -64,16 +74,16 @@ private:
 	int selected_map_id;
 
 	//存放地图数据的文件夹位置
-	std::wstring path1;
+	std::string path;
 
 	//包含map*指针用于调用map中封装的函数
-	map* m_map[NUM];
+	map* my_maps[NUM];
 
 	//包含roads对象用于调用roads中封装的函数
-	roads m_roads1;
+	roads my_roads;
 
 	//包含houses对象用于调用houses中封装的函数
-	houses m_houses1;
+	houses my_houses;
 
 	//包含lines对象用于调用lines中封装的函数
 	
