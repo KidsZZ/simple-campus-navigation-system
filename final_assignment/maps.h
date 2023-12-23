@@ -1,6 +1,7 @@
-#pragma once
 //class maps 用于管理map类，处理多地图存档及其文档写入
 //实现的地图为15列10行
+
+#pragma once
 #include <string>
 #include "map.h"
 #include "houses.h"

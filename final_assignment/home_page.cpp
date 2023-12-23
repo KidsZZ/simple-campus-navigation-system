@@ -1,7 +1,9 @@
 #include "home_page.h"
 #include <graphics.h>
 #include "enum_lib.h"
-home_page::home_page(int w, int h) :abstract_page(page_id::HOME_PAGE, w, h), mouse_x(0), mouse_y(0) {
+
+//在初始化时向基类传入当前页面的id
+home_page::home_page(int w, int h) :abstract_page(page_id::HOME_PAGE, w, h) {
 	//设置背景
 
 

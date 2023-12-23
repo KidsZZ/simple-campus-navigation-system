@@ -17,22 +17,36 @@ public:
 	//信息接收函数
 	//接收鼠标信息，进行处理
 	virtual void get_keyboard_message() = 0;
+
 	//绘制画面
+	//通过储存在页面对象中的数据（在接收鼠标信息时更新），绘制新画面
+	//需要完全覆盖原来的画面重新绘制
 	virtual void draw() = 0;
+
 	//返回下一个页面序号(当返回EXIT时结束程序)
 	int return_page_id() {
 		return next_id;
 	}
-	//析构函数（虚函数）
-	virtual ~abstract_page() {};
+
+	//设置下一个页面的id
+	//给按钮等部件设置下一个页面提供统一的接口
 	void set_next_id(int id) {
 		next_id = id;
 	}
+
+	//防止页面释放时出现问题
+	//析构函数（虚函数）
+	virtual ~abstract_page() {};
+
+//基类中的数据成员保存每个页面通用的数据
 protected:
+
 	//保存下一个页面的id
 	int next_id;
+
 	//保存页面横宽比;
 	int width, height;
+
 	//使用4个地图存档
 	static const int show_maps_num = 4;
 };
