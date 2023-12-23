@@ -51,13 +51,12 @@ public:
 	//显示鼠标所停放地标图标所代表的房屋类型
 	void show_house_type(std::string& name, int x, int y);
 
-	//绘制辅助线，帮助用户放置建筑
+	//绘制虚线辅助线，帮助用户放置建筑
     //(x,y)为绘制地图的的左上角，后两位参数为地图的宽度和长度
 	void draw_subline(int x, int y, int width, int height);
 
-	bool connect_house(int house_type1, int house_type2);
-
-	void clear_connect_house();
+	//绘制虚线辅助线函数的辅助函数
+	void drawDashedLine(int x1, int y1, int x2, int y2);
 private:
 	//计算给定的x，y所对应的格子(传入一个数组保存算出来的值)
 	void tranlate_xy(int *ans, int x, int y);
