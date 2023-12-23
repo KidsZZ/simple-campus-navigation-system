@@ -1,7 +1,7 @@
 #include "navigation_page.h"
 #include "enum_lib.h"
 #include "picture_button.h"
-navigation_page::navigation_page(int next_id, int w, int h, maps& my_maps) :abstract_page(next_id, w, h), my_maps(my_maps)
+navigation_page::navigation_page(int w, int h, maps& my_maps) :abstract_page(page_id::NAVIGATION_PAGE, w, h), my_maps(my_maps)
 {
 	left_width = width * 0.8;
 	right_width = width - left_width;

@@ -5,7 +5,7 @@
 #include <vector>
 class home_page :public abstract_page {
 public:
-	home_page(int next_id, int w, int h);
+	home_page(int w, int h);
 	virtual void get_keyboard_message()override;
 	virtual void draw()override;
 	virtual ~home_page()override;

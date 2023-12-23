@@ -7,7 +7,7 @@
 class map_select_page :public abstract_page {
 public:
 	//构造函数，要通过基类初始化页面的宽高和下一个页面id
-	map_select_page(int next_id,int w,int h, maps& my_maps);
+	map_select_page(int w,int h, maps& my_maps);
 	//virtual void update_maps()override;
 	virtual void get_keyboard_message()override;
 	virtual void draw()override;

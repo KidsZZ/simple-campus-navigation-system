@@ -1,7 +1,7 @@
 #include "home_page.h"
 #include <graphics.h>
 #include "enum_lib.h"
-home_page::home_page(int next_id, int w, int h) :abstract_page(next_id, w, h), mouse_x(0), mouse_y(0) {
+home_page::home_page(int w, int h) :abstract_page(page_id::HOME_PAGE, w, h), mouse_x(0), mouse_y(0) {
 	//…Ë÷√±≥æ∞
 
 
