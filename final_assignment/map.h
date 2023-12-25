@@ -43,23 +43,23 @@ public:
 	int select_road_type(int i,int j);
 
 	//连接两地（最短路）(用于之后扩展)
-	//bool connect_houses(int house_type1, int house_type2);
+	bool connect_houses(int house_type1, int house_type2);
 
 	//清除导航路线(用于之后扩展)
-	//void clear_connnect_houses();
+	void clear_connnect_houses();
 
 	//显示鼠标所停放地标图标所代表的房屋类型
 	void show_house_type(std::string& name, int x, int y);
 
 	//绘制虚线辅助线，帮助用户放置建筑
     //(x,y)为绘制地图的的左上角，后两位参数为地图的宽度和长度
-	void draw_subline(int x, int y, int width, int height);
+	void draw_subline();
 
 	//绘制虚线辅助线函数的辅助函数
-	void drawDashedLine(int x1, int y1, int x2, int y2);
+	void draw_dashed_line(int x,int y);
 private:
 	//计算给定的x，y所对应的格子(传入一个数组保存算出来的值)
-	void tranlate_xy(int *ans, int x, int y);
+	bool translate_xy(int *ans, int x, int y);
 
 	//记录(x,y)所对应的格子（二维数组中的准确位置）
 	int real_coord[2];
@@ -104,4 +104,10 @@ private:
 	
 	//以length来储存每格的边长
 	int length;
+
+	//鼠标当前所在的逻辑坐标（全为-1代表不在地图上）
+	// 用于辅助绘制鼠标选择辅助线
+	//初始化为-1，当不调用draw_dashed_line更新值时永远不会绘制辅助线
+	int mouse_now_abstract_x;
+	int mouse_now_abstract_y;
 };

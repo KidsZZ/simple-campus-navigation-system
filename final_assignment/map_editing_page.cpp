@@ -75,7 +75,9 @@ void map_editing_page::get_keyboard_message() {
 
 			//检测是否在返回按钮上
 			return_button->checkMouseOver(msg.x, msg.y);
-			//***检测是否在地图上（还没实现）***
+
+			//检测是否在地图上
+			my_maps.draw_dashed_line(msg.x, msg.y);
 			break;
 
 		case (WM_ACTIVATE):

@@ -53,7 +53,7 @@ public:
 
 	//绘制辅助线，帮助用户放置建筑
 	//(x,y)为绘制地图的的左上角，后两位参数为地图的宽度和长度
-	void draw_subline(int x, int y, int width, int height);
+	void draw_dashed_line(int x, int y);
 
 	//析构函数
 	~maps();

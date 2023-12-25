@@ -106,13 +106,13 @@ void maps::delete_build(int x, int y)
 //给出用户选择的两个建筑的导航
 bool maps::connect_houses(int house_type1, int house_type2)
 {
-	return my_maps[selected_map_id]->connect_house(house_type1, house_type2);
+	return my_maps[selected_map_id]->connect_houses(house_type1, house_type2);
 }
 
 //清除导航路线
 void maps::clear_connnect_houses() 
 {
-	my_maps[selected_map_id]->clear_connect_house();
+	my_maps[selected_map_id]->clear_connect_houses();
 }
 
 //返回给定的地图id是否被编辑过
@@ -123,10 +123,10 @@ bool maps::is_edited(int page_id)
 
 
 //绘制辅助线，帮助用户放置建筑
-//(x,y)为绘制地图的的左上角，后两位参数为地图的宽度和长度
-void maps::draw_subline(int x, int y, int width, int height)
+//给出当前鼠标的坐标，在选择的地图上绘制出放置建筑的辅助线
+void maps::draw_dashed_line(int x, int y)
 {
-	my_maps[selected_map_id]->draw_subline(x, y, width, height);
+	my_maps[selected_map_id]->draw_dashed_line(x, y);
 }
 
 //析构函数

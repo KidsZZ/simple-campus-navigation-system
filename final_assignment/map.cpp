@@ -9,7 +9,9 @@ map::map(std::string path, houses& my_house, roads& my_roads,
 	int column, int row)
 	:my_houses(my_house), my_roads(my_roads), path(path),
 	//因为还没有绘制地图，所以将width,height,x,y都设置为-1
-	height(-1), width(-1), x(-1), y(-1)
+	height(-1), width(-1), x(-1), y(-1),
+	//将记录鼠标当前抽象位置的变量记录为-1，不绘制辅助线
+	mouse_now_abstract_x(-1),mouse_now_abstract_y(-1)
 {	
 	//先初始化mapDate数组
 	this->column = column;
@@ -396,12 +398,16 @@ int map::select_road_type(int i,int j)
 	}
 }
 
+
+//draw函数绘制顺序
+//0.储存当前绘制地图的数据
+//1.绘制地图背景
+//2.绘制当前鼠标选择辅助线
+//3.绘制地图辅助线
+//4.绘制建筑
+//5.绘制道路
 void map::draw(int width, int height, int x, int y)
 {
-	//在地图后面绘制背景，放置看不清
-	setfillcolor(0xb4e014);
-	rectangle(x, y, x + width, y + height);
-
 	//计算每格的边长
 	length = (width / column);
 
@@ -412,6 +418,22 @@ void map::draw(int width, int height, int x, int y)
 	//保存最近一次绘制地图的坐标，供translate_xy使用
 	this->x = x;
 	this->y = y;
+
+	//在地图后面绘制背景，防止看不清
+	setfillcolor(0xb4e014);
+	rectangle(x, y, x + width, y + height);
+
+	//绘制鼠标选择辅助线
+	//当鼠标在地图上
+	if (mouse_now_abstract_x != -1 && mouse_now_abstract_y != -1) {
+		//绘制column上的标记
+		rectangle(x + mouse_now_abstract_x * length, y, x + (mouse_now_abstract_x + 1) * length, y + height);
+		//绘制row上的标记
+		rectangle(x, y + mouse_now_abstract_y * length, x + width, y + (mouse_now_abstract_y + 1));
+	}
+
+	//绘制格子间的线
+	draw_subline();
 	
 	//通过检索数组中的数据项，分别调用roads和houses绘制地图
 	for (int i =0; i <row; i++)
@@ -439,7 +461,7 @@ void map::add_building(int x, int y, int house_type)
 {
 
 	//首先计算此时鼠标的位置信息；
-	tranlate_xy(real_coord, x, y);
+	translate_xy(real_coord, x, y);
 	
 	//当当前种类建筑没有被放置时，允许放置建筑
 	if (!is_building_present[house_type]) {
@@ -454,10 +476,10 @@ void map::add_building(int x, int y, int house_type)
 }
 
 // 给定坐标(删除房子和道路用一个函数，如果本来就没有东西就不变）
-void map::delete_build(int x, int y,int house_type)
+void map::delete_build(int x, int y)
 {
 	//首先计算此时鼠标的位置信息；
-	tranlate_xy(real_coord, x, y);
+	translate_xy(real_coord, x, y);
 	
 	//如果不为占位符，则删除该位置建筑
 	if (mapData[real_coord[0]][real_coord[1]] != '-') {
@@ -489,18 +511,34 @@ bool map::is_edited()
 }
 
 //计算给定的x，y所对应的格子(传入一个数组保存算出来的值)
-void map::tranlate_xy(int* ans, int x, int y)
+bool map::translate_xy(int* ans, int x, int y)
 {
-	length = width / column;
-	ans[0] = (x - this->x) / length;
-	ans[1] = (y - this->y) / length;
+	//当没有绘制地图的时候
+	if (this->x == -1 && this->y == -1 && width == -1 && height == -1) {
+		return false;
+	}
+	//当给出的点在地图上的时候
+	if (x > this->x && x<(this->x + width) && y>this->y && (y < this->y + height)) {
+		
+		//计算逻辑值
+		ans[0] = (x - this->x) / length;
+		ans[1] = (y - this->y) / length;
+
+		//在地图上，true
+		return true;
+
+	}else {
+
+		//如果不在地图上，则false
+		return false;
+	}
 }
 
 
 //显示鼠标所停放地标图标所代表的房屋类型
 void map::show_house_type(std::string& name,int x, int y)
 {
-	tranlate_xy(real_coord, x, y);
+	translate_xy(real_coord, x, y);
 	int indexX = real_coord[0];
 	int indexY = real_coord[1];
 	int house_type = mapData[indexX][indexY]-'0';
@@ -525,30 +563,35 @@ void map::show_house_type(std::string& name,int x, int y)
 }
 
 //绘制虚线辅助线函数的辅助函数
-void map::drawDashedLine(int x1, int y1, int x2, int y2)
+//此函数与鼠标是否在按钮上的函数相似，接收鼠标位置判断是否需要绘制及绘制在哪里
+void map::draw_dashed_line(int x,int y)
 {
-	//设置线条样式为虚线
-	setlinestyle(PS_DOT, 1);
-	//绘制虚线
-	line(x1, y1, x2, y2);
+	if (!translate_xy(real_coord, x, y)) {
+		//如果不在地图上
+		mouse_now_abstract_x = -1;
+		mouse_now_abstract_y = -1;
+	}
+	else {
+		//将当前鼠标的位置记录下来，用于draw函数中绘制
+		mouse_now_abstract_x = real_coord[0];
+		mouse_now_abstract_y = real_coord[1];
+	}
 
 }
 
 //绘制辅助线，帮助用户放置建筑
 //(x,y)为绘制地图的的左上角，后两位参数为地图的宽度和长度
-void map::draw_subline(int x, int y, int width, int height)
+void map::draw_subline()
 {
-	//计算每格的边长 
-	length = (width / column);
-	//利用for循环绘制横线
+	//利用for循环绘制竖线
 	for (int i = 0; i <= column;i++)
 	{
-		drawDashedLine(x + i * length, y, x + i * length, y + width);
+		line(x + i * length, y, x + i * length, y + height);
 	}
-	//利用for循环绘制竖线
+	//利用for循环绘制横线
 	for (int j = 0; j <= row; j++)
 	{
-		drawDashedLine(x, y + j * length, x + height, y + j * length);
+		line(x, y + length * j, x + width, y + length * j);
 	}
 }
 
@@ -557,8 +600,10 @@ void map::draw_subline(int x, int y, int width, int height)
 
 
 //连接两地（最短路）(用于之后扩展)
-//bool map::connect_houses(int house_type1, int house_type2){}
+bool map::connect_houses(int house_type1, int house_type2){
+
+}
 
 //清除导航路线(用于之后扩展)
-//void clear_connnect_houses(){}
+void clear_connnect_houses(){}
 
