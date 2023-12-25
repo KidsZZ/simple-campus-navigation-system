@@ -33,7 +33,7 @@ navigation_page::navigation_page(int w, int h, maps& my_maps) :abstract_page(pag
 	//右边功能菜单设置
 	// 一个建筑选项的长宽(指右边选项中的建筑）（外层尺寸）
 	single_object_width = right_width;
-	single_object_height = right_height / 5;
+	single_object_height = right_height / 4;
 
 	//初始化picture_button
 	//设置按钮文本
@@ -140,7 +140,7 @@ void navigation_page::get_keyboard_message() {
 
 			break;
 		//如果是鼠标点击
-		case (WM_ACTIVATE):
+		case (WM_LBUTTONDOWN):
 
 			//如果在返回按钮上
 			return_button->checkMouseClick(msg.x, msg.y);

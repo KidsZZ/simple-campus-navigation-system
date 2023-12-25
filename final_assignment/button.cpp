@@ -66,7 +66,7 @@ bool button::checkMouseOver(int mouse_x,int mouse_y) {
 
 bool button::checkMouseClick(int mouse_x, int mouse_y)
 {
-	if ((mouse_x >= x) && (mouse_x <= (x + width)) && (mouse_y >= y) && (mouse_y <= (y + height))) {
+	if ((mouse_x != 0 || mouse_y != 0) && (mouse_x >= x) && (mouse_x <= (x + width)) && (mouse_y >= y) && (mouse_y <= (y + height))) {
 		on_Click();
 		return true;
 	}

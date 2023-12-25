@@ -43,6 +43,7 @@ map_editing_page::map_editing_page(int w, int h, maps& my_maps) :abstract_page(p
 			c_str(), single_object_width, single_object_height, left_width,single_object_height*i,[this,i](){
 				//为每个图片按钮设置lambda表达式
 				set_now_select_building_id(i);
+				printf("NO.%d button click\n", i);
 			}
 			)
 		);
@@ -52,7 +53,7 @@ map_editing_page::map_editing_page(int w, int h, maps& my_maps) :abstract_page(p
 	now_select_building = -1;
 
 	//返回按键
-	return_button = new button(250, 50, 0, 0, L"返回", [this,&my_maps]() {
+	return_button = new button(200, 50, 0, 0, L"返回", [this,&my_maps]() {
 		//切换页面，保存信息
 		set_next_id(page_id::MAP_SELECT_PAGE); 
 		my_maps.write_file();
@@ -80,7 +81,7 @@ void map_editing_page::get_keyboard_message() {
 			my_maps.draw_dashed_line(msg.x, msg.y);
 			break;
 
-		case (WM_ACTIVATE):
+		case (WM_LBUTTONDOWN):
 			//先检测是否在图片按钮上面
 			for (auto tempptr : my_picture_button) {
 				tempptr->checkMouseClick(msg.x, msg.y);
@@ -116,7 +117,7 @@ void map_editing_page::draw()
 	//如果当前有选择建筑，则在选择的建筑地图绘制方框
 	if (now_select_building != -1) {
 		setfillcolor(LIGHTGRAY);
-		rectangle(left_width, single_object_height * now_select_building, width, single_object_height * (now_select_building + 1));
+		solidrectangle(left_width, single_object_height * now_select_building, width, single_object_height * (now_select_building + 1));
 	}
 
 	for (auto tempptr : my_picture_button) {

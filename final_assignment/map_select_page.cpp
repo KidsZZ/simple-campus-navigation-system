@@ -60,7 +60,7 @@ map_select_page::map_select_page(int w, int h, maps& my_maps) :abstract_page(pag
 			}));
 
 		//返回按钮
-		return_button = new button(250, 50, 0, 5, L"返回", [this, &my_maps]() {
+		return_button = new button(250, 50, 0, 0, L"返回", [this, &my_maps]() {
 			//切换页面，保存信息
 			printf("click return_button\n");
 			set_next_id(page_id::HOME_PAGE);
@@ -123,7 +123,7 @@ void map_select_page::get_keyboard_message()
 				}
 			}
 			break;
-		case (WM_ACTIVATE):
+		case (WM_LBUTTONDOWN):
 
 			//先检测是否在返回按键上
 			return_button->checkMouseClick(msg.x, msg.y);
