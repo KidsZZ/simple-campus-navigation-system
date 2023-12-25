@@ -20,6 +20,7 @@ public:
 	virtual void get_keyboard_message()override;
 	virtual void draw()override;
 	virtual ~home_page()override;
+	virtual int return_page_id()override;
 
 private:
 
@@ -45,4 +46,5 @@ private:
 	int button_width, button_height;
 	int first_button_x, first_button_y;
 	int second_button_x, second_button_y;
+
 };

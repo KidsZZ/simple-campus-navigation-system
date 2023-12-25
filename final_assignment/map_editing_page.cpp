@@ -137,3 +137,14 @@ map_editing_page::~map_editing_page() {
 	//É¾³ý·µ»Ø°´Å¥
 	delete return_button;
 }
+
+int map_editing_page::return_page_id()
+{
+	if (return_flag) {
+		return_flag = false;
+		return next_id;
+	}
+	else {
+		return page_id::MAP_EDITING_PAGE;
+	}
+}

@@ -17,7 +17,7 @@
 //完成对类中各种变量的初始化
 //将将地图数据保存在项目的map_lib文件夹下
 //将初始的界面设置为home_page
-Widget::Widget(int w, int h) :width(w),height(h),now_page_id(page_id::HOME_PAGE),path("maps_lib\\"),my_maps(path) {
+Widget::Widget(int w, int h) :width(w),height(h),now_page_id(page_id::MAP_SELECT_PAGE),path("maps_lib\\"),my_maps(path) {
 
 	//由widget类展开创建程序窗口
 	//各个页面实现对widget类创建的窗口的具体绘制
@@ -56,6 +56,7 @@ void Widget::run() {
 		my_page[now_page_id]->get_keyboard_message();
 		//将结果输出到画布上
 		//页面对象将更新过的参数绘制到画布上
+		printf("%d", now_page_id);
 		my_page[now_page_id]->draw();
 
 		//接收页面返回的下一个页面的索引
@@ -65,6 +66,7 @@ void Widget::run() {
 
 		//如果页面返回的是exit，则退出循环，退出程序
 		if (now_page_id == page_id::EXIT) {
+			printf("\nexit button click!\n");
 			running = false;
 		}
 
@@ -89,19 +91,15 @@ void Widget::run() {
 	return;
 }
 
-//程序关闭函数，完成动态内存分配的空间的内存释放
-void Widget::close() {
-
+Widget::~Widget() {
 	//关闭画布
 	closegraph();
 
 	//释放每一个页面对象
-	while (!my_page.empty()) {
-
-		//删除尾部指针指向空间分配的内存
-		delete my_page.back();
-
-		//释放尾部
-		my_page.pop_back();
+	int ans = 0;
+	for (auto tempptr : my_page) {
+		printf("%d\n", ans++);
+		delete tempptr;
+		if (ans == 4)printf("delete complete");
 	}
 }

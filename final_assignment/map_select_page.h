@@ -25,7 +25,9 @@ public:
 
 	//析构函数
 	//释放返回按键，功能按钮
-	virtual ~map_select_page();
+	virtual ~map_select_page()override;
+	
+	virtual int return_page_id();
 
 private:
 
@@ -79,4 +81,5 @@ private:
 
 	//四张地图当前间隔空间
 	int map_real[2][2][2];
+
 };

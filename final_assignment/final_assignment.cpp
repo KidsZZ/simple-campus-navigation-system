@@ -36,8 +36,6 @@ int main()
     //运行应用程序
     myWindow.run();
 
-    //关闭
-    myWindow.close();
 }
 
 

@@ -57,6 +57,7 @@ public:
 
 	//绘制虚线辅助线函数的辅助函数
 	void draw_dashed_line(int x,int y);
+
 private:
 	//计算给定的x，y所对应的格子(传入一个数组保存算出来的值)
 	bool translate_xy(int *ans, int x, int y);

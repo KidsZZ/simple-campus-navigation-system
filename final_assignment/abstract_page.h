@@ -8,7 +8,7 @@ public:
 
 	//设置下一个页面id，在初始化时设为自身，在程序运行时进行更改
 	//设置页面的长宽比
-	abstract_page(int next_id, int w, int h) :next_id(next_id), width(w), height(h) {
+	abstract_page(int next_id, int w, int h) :next_id(next_id), width(w), height(h) ,return_flag(false){
 	};
 
 	//更新地图数据函数（废弃，整个程序使用同一个maps保存地图数据）
@@ -24,14 +24,12 @@ public:
 	virtual void draw() = 0;
 
 	//返回下一个页面序号(当返回EXIT时结束程序)
-	int return_page_id() {
-		return next_id;
-		//!!!!!!!!!!printf("\n%d", next_id);
-	}
+	virtual int return_page_id() = 0;
 
 	//设置下一个页面的id
 	//给按钮等部件设置下一个页面提供统一的接口
 	void set_next_id(int id) {
+		return_flag = true;
 		next_id = id;
 	}
 
@@ -50,4 +48,7 @@ protected:
 
 	//使用4个地图存档
 	static const int show_maps_num = 4;
+
+	//确保再次回到页面不会闪屏
+	bool return_flag;
 };

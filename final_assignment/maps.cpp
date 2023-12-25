@@ -53,6 +53,8 @@ void maps::read_file(int id)
 //将当前选择的地图载入存档文件
 void maps::write_file()
 {
+	//记录当前选择的地图id
+	write_select_map_id();
 	//调用map对象中函数
 	my_maps[selected_map_id]->write_file();
 }

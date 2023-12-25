@@ -48,9 +48,13 @@ home_page::home_page(int w, int h) :abstract_page(page_id::HOME_PAGE, w, h) {
 	//放置按钮
 	// 使用lambda表达式给按钮设置按下后的回调函数
 	//第一个按钮：开始游戏
-	my_button.push_back(new button(button_width, button_height, first_button_x, first_button_y, first_button_text, [this]() {set_next_id(page_id::MAP_SELECT_PAGE); }));
+	my_button.push_back(new button(button_width, button_height, first_button_x, first_button_y, first_button_text, [this]() {
+		set_next_id(page_id::MAP_SELECT_PAGE);
+		}));
 	//第二个按钮：退出游戏
-	my_button.push_back(new button(button_width, button_height, second_button_x, second_button_y, second_button_text, [this]() {set_next_id(page_id::EXIT); }));
+	my_button.push_back(new button(button_width, button_height, second_button_x, second_button_y, second_button_text, [this]() {
+		set_next_id(page_id::EXIT); 
+		}));
 
 }
 
@@ -105,5 +109,16 @@ home_page::~home_page() {
 	while (!my_button.empty()) {
 		delete my_button.back();
 		my_button.pop_back();
+	}
+}
+
+int home_page::return_page_id()
+{
+	if (return_flag) {
+		return_flag = false;
+		return next_id;
+	}
+	else {
+		return page_id::HOME_PAGE;
 	}
 }

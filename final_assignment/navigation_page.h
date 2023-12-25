@@ -20,6 +20,7 @@ public:
 	virtual void get_keyboard_message()override;
 	virtual void draw()override;
 	virtual ~navigation_page();
+	virtual int return_page_id()override;
 
 private:
 

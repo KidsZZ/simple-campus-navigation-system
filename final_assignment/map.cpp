@@ -136,12 +136,13 @@ void map::read_file()
 
 void map::write_file()
 {
+	
 	//初始化构造函数	  读取file文件所在的位置
 	std::ofstream file(path,std::ios::trunc);
 	//第一行放空行
 	file << std::endl;
 	//第二排放置行数和列数
-	file << row << ' ' << column << ' ' << building_num<<std::endl;
+	file << row << ' ' << column <<std::endl;
 	//接下来放置地图数据
 	if (file.is_open())
 	{
@@ -432,8 +433,8 @@ void map::draw(int width, int height, int x, int y)
 	this->y = y;
 
 	//在地图后面绘制背景，防止看不清
-	setfillcolor(0xb4e014);
-	rectangle(x, y, x + width, y + height);
+	setfillcolor(0xcbe2ea);
+	solidrectangle(x, y, x + width, y + height);
 
 	//绘制鼠标选择辅助线
 	//当鼠标在地图上
@@ -607,6 +608,8 @@ void map::draw_dashed_line(int x,int y)
 //(x,y)为绘制地图的的左上角，后两位参数为地图的宽度和长度
 void map::draw_subline()
 {
+	setlinecolor(RGB(225, 225, 225));
+	setfillcolor(RGB(225, 225, 225));
 	//利用for循环绘制竖线
 	for (int i = 0; i <= column;i++)
 	{

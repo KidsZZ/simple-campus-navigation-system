@@ -1,6 +1,6 @@
 #include "map_select_page.h"
 #include "enum_lib.h"
-map_select_page::map_select_page(int w, int h, maps& my_maps) :abstract_page(page_id::MAP_SELECT_PAGE, w, h), my_maps(my_maps) {
+map_select_page::map_select_page(int w, int h, maps& my_maps) :abstract_page(page_id::MAP_SELECT_PAGE, w, h), my_maps(my_maps){
 
 	//设置背景
 	bk_img = new IMAGE();
@@ -10,7 +10,7 @@ map_select_page::map_select_page(int w, int h, maps& my_maps) :abstract_page(pag
 	//左边模块占比80%，右边占比20%
 	left_width = width * 0.8;
 	right_width = width - left_width;
-	left_height = right_width = height;
+	left_height = right_height = height;
 
 	//地图宽高,等分为4份
 	map_width = left_width / 2;
@@ -21,14 +21,14 @@ map_select_page::map_select_page(int w, int h, maps& my_maps) :abstract_page(pag
 	selected_scale = 0.8;
 
 	//按钮尺寸
-	button_width = 400;
-	button_height = 50;
+	button_width = 200;
+	button_height = 70;
 	//按钮文本
 	first_button_text = L"开始导航";
 	second_button_text = L"编辑地图";
 	//按钮坐标
 	//第一个按钮放在三分之一的位置
-	first_button_x = left_width + (right_width - button_width) / 2;
+	first_button_x = left_width;
 	first_button_y = right_height / 3;
 	//第二个按钮放在三分之二的位置
 	second_button_x = first_button_x;
@@ -49,21 +49,22 @@ map_select_page::map_select_page(int w, int h, maps& my_maps) :abstract_page(pag
 			set_next_id(page_id::NAVIGATION_PAGE);
 			my_maps.set_selected_map_id(map_selected_id);
 			//主要用于保存当前选择地图的编号
-			my_maps.write_file();
+			//!!!!!!!!!my_maps.write_file();
 			}));
 		//第二个按钮：编辑地图
 		my_button.push_back(new button(button_width, button_height, second_button_x, second_button_y, second_button_text, [this, &my_maps]() {
 			set_next_id(page_id::MAP_EDITING_PAGE);
 			my_maps.set_selected_map_id(map_selected_id);
 			//主要用于保存当前选择地图的编号
-			my_maps.write_file();
+			//!!!!!!!my_maps.write_file();
 			}));
 
 		//返回按钮
-		return_button = new button(250, 50, 0, 0, L"返回", [this, &my_maps]() {
+		return_button = new button(250, 50, 0, 5, L"返回", [this, &my_maps]() {
 			//切换页面，保存信息
+			printf("click return_button\n");
 			set_next_id(page_id::HOME_PAGE);
-			my_maps.write_file();
+			//!!!!!!!my_maps.write_file();
 			});
 
 		//设置鼠标不在上面时地图尺寸
@@ -156,20 +157,19 @@ void map_select_page::draw()
 	//绘制背景
 	putimage(0, 0, width, height, bk_img, 0, 0);
 
-	//绘制返回按钮
-	return_button->draw();
+	//绘制地图背景（选中的地图背景为浅蓝）
+	int map_i = map_selected_id / 2;
+	int map_j = map_selected_id % 2;
+	//设置背景颜色为浅蓝
+	setfillcolor(0xe6d8ad);//格式为bgr
+	solidrectangle(map_width * map_j + map_width * 0.05, map_height * map_i + map_height * 0.05, map_width * (map_j + 1) - map_width * 0.05 , map_height * (map_i + 1) - map_height * 0.05);
+
 
 	//绘制功能按钮
 	for (auto temp_ptr : my_button) {
 		temp_ptr->draw();
 	}
 
-	//绘制地图背景（选中的地图背景为浅蓝）
-	int map_i = map_selected_id / 2;
-	int map_j = map_selected_id % 2;
-	//设置背景颜色为浅蓝
-	setfillcolor(0xe6d8ad);//格式为bgr
-	rectangle(map_width * map_j, map_height * map_i, map_width * (map_j + 1), map_height * (map_i + 1));
 
 	//绘制地图
 	for (int i = 0; i <= 1; i++) {
@@ -178,6 +178,8 @@ void map_select_page::draw()
 			my_maps.draw(map_width - map_real[i][j][0] * 2, map_height - map_real[i][j][1] * 2, map_width * j + map_real[i][j][0], map_height * i + map_real[i][j][1], i * 2 + j);
 		}
 	}
+	//绘制返回按钮
+	return_button->draw();
 }
 
 //析构函数
@@ -194,6 +196,16 @@ map_select_page::~map_select_page() {
 		delete my_button.back();
 		my_button.pop_back();
 
+	}
+}
+
+int map_select_page::return_page_id() {
+	if (return_flag) {
+		return_flag = false;
+		return next_id;
+	}
+	else {
+		return page_id::MAP_SELECT_PAGE;
 	}
 }
 

@@ -186,3 +186,14 @@ navigation_page::~navigation_page() {
 	}
 
 }
+
+int navigation_page::return_page_id()
+{
+	if (return_flag) {
+		return_flag = false;
+		return next_id;
+	}
+	else {
+		return page_id::NAVIGATION_PAGE;
+	}
+}
