@@ -7,7 +7,7 @@ navigation_page::navigation_page(int w, int h, maps& my_maps) :abstract_page(pag
 	//背景设置
 	bk_img = new IMAGE();
 	//背景图片放在项目文件的background_img下，命名background.png
-	loadimage(bk_img, L"background_img\\background.png");
+	loadimage(bk_img, L"background_img\\background0.jpg");
 
 	//设置页面模块尺寸
 	left_width = width * 0.8;

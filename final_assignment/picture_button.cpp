@@ -1,6 +1,8 @@
 #include "picture_button.h"
 
 //不绘制png的透明部分
+#pragma comment(lib,"MSIMG32.LIB")
+
 inline void putimage_alpha(int x, int y, int w, int h, IMAGE* img)
 {
 

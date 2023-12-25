@@ -29,10 +29,17 @@ map::map(std::string path, houses& my_house, roads& my_roads,
 
 	//使用path找到并读入磁盘中的存档文件
 	read_file();
+
+	//初始设为不要导航
+	is_navigation = false;
+
+	//将初始导航路径全设为false
+	std::vector<std::vector<bool>> mapNavigation_temp(row, std::vector<bool>(column, false));
+	mapNavigation = mapNavigation_temp;
 }
 
 
-
+//在文件开头放一行空行（一个换行符），用来判断文件是否是空文件
 void map::read_file()
 {
 	//传入地图路径
@@ -41,13 +48,14 @@ void map::read_file()
 	if (file.is_open())
 	{
 		// 定位到文件末尾
-		file.seekg(0, std::ios::end);
+		char temp_c;
+		file >> temp_c;
 		// 判断文件大小是否为0,及文件是否为空文件
-		if (file.tellg() == 0)//是空文件
+		if (file.eof())//是空文件
 		{
 			//对mapData进行初始化操作
 			//即全部用占位符来替代
-			std::vector<std::vector<char>> mapData_temp((row), std::vector<char>(column, '-'));
+			std::vector<std::vector<char>> mapData_temp(row, std::vector<char>(column, '-'));
 			mapData = mapData_temp;
 		}
 
@@ -130,8 +138,11 @@ void map::write_file()
 {
 	//初始化构造函数	  读取file文件所在的位置
 	std::ofstream file(path,std::ios::trunc);
-	//第一排放置第一的行数和列数
+	//第一行放空行
+	file << std::endl;
+	//第二排放置行数和列数
 	file << row << ' ' << column << ' ' << building_num<<std::endl;
+	//接下来放置地图数据
 	if (file.is_open())
 	{
 		for (const auto& row : mapData)
@@ -406,6 +417,7 @@ int map::select_road_type(int i,int j)
 //3.绘制地图辅助线
 //4.绘制建筑
 //5.绘制道路
+//6.绘制导航（如果需要）
 void map::draw(int width, int height, int x, int y)
 {
 	//计算每格的边长
@@ -452,6 +464,18 @@ void map::draw(int width, int height, int x, int y)
 		}
 	}
 
+	//当is_navigation == true 时根据mapNavigation绘制导航
+	if (is_navigation) {
+		for (int i = 0; i < row; i++) {
+			for (int j = 0; j < column; j++) {
+				if (mapNavigation[i][j]) {
+					setfillcolor(GREEN);
+					//在路径中心绘制圆圈
+					solidcircle(x + i * length + length * 0.5, y + j * length + 0.5 * length, length * 0.2);
+				}
+			}
+		}
+	}
 
 }
 
@@ -599,11 +623,95 @@ void map::draw_subline()
 
 
 
-//连接两地（最短路）(用于之后扩展)
+//连接两地（最短路）
+//使用宽度优先搜索
 bool map::connect_houses(int house_type1, int house_type2){
+
+	//重置mapNavigation
+	std::vector<std::vector<bool>> mapNavigation_temp(row, std::vector<bool>(column, false));
+	mapNavigation = mapNavigation_temp;
+
+	//如果这两个建筑还没有放置，则返回false,表示导航失败
+	if (!is_building_present[house_type1] || !is_building_present[house_type2]) {
+		is_navigation = false;
+		return false;
+	}
+
+	//标记当前点是否已经被搜索过了
+	//如果已经被搜索过了，设为true
+	bool flag[30][30] = { 0 };
+
+	
+
+	//这两个数组保存搜索的方向
+	static int move_x[4] = { -1,0,1,0 };
+	static int move_y[4] = { 0,-1,0,1 };
+
+	//保存接下来要寻找的一系列点的坐标
+	//不使用deque模拟队列的原因是之后还要回溯
+	std::vector<int> qx;
+	std::vector<int> qy;
+
+	//队头队尾都先使用后加1
+	//对头用于去除元素，队尾用于判断队列是否为空
+	int head = 0;
+	int tail = 0;
+
+	//设置回溯队列
+	std::vector<int> memory;
+
+	//将起点的坐标入队
+	qx.push_back(building_position[house_type1][0]);
+	qy.push_back(building_position[house_type1][1]);
+	++tail;
+	//将起点的回溯下标设为-1，表示根节点
+	memory.push_back(-1);
+
+	//设置起点的坐标已被搜索
+	flag[qx.front()][qy.front()] = true;
+
+	//只要队列不空，就一直查找
+	while (head != tail) {
+
+		//取出对头坐标
+		int tempx = qx[head];
+		int tempy = qy[head];
+		++head;
+
+		for (int i = 0; i < 4; i++) {
+			//算出下一个点
+			int nextx = tempx + move_x[i];
+			int nexty = tempy + move_y[i];
+
+			//如果当前点在地图上
+			if (nextx >= 0 && nextx < column && nexty >= 0 && nexty < row &&
+				//当前点还没有被搜索过
+				!flag[nextx][nexty]) {
+
+				//表示当前点已经被搜索过了
+				flag[nextx][nexty] = true;
+
+				//如果找到了目的地
+				if (mapData[nextx][nexty] == house_type2 + '0') {
+					is_navigation = true;
+					int ansIndex = head - 1;
+					while (memory[ansIndex] != -1) {
+						mapNavigation[qx[ansIndex]][qy[ansIndex]] = true;
+						ansIndex = memory[ansIndex];
+					}
+					return true;
+				}
+			}
+		}
+	}
+	//没有找到
+	is_navigation = false;
+	return false;
 
 }
 
 //清除导航路线(用于之后扩展)
-void clear_connnect_houses(){}
+void map::clear_connect_houses(){
+	is_navigation = false;
+}
 

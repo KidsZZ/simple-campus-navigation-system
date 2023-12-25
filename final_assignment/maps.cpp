@@ -9,8 +9,8 @@
 //将地图存档数据全都放在一个文件夹中，并将该文件夹的路径传入path
 //构造函数，给出数据文件位置，调用read_file载入地图数据
 //初始化列表
-maps::maps(std::string path)
-	: my_houses(L"picture_hub\\", 4), my_roads(L"picture_hub\\", 11)
+maps::maps(std::string path) :path(path)
+, my_houses(L"picture_hub\\", 4), my_roads(L"picture_hub\\", 11)
 {
 	//从磁盘文件中读入之前选择的地图id
 	selected_map_id = read_select_map_id();
@@ -21,8 +21,7 @@ maps::maps(std::string path)
 		//利用new创建数据地址
 		//拼接出每张地图的路径，文件名
 		//再传递给map构造函数
-		this->path = path + "map"+std::to_string(i) + ".txt";
-		my_maps[i] = new map(this->path, my_houses, my_roads, column, row);
+		my_maps[i] = new map(path + "map" + std::to_string(i) + ".txt", my_houses, my_roads, column, row);
 	}
 
 }

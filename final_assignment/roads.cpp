@@ -1,6 +1,8 @@
 #include"roads.h"
 
+
 //不绘制png的透明部分
+#pragma comment(lib,"MSIMG32.LIB")
 inline void putimage_alpha(int x, int y, int w, int h, IMAGE* img)
 {
 
@@ -18,7 +20,7 @@ roads::	roads(std::wstring path, int n)
 	{
 		//拼接图片完整文件路径，具有普遍扩展性
 		//注意这里的图片顺序要和enum.lib中的一一对应，从1开始标号
-		std::wstring filename = path + std::to_wstring(i) + L".png";
+		std::wstring filename = path + L"road"+std::to_wstring(i) + L".png";
 		img = new IMAGE();
 		loadimage(img, filename.c_str());//加载图片
 		road_img.push_back(img);//将图片地址的指针数据存放到house_img中保存

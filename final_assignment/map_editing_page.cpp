@@ -7,7 +7,7 @@ map_editing_page::map_editing_page(int w, int h, maps& my_maps) :abstract_page(p
 	//背景设置
 	bk_img = new IMAGE();
 	//背景图片放在项目文件的background_img下，命名background.png
-	loadimage(bk_img, L"background_img\\background.png");
+	loadimage(bk_img, L"background_img\\background0.jpg");
 
 	//左右模块尺寸，左边占比80%
 	left_width = width * 0.8;

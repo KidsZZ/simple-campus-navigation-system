@@ -5,7 +5,7 @@ map_select_page::map_select_page(int w, int h, maps& my_maps) :abstract_page(pag
 	//设置背景
 	bk_img = new IMAGE();
 	//背景图片放在项目文件的background_img下，命名background.png
-	loadimage(bk_img, L"background_img\\background.png");
+	loadimage(bk_img, L"background_img\\background0.jpg");
 
 	//左边模块占比80%，右边占比20%
 	left_width = width * 0.8;

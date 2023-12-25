@@ -8,7 +8,7 @@ home_page::home_page(int w, int h) :abstract_page(page_id::HOME_PAGE, w, h) {
 	//设置背景
 	bk_img = new IMAGE();
 	//背景图片放在项目文件的background_img下，命名background.png
-	loadimage(bk_img, L"background_img\\background.png");
+	loadimage(bk_img, L"background_img\\background0.jpg");
 
 	//设置标题文本
 	title_text = L"简易校园导航系统";

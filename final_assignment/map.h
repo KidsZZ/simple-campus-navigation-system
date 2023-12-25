@@ -46,7 +46,7 @@ public:
 	bool connect_houses(int house_type1, int house_type2);
 
 	//清除导航路线(用于之后扩展)
-	void clear_connnect_houses();
+	void clear_connect_houses();
 
 	//显示鼠标所停放地标图标所代表的房屋类型
 	void show_house_type(std::string& name, int x, int y);
@@ -68,9 +68,6 @@ private:
 	//通过my_houses、my_roads对象来调用其中函数对象
 	houses my_houses;
 	roads my_roads;
-
-	//lines my_lines;
-	//暂时可能不使用,后期用于绘制辅助线
 	
 	//用来存储当前地图的数据
 	//使用char存储
@@ -110,4 +107,9 @@ private:
 	//初始化为-1，当不调用draw_dashed_line更新值时永远不会绘制辅助线
 	int mouse_now_abstract_x;
 	int mouse_now_abstract_y;
+
+	//标记是否绘制导航
+	bool is_navigation;
+	//标记地图上的路径
+	std::vector<std::vector<bool>>mapNavigation;
 };
