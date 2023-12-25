@@ -27,6 +27,11 @@ map::map(std::string path, houses& my_house, roads& my_roads,
 		is_building_present[i] = false;
 	}
 
+	//对mapData进行初始化操作
+	//即全部用占位符来替代
+	std::vector<std::vector<char>> mapData_temp(row, std::vector<char>(column, '-'));
+	mapData = mapData_temp;
+
 	//使用path找到并读入磁盘中的存档文件
 	read_file();
 
@@ -53,57 +58,30 @@ void map::read_file()
 		// 判断文件大小是否为0,及文件是否为空文件
 		if (file.eof())//是空文件
 		{
-			//对mapData进行初始化操作
-			//即全部用占位符来替代
-			std::vector<std::vector<char>> mapData_temp(row, std::vector<char>(column, '-'));
-			mapData = mapData_temp;
+			//不进行处理
 		}
 
 		else
 		{
 			//先读取第一行，检查row与column是否异常
-			std::string line;
-			std::vector<char>rows;
-			std::getline(file, line);
-
-			for (char c : line)
-			{
-				//如果不是空格则暂时存入rows当中
-				if (c != ' ')
-				{
-					rows.push_back(c);
-				}
-			}
+			int fileRow, fileColumn;
+			file >> fileRow >> fileColumn;
 
 			//下面是对于数据是否异常的判断
 			//即如果文件中记录的单元格行数和单元格列数，与传入参数不同则报错
-			if (int(rows[0]) != (row+'0') || int(rows[1]) != (column+'0'))
+			if (fileRow != row || fileColumn != column)
 			{
 				std::cout << "Error the row or column is erroneous" << std::endl;
 				return;
 			}
-
-			//清空string
-			line.clear();
-			//清空vector
-			rows.clear();
-
-			//逐行读取数据
-			while (std::getline(file, line))
-			{
-				for (char c : line)
-				{
-					//如果不是空格则存入二维数组当中
-					if (c != ' ')
-					{
-						rows.push_back(c);
+			char tempc;
+			for (int i = 0; i < row; i++) {
+				for (int j = 0; j < column; j++) {
+					file >> tempc;
+					if (tempc != '-') {
+						mapData[i][j] = tempc;
 					}
 				}
-
-				//实现了从文件第二行开始读入数据，计入mapData当中
-				//将row2数组压入mapData当中
-				mapData.push_back(rows);
-				rows.clear();
 			}
 
 		}
@@ -139,8 +117,8 @@ void map::write_file()
 	
 	//初始化构造函数	  读取file文件所在的位置
 	std::ofstream file(path,std::ios::trunc);
-	//第一行放空行
-	file << std::endl;
+	//第一行放一个0
+	file << '0' << std::endl;
 	//第二排放置行数和列数
 	file << row << ' ' << column <<std::endl;
 	//接下来放置地图数据
