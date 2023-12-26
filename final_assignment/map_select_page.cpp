@@ -212,3 +212,22 @@ int map_select_page::return_page_id() {
 	}
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

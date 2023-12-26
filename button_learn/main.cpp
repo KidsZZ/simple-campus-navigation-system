@@ -257,7 +257,7 @@ public:
     }
 };
 
-int main()
+int main1()
 {
     Widget widget(800, 600);
     widget.init();

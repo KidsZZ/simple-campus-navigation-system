@@ -130,7 +130,6 @@
     <ClCompile Include="final_assignment.cpp" />
     <ClCompile Include="home_page.cpp" />
     <ClCompile Include="houses.cpp" />
-    <ClCompile Include="lines.cpp" />
     <ClCompile Include="map.cpp" />
     <ClCompile Include="maps.cpp" />
     <ClCompile Include="map_editing_page.cpp" />
@@ -148,7 +147,6 @@
     <ClInclude Include="houses.h" />
     <ClInclude Include="abstract_page.h" />
     <ClInclude Include="home_page.h" />
-    <ClInclude Include="lines.h" />
     <ClInclude Include="map.h" />
     <ClInclude Include="map_editing_page.h" />
     <ClInclude Include="map_select_page.h" />

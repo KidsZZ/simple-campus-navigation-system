@@ -138,6 +138,29 @@ maps::~maps() {
 	//先向磁盘中写入用户选择的地图id
 	write_select_map_id();
 
+	//写入地图数据
+	write_file();
+
 	//释放map对象
-	delete[] my_maps;
+	for (int i = 0; i < NUM; i++)
+	{
+		delete my_maps[i];
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

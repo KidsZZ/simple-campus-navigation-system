@@ -34,3 +34,21 @@ private:
 	//预先开出足够的空间
 	bool house_orientation[30][4];
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

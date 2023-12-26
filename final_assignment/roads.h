@@ -22,3 +22,14 @@ private:
 	//创建vector数组存放IMAGE*类的数据，命名为road_img
 	std::vector<IMAGE*> road_img;
 };
+
+
+
+
+
+
+
+
+
+
+

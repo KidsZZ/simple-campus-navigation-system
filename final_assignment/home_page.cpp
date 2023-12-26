@@ -122,3 +122,21 @@ int home_page::return_page_id()
 		return page_id::HOME_PAGE;
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

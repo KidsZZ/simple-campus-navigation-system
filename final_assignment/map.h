@@ -114,3 +114,16 @@ private:
 	//标记地图上的路径
 	std::vector<std::vector<bool>>mapNavigation;
 };
+
+
+
+
+
+
+
+
+
+
+
+
+

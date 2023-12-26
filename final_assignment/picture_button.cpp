@@ -71,3 +71,20 @@ void picture_button::draw() {
 picture_button::~picture_button() {
 	delete opt_img;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
