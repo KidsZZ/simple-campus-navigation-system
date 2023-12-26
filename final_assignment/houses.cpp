@@ -10,14 +10,25 @@ houses::houses(std::wstring path, int n)
 {	
 	//house_orientation下标为0的地方是给道路占位的
 	//先全设为true，注意vector不能直接放值，要push进去
+
 	for (int i = 0; i <= n; i++)
 	{
 		for (int j = 0; j < 4; j++)
 		{
-			house_orientation[i][j] = true;
+			house_orientation[i][j] = false;
 		}
 		
 	}
+
+	//图书馆,向下开
+	house_orientation[house_type::library][3] = true;
+	//寝室，向右开
+	house_orientation[house_type::dorminory][2] = true;
+	//教室，向上开
+	house_orientation[house_type::teaching_building][0] = true;
+	//食堂，向两侧开
+	house_orientation[house_type::canteen][1] = true;
+	house_orientation[house_type::canteen][2] = true;
 
 	house_img.push_back(nullptr);
 
