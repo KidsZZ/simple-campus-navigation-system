@@ -417,10 +417,15 @@ void map::draw(int width, int height, int x, int y)
 	//绘制鼠标选择辅助线
 	//当鼠标在地图上
 	if (mouse_now_abstract_x != -1 && mouse_now_abstract_y != -1) {
+		//printf("dashed_line draw\nmouse_x:%d mouse_y:%d\n", mouse_now_abstract_x, mouse_now_abstract_y);
 		//绘制column上的标记
-		rectangle(x + mouse_now_abstract_x * length, y, x + (mouse_now_abstract_x + 1) * length, y + height);
+		//printf("x:%d y:%d width:%d height:%d\n", x, y, width, height);
+		//printf("draw solidrectangle\n left:%d top:%d right:%d bottom:%d\n", x + mouse_now_abstract_x * length, y, x + (mouse_now_abstract_x + 1) * length, y + height);
+		setfillcolor(BLUE);
+		solidrectangle(x + mouse_now_abstract_x * length, y, x + (mouse_now_abstract_x + 1) * length, y + height);
 		//绘制row上的标记
-		rectangle(x, y + mouse_now_abstract_y * length, x + width, y + (mouse_now_abstract_y + 1));
+		//printf("draw solidrectangle\n left:%d top:%d right:%d bottom:%d\n", x, y + mouse_now_abstract_y * length, x + width, y + (mouse_now_abstract_y + 1));
+		solidrectangle(x, y + mouse_now_abstract_y * length, x + width, y + (mouse_now_abstract_y + 1)*length);
 	}
 
 	//绘制格子间的线
@@ -516,6 +521,10 @@ bool map::is_edited()
 //计算给定的x，y所对应的格子(传入一个数组保存算出来的值)
 bool map::translate_xy(int* ans, int x, int y)
 {
+	/*printf("\nnowx: %d", x);
+	printf(" nowy: %d\n", y);
+	printf("mapx:%d", this->x);
+	printf("mapy:%d\n", this->y);*/
 	//当没有绘制地图的时候
 	if (this->x == -1 && this->y == -1 && width == -1 && height == -1) {
 		return false;
@@ -524,8 +533,11 @@ bool map::translate_xy(int* ans, int x, int y)
 	if (x > this->x && x<(this->x + width) && y>this->y && (y < this->y + height)) {
 		
 		//计算逻辑值
-		ans[0] = (x - this->x) / length;
-		ans[1] = (y - this->y) / length;
+		//按先行数再列数存储
+		ans[1] = (x - this->x) / length;
+		ans[0] = (y - this->y) / length;
+		/*printf("ax:%d", ans[0]);
+		printf(" ay:%d\n", ans[1]);*/
 
 		//在地图上，true
 		return true;
@@ -576,8 +588,8 @@ void map::draw_dashed_line(int x,int y)
 	}
 	else {
 		//将当前鼠标的位置记录下来，用于draw函数中绘制
-		mouse_now_abstract_x = real_coord[0];
-		mouse_now_abstract_y = real_coord[1];
+		mouse_now_abstract_x = real_coord[1];
+		mouse_now_abstract_y = real_coord[0];
 	}
 
 }
