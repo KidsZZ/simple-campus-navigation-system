@@ -1,17 +1,8 @@
 #include"roads.h"
 
 
-//不绘制png的透明部分
-#pragma comment (lib, "MSIMG32.lib")
-void putimage_alpha(IMAGE& image, int x, int y, int w = -1, int h = -1)
-{
-	BLENDFUNCTION blendfunc = { AC_SRC_OVER, 0, 255, AC_SRC_ALPHA };
-	int width = image.getwidth();
-	int height = image.getheight();
-	if (w == -1)w = width;
-	if (h == -1)h = height;
-	AlphaBlend(GetImageHDC(), x, y, w, h, GetImageHDC(&image), 0, 0, width, height, blendfunc);
-}
+//不绘制png的透明部分,源文件放在picture_button.cpp
+void putimage_alpha(IMAGE& image, int x, int y, int w = -1, int h = -1);
 
 //构造函数，载入道路图片
 roads::	roads(std::wstring path, int n) 
@@ -34,7 +25,9 @@ roads::	roads(std::wstring path, int n)
 //绘制函数，传入存放地图信息的结构体进行绘制
 void roads:: draw(int length, int x, int y, int direction)const
 {
+	printf("direction:%d\n", direction);
 	putimage_alpha(*road_img[direction], x, y, length, length);//最后两个值是偏移量
+	printf("put road success!\n");
 }
 
 //析构函数，释放道路图片

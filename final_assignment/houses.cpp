@@ -3,17 +3,8 @@
 //构造函数，初始化img对象(传入对象地址的通配形式，如img/img*.png，使用实际照片序号替换*标记）
 //**********************  0索引用于给道路占位（道路索引为0）  *****************
 
-//不绘制png的透明部分
-#pragma comment (lib, "MSIMG32.lib")
-void putimage_alpha(IMAGE& image, int x, int y, int w = -1, int h = -1)
-{
-	BLENDFUNCTION blendfunc = { AC_SRC_OVER, 0, 255, AC_SRC_ALPHA };
-	int width = image.getwidth();
-	int height = image.getheight();
-	if (w == -1)w = width;
-	if (h == -1)h = height;
-	AlphaBlend(GetImageHDC(), x, y, w, h, GetImageHDC(&image), 0, 0, width, height, blendfunc);
-}
+//不绘制png的透明部分,源文件放在picture_button.cpp
+void putimage_alpha(IMAGE& image, int x, int y, int w = -1, int h = -1);
 
 houses::houses(std::wstring path, int n) 
 {	

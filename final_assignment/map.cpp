@@ -147,9 +147,10 @@ void map::write_file()
 //判断若绘制道路的话属于哪种道路类型
 int map::select_road_type(int i,int j)
 {
+	printf("select_road_type init!\n");
 	//首先创建一个bool类型的vector数组来存储此道路上下左右四个方向的信息
 	std::vector<bool>road_type(4, false);
-	if (j == 0 && i != 0 && i != row)
+	if (j == 0 && i != 0 && i != row-1)
 	{
 		//利用||短路的性质，进行逻辑运算
 		if (mapData[i - 1][j] == '0' ||
@@ -173,7 +174,7 @@ int map::select_road_type(int i,int j)
 		}
 	}
 
-	if (i == 0 && j != 0 && j != column)
+	if (i == 0 && j != 0 && j != column-1)
 	{
 		//此坐标上侧为地图边界，默认为false
 
@@ -196,7 +197,7 @@ int map::select_road_type(int i,int j)
 		}
 	}
 
-	if (j == column && i != 0 && i != row)
+	if (j == column-1 && i != 0 && i != row-1)
 	{
 		//利用||短路的性质，进行逻辑运算
 		if (mapData[i - 1][j] == '0' ||
@@ -220,7 +221,7 @@ int map::select_road_type(int i,int j)
 		}
 	}
 
-	if (i == row && j != 0 && j != column)
+	if (i == row-1 && j != 0 && j != column-1)
 	{
 		//利用||短路的性质，进行逻辑运算
 		if (mapData[i - 1][j] == '0' ||
@@ -264,7 +265,7 @@ int map::select_road_type(int i,int j)
 		}
 	}
 
-	if (i == 0 && j == column)
+	if (i == 0 && j == column-1)
 	{
 		//利用||短路的性质，进行逻辑运算
 		//此坐标上侧为地图边界，默认为false
@@ -284,7 +285,7 @@ int map::select_road_type(int i,int j)
 		}
 	}
 
-	if (i == row && j == 0)
+	if (i == row-1 && j == 0)
 	{
 		//利用||短路的性质，进行逻辑运算
 		if (mapData[i - 1][j] == '0' ||
@@ -304,7 +305,7 @@ int map::select_road_type(int i,int j)
 		//此坐标下侧为地图边界，默认为false
 	}
 
-	if (i == row && j == column)
+	if (i == row-1 && j == column-1)
 	{
 		//利用||短路的性质，进行逻辑运算
 		if (mapData[i - 1][j] == '0' ||
@@ -324,7 +325,7 @@ int map::select_road_type(int i,int j)
 		//此坐标下侧为地图边界，默认为false
 	}
 
-	if((i>0&&i<row)&&(j>0&&j<column))
+	if((i>0&&i<row-1)&&(j>0&&j<column-1))
 	{
 		//利用||短路的性质，进行逻辑运算
 		if (mapData[i - 1][j] == '0' ||
@@ -352,7 +353,27 @@ int map::select_road_type(int i,int j)
 		}
 	}
 
+	//没有true，默认up_down
+	if (road_type[0] == 0 && road_type[1] == 0 && road_type[2] == 0 && road_type[3] == 0) {
+		return 3;
+	}
+
+	//一个true
+	if (road_type[0] == 1 && road_type[1] == 0 && road_type[2] == 0 && road_type[3] == 0) {
+		return 3;
+	}
+	if (road_type[0] == 0 && road_type[1] == 1 && road_type[2] == 0 && road_type[3] == 0) {
+		return 4;
+	}
+	if (road_type[0] == 0 && road_type[1] == 0 && road_type[2] == 1 && road_type[3] == 0) {
+		return 4;
+	}
+	if (road_type[0] == 0 && road_type[1] == 0 && road_type[2] == 0 && road_type[3] == 1) {
+		return 3;
+	}
+
 	//通过打表判断数组后，找到对应的图片
+	//两个true
 	if (road_type[0] == 1 && road_type[1] == 1 && road_type[2] == 0 && road_type[3] == 0) {
 		return 1;
 	}
@@ -371,6 +392,8 @@ int map::select_road_type(int i,int j)
 	if (road_type[0] == 0 && road_type[1] == 0 && road_type[2] == 1 && road_type[3] == 1) {
 		return 6;
 	}
+
+	//三个true
 	if (road_type[0] == 0 && road_type[1] == 1 && road_type[2] == 1 && road_type[3] == 1) {
 		return 7;
 	}
@@ -383,9 +406,12 @@ int map::select_road_type(int i,int j)
 	if (road_type[0] == 1 && road_type[1] == 1 && road_type[2] == 1 && road_type[3] == 0) {
 		return 10;
 	}
+
+	//四个true
 	if (road_type[0] == 1 && road_type[1] == 1 && road_type[2] == 1 && road_type[3] == 1) {
 		return 11;
 	}
+	
 }
 
 
@@ -441,12 +467,16 @@ void map::draw(int width, int height, int x, int y)
 		{
 			if (mapData[i][j] != '0' && mapData[i][j] != '-')
 			{
-				my_houses.draw(length, (x+(i  * length)), (y+(j * length)), (mapData[i][j] - '0'));
+				printf("draw house init\n");
+				my_houses.draw(length, (x + (j * length)), (y + (i * length)), (mapData[i][j] - '0'));
+				printf("draw house success\n");
 			}
 			else if (mapData[i][j] == '0')
 			{
 				//在绘制道路的时候，需要调用select_road_type得知道路种类
-				my_roads.draw(length, (x + (i  * length)), (y + (j * length)), select_road_type(i, j));
+				printf("draw road init\n");
+				my_roads.draw(length, (x + (j  * length)), (y + (i * length)), select_road_type(i, j));
+				printf("draw road success\n");
 			}
 		}
 	}
@@ -470,7 +500,7 @@ void map::draw(int width, int height, int x, int y)
 //给定坐标和房子id(road id 为0）
 void map::add_building(int x, int y, int house_type)
 {
-	printf("add_builiding active\n");
+	//printf("add_builiding active\n");
 	//首先计算此时鼠标的位置信息；
 	translate_xy(real_coord, x, y);
 	

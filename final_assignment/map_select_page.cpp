@@ -49,14 +49,14 @@ map_select_page::map_select_page(int w, int h, maps& my_maps) :abstract_page(pag
 			set_next_id(page_id::NAVIGATION_PAGE);
 			my_maps.set_selected_map_id(map_selected_id);
 			//主要用于保存当前选择地图的编号
-			//!!!!!!!!!my_maps.write_file();
+			my_maps.write_file();
 			}));
 		//第二个按钮：编辑地图
 		my_button.push_back(new button(button_width, button_height, second_button_x, second_button_y, second_button_text, [this, &my_maps]() {
 			set_next_id(page_id::MAP_EDITING_PAGE);
 			my_maps.set_selected_map_id(map_selected_id);
 			//主要用于保存当前选择地图的编号
-			//!!!!!!!my_maps.write_file();
+			my_maps.write_file();
 			}));
 
 		//返回按钮
@@ -64,7 +64,7 @@ map_select_page::map_select_page(int w, int h, maps& my_maps) :abstract_page(pag
 			//切换页面，保存信息
 			printf("click return_button\n");
 			set_next_id(page_id::HOME_PAGE);
-			//!!!!!!!my_maps.write_file();
+			my_maps.write_file();
 			});
 
 		//设置鼠标不在上面时地图尺寸
