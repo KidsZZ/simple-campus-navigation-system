@@ -100,7 +100,7 @@ void map::read_file()
 	{
 		for (int j = 0; j < column; j++)
 		{
-			if (mapData[i][j] != '-' || mapData[i][j] != '0')
+			if (mapData[i][j] != '-' && mapData[i][j] != '0')
 			{
 				building_num++;
 				is_building_present[(mapData[i][j] - '0')] = true;
@@ -741,8 +741,8 @@ bool map::connect_houses(int house_type1, int house_type2){
 				!flag[nexty][nextx]
 				) {
 
-				printf("nextx:%d nexty:%d\n", nextx, nexty);
-				printf("now mapData:%c\n", mapData[nexty][nextx]);
+				//printf("nextx:%d nexty:%d\n", nextx, nexty);
+				//printf("now mapData:%c\n", mapData[nexty][nextx]);
 
 				/*for (int i = 0; i < row; i++) {
 					for (int j = 0; j < column; j++) {
@@ -760,7 +760,7 @@ bool map::connect_houses(int house_type1, int house_type2){
 					printf("find success1\n");
 					is_navigation = true;
 					while (memory[fIndex] != -1) {
-						printf("y:%d x:%d\n", qy[fIndex], qx[fIndex]);
+						//printf("y:%d x:%d\n", qy[fIndex], qx[fIndex]);
 						mapNavigation[qy[fIndex]][qx[fIndex]] = true;
 						fIndex = memory[fIndex];
 					}
