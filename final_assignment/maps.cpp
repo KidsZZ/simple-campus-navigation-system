@@ -109,6 +109,7 @@ void maps::delete_build(int x, int y)
 //给出用户选择的两个建筑的导航
 bool maps::connect_houses(int house_type1, int house_type2)
 {
+	printf("connect_house init\n");
 	return my_maps[selected_map_id]->connect_houses(house_type1, house_type2);
 }
 

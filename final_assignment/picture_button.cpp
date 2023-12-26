@@ -33,7 +33,7 @@ picture_button::picture_button(std::wstring path, std::wstring exp, int width, i
 	//获得文字坐标
 	settextstyle(20, 0, L"黑体");
 	real_text_x = x + (width - textwidth(exp.c_str())) / 2;
-	real_text_y = y + height * 0.9;
+	real_text_y = y + height * 0.85;
 
 }
 

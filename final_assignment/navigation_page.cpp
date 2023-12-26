@@ -33,11 +33,12 @@ navigation_page::navigation_page(int w, int h, maps& my_maps) :abstract_page(pag
 	//右边功能菜单设置
 	// 一个建筑选项的长宽(指右边选项中的建筑）（外层尺寸）
 	single_object_width = right_width;
-	single_object_height = right_height / 4;
+	single_object_height = right_height / building_num;
 
 	//初始化picture_button
 	//设置按钮文本
-	std::wstring build_exp[building_num] = {
+	//building_num+1用于给道路占位
+	std::wstring build_exp[building_num+1] = {
 		L"road",
 		L"library",
 		L"dorminory",
@@ -45,7 +46,7 @@ navigation_page::navigation_page(int w, int h, maps& my_maps) :abstract_page(pag
 		L"canteen" 
 	};
 
-	for (int i = 1; i < building_num; i++) {
+	for (int i = 1; i <= building_num; i++) {
 		std::wstring temp_path = L"picture_hub\\house" + std::to_wstring(i) + L".png";
 		my_picture_button.push_back(new picture_button(temp_path, build_exp[i].
 			c_str(), single_object_width, single_object_height, left_width, single_object_height * (i - 1), [this, i]() {

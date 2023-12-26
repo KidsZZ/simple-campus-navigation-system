@@ -41,11 +41,15 @@ private:
 	//创建右边的建筑选项
 	std::vector<picture_button*> my_picture_button;
 
+	//删除建筑按钮
+	button* delete_button;
+
 	//返回按键
 	button* return_button;
 
 	//当前选择的建筑
 	//在绘制已选择的建筑时，对其背景进行特殊处理
+	//当now_select_building == building_num+1 时，表示选中删除按钮
 	int now_select_building;
 
 	//地图元素坐标

@@ -17,7 +17,7 @@
 //完成对类中各种变量的初始化
 //将将地图数据保存在项目的map_lib文件夹下
 //将初始的界面设置为home_page
-Widget::Widget(int w, int h) :width(w),height(h),now_page_id(page_id::HOME_PAGE),path("maps_lib\\"),my_maps(path) {
+Widget::Widget(int w, int h) :width(w),height(h),now_page_id(page_id::NAVIGATION_PAGE),path("maps_lib\\"),my_maps(path) {
 
 	//由widget类展开创建程序窗口
 	//各个页面实现对widget类创建的窗口的具体绘制

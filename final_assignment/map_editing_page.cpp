@@ -24,26 +24,28 @@ map_editing_page::map_editing_page(int w, int h, maps& my_maps) :abstract_page(p
 	// 一个建筑选项的长宽(指右边选项中的建筑）（外层尺寸）
 	//等分右边的空间
 	single_object_width = right_width;
-	single_object_height = right_height / 5;
+	//还要放删除按钮和道路
+	single_object_height = right_height / (building_num + 2);
 
 	//初始化picture_button
 	//设置选项文本
-	std::wstring build_exp[building_num] = { 
+	std::wstring build_exp[building_num+2] = { 
 		L"road",
 		L"library",
 		L"dorminory",
 		L"teaching_building",
-		L"canteen" 
+		L"canteen" ,
+		//删除按钮
+		L"delete building"
 	};
 
 	//依次设置建筑按钮
-	for (int i = 0; i < building_num; i++) {
+	for (int i = 0; i <= building_num+1; i++) {
 		std::wstring temp_path = L"picture_hub\\house"+std::to_wstring(i)+L".png";
 		my_picture_button.push_back(new picture_button(temp_path, build_exp[i].
 			c_str(), single_object_width, single_object_height, left_width,single_object_height*i,[this,i](){
 				//为每个图片按钮设置lambda表达式
 				set_now_select_building_id(i);
-				printf("NO.%d button click\n", i);
 			}
 			)
 		);
@@ -58,6 +60,8 @@ map_editing_page::map_editing_page(int w, int h, maps& my_maps) :abstract_page(p
 		set_next_id(page_id::MAP_SELECT_PAGE); 
 		my_maps.write_file();
 		});
+	
+
 }
 
 
@@ -94,8 +98,16 @@ void map_editing_page::get_keyboard_message() {
 			//如果在地图地图上，当now_select_building不为-1时传递参数给maps
 			if ((msg.x >= map_real_x) && (msg.x < (map_real_x + map_width)) && (msg.y >= map_real_y) && (msg.y <= (map_real_y + map_height))) {
 				if (now_select_building != -1) {
-					my_maps.add_building(msg.x, msg.y, now_select_building);
-					//printf("add building success\n");
+
+					//如果选中的是删除按钮
+					if (now_select_building == building_num + 1) {
+						my_maps.delete_build(msg.x, msg.y);
+					}
+					else {
+						my_maps.add_building(msg.x, msg.y, now_select_building);
+						//printf("add building success\n");
+					}
+					
 				}
 			}
 			
@@ -122,7 +134,7 @@ void map_editing_page::draw()
 	//如果当前有选择建筑，则在选择的建筑地图绘制方框
 	if (now_select_building != -1) {
 		setfillcolor(LIGHTGRAY);
-		solidrectangle(left_width, single_object_height * now_select_building, width, single_object_height * (now_select_building + 1));
+		solidrectangle(left_width + right_width * 0.15, single_object_height * now_select_building, width - right_width * 0.15, single_object_height * (now_select_building + 1));
 	}
 
 	for (auto tempptr : my_picture_button) {

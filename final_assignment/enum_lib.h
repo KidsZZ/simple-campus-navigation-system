@@ -37,4 +37,5 @@ enum page_id {
 	EXIT
 };
 
-const int building_num = 5;
+//不包括道路的建筑数量
+const int building_num = 4;

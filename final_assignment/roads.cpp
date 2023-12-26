@@ -25,9 +25,9 @@ roads::	roads(std::wstring path, int n)
 //绘制函数，传入存放地图信息的结构体进行绘制
 void roads:: draw(int length, int x, int y, int direction)const
 {
-	printf("direction:%d\n", direction);
+	//printf("direction:%d\n", direction);
 	putimage_alpha(*road_img[direction], x, y, length, length);//最后两个值是偏移量
-	printf("put road success!\n");
+	//printf("put road success!\n");
 }
 
 //析构函数，释放道路图片

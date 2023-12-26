@@ -147,7 +147,7 @@ void map::write_file()
 //判断若绘制道路的话属于哪种道路类型
 int map::select_road_type(int i,int j)
 {
-	printf("select_road_type init!\n");
+	//printf("select_road_type init!\n");
 	//首先创建一个bool类型的vector数组来存储此道路上下左右四个方向的信息
 	std::vector<bool>road_type(4, false);
 	if (j == 0 && i != 0 && i != row-1)
@@ -509,13 +509,20 @@ void map::add_building(int x, int y, int house_type)
 		//printf("add house no.%d at x:%d y:%d\n", house_type, real_coord[1], real_coord[0]);
 		mapData[real_coord[0]][real_coord[1]] = char(house_type+'0');
 		//printf("%c\n", mapData[real_coord[0]][real_coord[1]]);
-		//该地图房屋数+1
-		building_num++;
+		
+		//如果放置的建筑不是道路，则更新标记
+		if (house_type != 0) {
+			//该地图房屋数+1
+			building_num++;
 
-		//记录房屋坐标
-		building_position[house_type][0] = x;
-		building_position[house_type][1] = y;
-		//printf("add house complete");
+			//记录房屋坐标
+			building_position[house_type][0] = real_coord[0];
+			building_position[house_type][1] = real_coord[1];
+
+			//记录当前种类房屋已被放置
+			is_building_present[house_type] = true;
+			//printf("add house complete");
+		}
 	}
 }
 
@@ -527,7 +534,8 @@ void map::delete_build(int x, int y)
 	
 	//如果不为占位符，则删除该位置建筑
 	if (mapData[real_coord[0]][real_coord[1]] != '-') {
-		//如果不为道路，则清楚相关标记
+
+		//如果不为道路，则清除相关标记
 		if (mapData[real_coord[0]][real_coord[1]] != '0') {
 			int house_type = mapData[real_coord[0]][real_coord[1]] - '0';
 			is_building_present[house_type] = false;
@@ -536,6 +544,7 @@ void map::delete_build(int x, int y)
 			//房屋数-1
 			building_num--;
 		}
+
 		//重置数据为‘-’
 		mapData[real_coord[0]][real_coord[1]] = '-';
 	}
@@ -668,7 +677,7 @@ bool map::connect_houses(int house_type1, int house_type2){
 
 	//标记当前点是否已经被搜索过了
 	//如果已经被搜索过了，设为true
-	bool flag[30][30] = { 0 };
+	bool flag[30][30] = { false };
 
 	
 
@@ -678,8 +687,9 @@ bool map::connect_houses(int house_type1, int house_type2){
 
 	//保存接下来要寻找的一系列点的坐标
 	//不使用deque模拟队列的原因是之后还要回溯
-	std::vector<int> qx;
-	std::vector<int> qy;
+	//qy中保存二维数组第一项，qx保存二维数组第二项
+	int qx[10000] = { 0 };
+	int qy[10000] = { 0 };
 
 	//队头队尾都先使用后加1
 	//对头用于去除元素，队尾用于判断队列是否为空
@@ -687,24 +697,30 @@ bool map::connect_houses(int house_type1, int house_type2){
 	int tail = 0;
 
 	//设置回溯队列
-	std::vector<int> memory;
+	int memory[10000] = { 0 };
 
 	//将起点的坐标入队
-	qx.push_back(building_position[house_type1][0]);
-	qy.push_back(building_position[house_type1][1]);
-	++tail;
+	qy[tail] = building_position[house_type1][0];
+	qx[tail] = building_position[house_type1][1];
+
 	//将起点的回溯下标设为-1，表示根节点
-	memory.push_back(-1);
+	memory[tail] = -1;
 
 	//设置起点的坐标已被搜索
-	flag[qx.front()][qy.front()] = true;
+	flag[qy[tail]][qx[tail]] = true;
+
+	++tail;
+
+
 
 	//只要队列不空，就一直查找
+	int times=0;
 	while (head != tail) {
-
+		printf("\n\ntimes:%d\n", times++);
 		//取出对头坐标
 		int tempx = qx[head];
 		int tempy = qy[head];
+		printf("headx:%d heady:%d\n",tempx,tempy);
 		++head;
 
 		for (int i = 0; i < 4; i++) {
@@ -715,21 +731,42 @@ bool map::connect_houses(int house_type1, int house_type2){
 			//如果当前点在地图上
 			if (nextx >= 0 && nextx < column && nexty >= 0 && nexty < row &&
 				//当前点还没有被搜索过
-				!flag[nextx][nexty]) {
+				!flag[nextx][nexty]&&
+				//不是占位符
+				mapData[nextx][nexty]!='-'
+				) {
+
+				printf("now mapData:%c\n", mapData[nextx][nexty]);
+				printf("nextx:%d nexty:%d\n", nextx, nexty);
+
+				/*for (int i = 0; i < row; i++) {
+					for (int j = 0; j < column; j++) {
+						printf("%c", mapData[i][j]);
+					}
+					printf("\n");
+				}*/
 
 				//表示当前点已经被搜索过了
 				flag[nextx][nexty] = true;
 
+				int ansIndex = head - 1;
 				//如果找到了目的地
 				if (mapData[nextx][nexty] == house_type2 + '0') {
+					printf("find success1\n");
 					is_navigation = true;
-					int ansIndex = head - 1;
 					while (memory[ansIndex] != -1) {
-						mapNavigation[qx[ansIndex]][qy[ansIndex]] = true;
+						mapNavigation[qy[ansIndex]][qx[ansIndex]] = true;
 						ansIndex = memory[ansIndex];
 					}
+					printf("find success2\n");
 					return true;
 				}
+
+				//不是目的地
+				qy.push_back(nexty);
+				qx.push_back(nextx);
+				memory.push_back(ansIndex);
+				tail++;
 			}
 		}
 	}
@@ -742,5 +779,6 @@ bool map::connect_houses(int house_type1, int house_type2){
 //清除导航路线(用于之后扩展)
 void map::clear_connect_houses(){
 	is_navigation = false;
+	printf("clear_connect_house success!\n");
 }
 
