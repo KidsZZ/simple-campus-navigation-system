@@ -82,8 +82,8 @@ void Widget::run() {
 		//使用动态刷新
 		//如果程序运行时间小于一帧需要的时间，则延时多出来的时间
 		//当前为一秒60帧
-		if (delta_time < 10000 / 60) {
-			Sleep(10000 / 60 - delta_time);
+		if (delta_time < 1000 / 60) {
+			Sleep(1000 / 60 - delta_time);
 		}
 	}
 	//关闭渲染缓冲区
