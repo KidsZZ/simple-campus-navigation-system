@@ -8,7 +8,6 @@
 #include <string>
 #include "houses.h"
 #include "roads.h"
-#include "lines.h"
 #include "enum_lib.h"
 class map 
 {

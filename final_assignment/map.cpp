@@ -1,4 +1,5 @@
 #include"map.h"
+#include <iostream>
 //单个map，使用maps进行管理
 // 逻辑判断在此实现
 //具体存储单张地图数据
