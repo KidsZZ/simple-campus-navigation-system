@@ -27,8 +27,8 @@ houses::houses(std::wstring path, int n)
 	//教室，向上开
 	house_orientation[house_type::teaching_building][0] = true;
 	//食堂，向两侧开
-	house_orientation[house_type::canteen][1] = true;
-	house_orientation[house_type::canteen][2] = true;
+	house_orientation[house_type::canteen][0] = true;
+	house_orientation[house_type::canteen][3] = true;
 
 	house_img.push_back(nullptr);
 

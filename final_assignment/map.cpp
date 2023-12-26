@@ -684,8 +684,8 @@ bool map::connect_houses(int house_type1, int house_type2){
 	
 
 	//这两个数组保存搜索的方向
-	static int move_x[4] = { -1,0,1,0 };
-	static int move_y[4] = { 0,-1,0,1 };
+	static int move_x[4] = { 0,1,-1,0 };
+	static int move_y[4] = { 1,0,0,-1 };
 
 	//保存接下来要寻找的一系列点的坐标
 	//不使用deque模拟队列的原因是之后还要回溯
@@ -735,8 +735,11 @@ bool map::connect_houses(int house_type1, int house_type2){
 
 			//如果当前点在地图上
 			if (nextx >= 0 && nextx < column && nexty >= 0 && nexty < row &&
-				//不是占位符
-				mapData[nexty][nextx]!='-'&&
+				//是道路
+				(mapData[nexty][nextx]=='0'||
+				//或者是建筑且此路通
+				(mapData[nexty][nextx]>'0'&&mapData[nexty][nextx] <= building_num+'0')&&
+				my_houses.is_door(i,mapData[nexty][nextx])) &&
 				//当前点还没有被搜索过
 				!flag[nexty][nextx]
 				) {
