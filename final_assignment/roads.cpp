@@ -2,12 +2,15 @@
 
 
 //不绘制png的透明部分
-#pragma comment(lib,"MSIMG32.LIB")
-inline void putimage_alpha(int x, int y, int w, int h, IMAGE* img)
+#pragma comment (lib, "MSIMG32.lib")
+void putimage_alpha(IMAGE& image, int x, int y, int w = -1, int h = -1)
 {
-
-	AlphaBlend(GetImageHDC(NULL), x, y, w, h,
-		GetImageHDC(img), 0, 0, w, h, { AC_SRC_OVER,0,255,AC_SRC_ALPHA });
+	BLENDFUNCTION blendfunc = { AC_SRC_OVER, 0, 255, AC_SRC_ALPHA };
+	int width = image.getwidth();
+	int height = image.getheight();
+	if (w == -1)w = width;
+	if (h == -1)h = height;
+	AlphaBlend(GetImageHDC(), x, y, w, h, GetImageHDC(&image), 0, 0, width, height, blendfunc);
 }
 
 //构造函数，载入道路图片
@@ -31,7 +34,7 @@ roads::	roads(std::wstring path, int n)
 //绘制函数，传入存放地图信息的结构体进行绘制
 void roads:: draw(int length, int x, int y, int direction)const
 {
-	putimage_alpha(x, y, length, length, road_img[direction]);//最后两个值是偏移量
+	putimage_alpha(*road_img[direction], x, y, length, length);//最后两个值是偏移量
 }
 
 //析构函数，释放道路图片

@@ -4,13 +4,15 @@
 //**********************  0索引用于给道路占位（道路索引为0）  *****************
 
 //不绘制png的透明部分
-#pragma comment(lib,"MSIMG32.LIB")
-
-inline void putimage_alpha(int x, int y, int w,int h, IMAGE* img)
+#pragma comment (lib, "MSIMG32.lib")
+void putimage_alpha(IMAGE& image, int x, int y, int w = -1, int h = -1)
 {
-	
-	AlphaBlend(GetImageHDC(NULL), x, y, w, h,
-		GetImageHDC(img), 0, 0, w, h, { AC_SRC_OVER,0,255,AC_SRC_ALPHA });
+	BLENDFUNCTION blendfunc = { AC_SRC_OVER, 0, 255, AC_SRC_ALPHA };
+	int width = image.getwidth();
+	int height = image.getheight();
+	if (w == -1)w = width;
+	if (h == -1)h = height;
+	AlphaBlend(GetImageHDC(), x, y, w, h, GetImageHDC(&image), 0, 0, width, height, blendfunc);
 }
 
 houses::houses(std::wstring path, int n) 
@@ -44,7 +46,7 @@ houses::houses(std::wstring path, int n)
 //绘制函数:传入当前地图数据，并将房屋绘制上
 void houses::draw(int length, int x, int y,int house_type)const
 {	//渲染绘制图片
-	putimage_alpha(x, y, length, length, house_img[house_type]);//最后两个值是偏移量
+	putimage_alpha(*house_img[house_type], x, y, length, length);//最后两个值是偏移量
 }
 
 //为绘制道路提供此种类的房子是否在这个方向开门

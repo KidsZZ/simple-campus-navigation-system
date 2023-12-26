@@ -95,8 +95,10 @@ void map_editing_page::get_keyboard_message() {
 			if ((msg.x >= map_real_x) && (msg.x < (map_real_x + map_width)) && (msg.y >= map_real_y) && (msg.y <= (map_real_y + map_height))) {
 				if (now_select_building != -1) {
 					my_maps.add_building(msg.x, msg.y, now_select_building);
+					//printf("add building success\n");
 				}
 			}
+			
 			break;
 		}
 	}
@@ -108,7 +110,10 @@ void map_editing_page::draw()
 	putimage(0, 0, width, height, bk_img, 0, 0);
 
 	//µØÍ¼
+	//static int ans = 0;
+	//printf("map draw init no.%d\n", ans++);
 	my_maps.draw_selected(map_width, map_height, map_real_x, map_real_y);
+	//printf("map draw success no.%d\n", ans);
 
 	//·µ»Ø°´Å¥
 	return_button->draw();

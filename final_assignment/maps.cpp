@@ -81,6 +81,8 @@ void maps::draw(int width, int height, int x, int y, int id)
 //调用draw方法，传入selected_map_id
 void maps::draw_selected(int width, int height, int x, int y)
 {
+	//static int times = 0;
+	//printf("select_map_id:%d no.%d\n", selected_map_id,times++);
 	draw(width, height, x, y, selected_map_id);
 }
 

@@ -17,7 +17,7 @@
 //完成对类中各种变量的初始化
 //将将地图数据保存在项目的map_lib文件夹下
 //将初始的界面设置为home_page
-Widget::Widget(int w, int h) :width(w),height(h),now_page_id(page_id::HOME_PAGE),path("maps_lib\\"),my_maps(path) {
+Widget::Widget(int w, int h) :width(w),height(h),now_page_id(page_id::MAP_EDITING_PAGE),path("maps_lib\\"),my_maps(path) {
 
 	//由widget类展开创建程序窗口
 	//各个页面实现对widget类创建的窗口的具体绘制
@@ -82,8 +82,8 @@ void Widget::run() {
 		//使用动态刷新
 		//如果程序运行时间小于一帧需要的时间，则延时多出来的时间
 		//当前为一秒60帧
-		if (delta_time < 1000 / 60) {
-			Sleep(1000 / 60 - delta_time);
+		if (delta_time < 10000 / 60) {
+			Sleep(10000 / 60 - delta_time);
 		}
 	}
 	//关闭渲染缓冲区

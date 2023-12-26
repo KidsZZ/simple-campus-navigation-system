@@ -421,7 +421,7 @@ void map::draw(int width, int height, int x, int y)
 		//绘制column上的标记
 		//printf("x:%d y:%d width:%d height:%d\n", x, y, width, height);
 		//printf("draw solidrectangle\n left:%d top:%d right:%d bottom:%d\n", x + mouse_now_abstract_x * length, y, x + (mouse_now_abstract_x + 1) * length, y + height);
-		setfillcolor(BLUE);
+		setfillcolor(0xAAAA00);
 		solidrectangle(x + mouse_now_abstract_x * length, y, x + (mouse_now_abstract_x + 1) * length, y + height);
 		//绘制row上的标记
 		//printf("draw solidrectangle\n left:%d top:%d right:%d bottom:%d\n", x, y + mouse_now_abstract_y * length, x + width, y + (mouse_now_abstract_y + 1));
@@ -431,6 +431,9 @@ void map::draw(int width, int height, int x, int y)
 	//绘制格子间的线
 	draw_subline();
 	
+	//static int times = 0;
+	//printf("building draw init no.%d\n",times++);
+
 	//通过检索数组中的数据项，分别调用roads和houses绘制地图
 	for (int i =0; i <row; i++)
 	{
@@ -467,19 +470,22 @@ void map::draw(int width, int height, int x, int y)
 //给定坐标和房子id(road id 为0）
 void map::add_building(int x, int y, int house_type)
 {
-
+	printf("add_builiding active\n");
 	//首先计算此时鼠标的位置信息；
 	translate_xy(real_coord, x, y);
 	
 	//当当前种类建筑没有被放置时，允许放置建筑
 	if (!is_building_present[house_type]) {
-		mapData[real_coord[0]][real_coord[1]] = house_type;
+		//printf("add house no.%d at x:%d y:%d\n", house_type, real_coord[1], real_coord[0]);
+		mapData[real_coord[0]][real_coord[1]] = char(house_type+'0');
+		//printf("%c\n", mapData[real_coord[0]][real_coord[1]]);
 		//该地图房屋数+1
 		building_num++;
 
 		//记录房屋坐标
 		building_position[house_type][0] = x;
 		building_position[house_type][1] = y;
+		//printf("add house complete");
 	}
 }
 
