@@ -467,16 +467,16 @@ void map::draw(int width, int height, int x, int y)
 		{
 			if (mapData[i][j] != '0' && mapData[i][j] != '-')
 			{
-				printf("draw house init\n");
+				//printf("draw house init\n");
 				my_houses.draw(length, (x + (j * length)), (y + (i * length)), (mapData[i][j] - '0'));
-				printf("draw house success\n");
+				//printf("draw house success\n");
 			}
 			else if (mapData[i][j] == '0')
 			{
 				//在绘制道路的时候，需要调用select_road_type得知道路种类
-				printf("draw road init\n");
+				//printf("draw road init\n");
 				my_roads.draw(length, (x + (j  * length)), (y + (i * length)), select_road_type(i, j));
-				printf("draw road success\n");
+				//printf("draw road success\n");
 			}
 		}
 	}

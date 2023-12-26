@@ -160,6 +160,7 @@ void map_select_page::draw()
 	//绘制地图背景（选中的地图背景为浅蓝）
 	int map_i = map_selected_id / 2;
 	int map_j = map_selected_id % 2;
+
 	//设置背景颜色为浅蓝
 	setfillcolor(0xe6d8ad);//格式为bgr
 	solidrectangle(map_width * map_j + map_width * 0.05, map_height * map_i + map_height * 0.05, map_width * (map_j + 1) - map_width * 0.05 , map_height * (map_i + 1) - map_height * 0.05);

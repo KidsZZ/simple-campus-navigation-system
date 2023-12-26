@@ -22,7 +22,7 @@ enum house_type {
 
 //判断房门朝向所使用的传参常量
 enum direction {
-	up=1,
+	up=0,
 	left,
 	right,
 	down

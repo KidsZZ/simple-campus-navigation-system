@@ -44,7 +44,8 @@ void houses::draw(int length, int x, int y,int house_type)const
 bool houses::is_door(int direction, char c) const
 {
 	int house_type = c - '0';
-	return house_orientation[house_type][direction];//后期可拓展
+	if(house_type == )
+	return house_orientation[house_type][direction];
 }
 
 

@@ -18,7 +18,7 @@ navigation_page::navigation_page(int w, int h, maps& my_maps) :abstract_page(pag
 	scale = 0.85;
 
 	//地图实际长宽
-	map_width = (left_width * (1 - scale));
+	map_width = (left_width *  scale);
 	map_height = map_width / 1.5;
 	
 	//地图实际坐标
@@ -161,6 +161,17 @@ void navigation_page::draw() {
 
 	//绘制地图
 	my_maps.draw_selected(map_width, map_height, map_real_x, map_real_y);
+
+
+	//绘制用户选中的建筑选项
+	for (int i = 0; i < now_select_building_num; i++) {
+
+		//设置选项背景颜色
+		setfillcolor(LIGHTGRAY);
+
+		//因为建筑id从1开始，所以需要对now_select_building 减1
+		solidrectangle(left_width, single_object_height * (now_select_building[i]-1), width, single_object_height * now_select_building[i]);
+	}
 
 	//返回按键
 	return_button->draw();
