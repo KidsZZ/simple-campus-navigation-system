@@ -488,7 +488,7 @@ void map::draw(int width, int height, int x, int y)
 				if (mapNavigation[i][j]) {
 					setfillcolor(GREEN);
 					//在路径中心绘制圆圈
-					solidcircle(x + i * length + length * 0.5, y + j * length + 0.5 * length, length * 0.2);
+					solidcircle(x + j * length + length * 0.5, y + i * length + 0.5 * length, length * 0.1);
 				}
 			}
 		}
@@ -664,6 +664,7 @@ void map::draw_subline()
 //连接两地（最短路）
 //使用宽度优先搜索
 bool map::connect_houses(int house_type1, int house_type2){
+	printf("house_type1:%d house_type2:%d\n", house_type1, house_type2);
 
 	//重置mapNavigation
 	std::vector<std::vector<bool>> mapNavigation_temp(row, std::vector<bool>(column, false));
@@ -688,8 +689,8 @@ bool map::connect_houses(int house_type1, int house_type2){
 	//保存接下来要寻找的一系列点的坐标
 	//不使用deque模拟队列的原因是之后还要回溯
 	//qy中保存二维数组第一项，qx保存二维数组第二项
-	int qx[10000] = { 0 };
-	int qy[10000] = { 0 };
+	int qx[1000] = { 0 };
+	int qy[1000] = { 0 };
 
 	//队头队尾都先使用后加1
 	//对头用于去除元素，队尾用于判断队列是否为空
@@ -697,7 +698,7 @@ bool map::connect_houses(int house_type1, int house_type2){
 	int tail = 0;
 
 	//设置回溯队列
-	int memory[10000] = { 0 };
+	int memory[1000] = { 0 };
 
 	//将起点的坐标入队
 	qy[tail] = building_position[house_type1][0];
@@ -716,12 +717,15 @@ bool map::connect_houses(int house_type1, int house_type2){
 	//只要队列不空，就一直查找
 	int times=0;
 	while (head != tail) {
-		printf("\n\ntimes:%d\n", times++);
+		//printf("\n\ntimes:%d\n", times++);
 		//取出对头坐标
 		int tempx = qx[head];
 		int tempy = qy[head];
-		printf("headx:%d heady:%d\n",tempx,tempy);
+		//printf("headx:%d heady:%d\n",tempx,tempy);
 		++head;
+
+		//下面算的点的父亲节点
+		int fIndex = head - 1;
 
 		for (int i = 0; i < 4; i++) {
 			//算出下一个点
@@ -730,14 +734,14 @@ bool map::connect_houses(int house_type1, int house_type2){
 
 			//如果当前点在地图上
 			if (nextx >= 0 && nextx < column && nexty >= 0 && nexty < row &&
-				//当前点还没有被搜索过
-				!flag[nextx][nexty]&&
 				//不是占位符
-				mapData[nextx][nexty]!='-'
+				mapData[nexty][nextx]!='-'&&
+				//当前点还没有被搜索过
+				!flag[nexty][nextx]
 				) {
 
-				printf("now mapData:%c\n", mapData[nextx][nexty]);
 				printf("nextx:%d nexty:%d\n", nextx, nexty);
+				printf("now mapData:%c\n", mapData[nexty][nextx]);
 
 				/*for (int i = 0; i < row; i++) {
 					for (int j = 0; j < column; j++) {
@@ -747,25 +751,26 @@ bool map::connect_houses(int house_type1, int house_type2){
 				}*/
 
 				//表示当前点已经被搜索过了
-				flag[nextx][nexty] = true;
+				flag[nexty][nextx] = true;
 
-				int ansIndex = head - 1;
+				
 				//如果找到了目的地
-				if (mapData[nextx][nexty] == house_type2 + '0') {
+				if (mapData[nexty][nextx] == house_type2 + '0') {
 					printf("find success1\n");
 					is_navigation = true;
-					while (memory[ansIndex] != -1) {
-						mapNavigation[qy[ansIndex]][qx[ansIndex]] = true;
-						ansIndex = memory[ansIndex];
+					while (memory[fIndex] != -1) {
+						printf("y:%d x:%d\n", qy[fIndex], qx[fIndex]);
+						mapNavigation[qy[fIndex]][qx[fIndex]] = true;
+						fIndex = memory[fIndex];
 					}
 					printf("find success2\n");
 					return true;
 				}
 
 				//不是目的地
-				qy.push_back(nexty);
-				qx.push_back(nextx);
-				memory.push_back(ansIndex);
+				qy[tail] = nexty;
+				qx[tail] = nextx;
+				memory[tail] = fIndex;
 				tail++;
 			}
 		}
