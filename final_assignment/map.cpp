@@ -20,8 +20,8 @@ map::map(std::string path, houses& my_house, roads& my_roads,
 
 	for (int i = 0; i < 2; i++)real_coord[i] = -1;
 
-	//初始化设置building_num为0
-	building_num = 0;
+	//初始化设置map_building_num为0
+	map_building_num = 0;
 
 	for (int i = 0; i < 5; i++) {
 		//初始化将建筑都设为不存在
@@ -95,14 +95,14 @@ void map::read_file()
 	}
 
 	//进行当前地图建筑数量初始化的操作
-	//读取二维数组中的数据判断是否为房屋类型，若是，则Building_num++
+	//读取二维数组中的数据判断是否为房屋类型，若是，则map_building_num++
 	for (int i = 0; i < row; i++)
 	{
 		for (int j = 0; j < column; j++)
 		{
 			if (mapData[i][j] != '-' && mapData[i][j] != '0')
 			{
-				building_num++;
+				map_building_num++;
 				is_building_present[(mapData[i][j] - '0')] = true;
 				building_position[(mapData[i][j] - '0')][0] = i;
 				building_position[(mapData[i][j] - '0')][1] = j;
@@ -514,7 +514,7 @@ void map::add_building(int x, int y, int house_type)
 		//如果放置的建筑不是道路，则更新标记
 		if (house_type != 0) {
 			//该地图房屋数+1
-			building_num++;
+			map_building_num++;
 
 			//记录房屋坐标
 			building_position[house_type][0] = real_coord[0];
@@ -543,7 +543,7 @@ void map::delete_build(int x, int y)
 			building_position[house_type][0] = -1;
 			building_position[house_type][1] = -1;
 			//房屋数-1
-			building_num--;
+			map_building_num--;
 		}
 
 		//重置数据为‘-’
@@ -555,7 +555,7 @@ void map::delete_build(int x, int y)
 //返回给定的地图id是否被编辑过
 bool map::is_edited()
 {
-	if (building_num == 0) {
+	if (map_building_num == 0) {
 		return false;
 	}
 	else
@@ -716,7 +716,7 @@ bool map::connect_houses(int house_type1, int house_type2){
 
 
 	//只要队列不空，就一直查找
-	int times=0;
+	//int times=0;
 	while (head != tail) {
 		//printf("\n\ntimes:%d\n", times++);
 		//取出对头坐标
@@ -733,19 +733,68 @@ bool map::connect_houses(int house_type1, int house_type2){
 			int nextx = tempx + move_x[i];
 			int nexty = tempy + move_y[i];
 
+
 			//如果当前点在地图上
 			if (nextx >= 0 && nextx < column && nexty >= 0 && nexty < row &&
-				//是道路
-				(mapData[nexty][nextx]=='0'||
-				//或者是建筑且此路通
-				(mapData[nexty][nextx]>'0'&&mapData[nexty][nextx] <= building_num+'0')&&
-				my_houses.is_door(i,mapData[nexty][nextx])) &&
-				//当前点还没有被搜索过
+				//下一个格子不是占位符
+				(mapData[nexty][nextx] != '-')&&
+				//下一个格子还没有被搜索过
 				!flag[nexty][nextx]
 				) {
 
+
+				//判断起始格子能不能出去
+				bool outFlag = false;
+
+				//判断将要进入的格子能不能进去
+				bool inFlag = false;
+
+				//分类讨论
+				//起点：
+				// 1.房子 ->判断是否有门
+				// 2.道路 
+				//下一个点：
+				// 1.道路
+				// 2.房子 ->判断是否有门 ->是否是终点 ->是终点就终止循环
+
+
+				//如果起始格子是道路
+				if (mapData[tempy][tempx] == '0') {
+					outFlag = true;
+				}
+				//出发点是建筑（一般来说是起点）
+				//判断出发点当前是否有门,有门才能往下走
+				else if((mapData[tempy][tempx] > '0' && mapData[tempy][tempx] <= building_num + '0')&&my_houses.is_door(3 - i, mapData[tempy][tempx])) {
+					outFlag = true;
+				}
 				//printf("nextx:%d nexty:%d\n", nextx, nexty);
 				//printf("now mapData:%c\n", mapData[nexty][nextx]);
+				//printf("i:%d\n", i);
+				/*if ((mapData[nexty][nextx] > '0') && (mapData[nexty][nextx] <= building_num + '0')) {
+					printf("%d\n", my_houses.is_door(i, mapData[nexty][nextx]));
+				}*/
+				//如果下一个点是道路
+				if (mapData[nexty][nextx] == '0') {
+					inFlag = true;
+				}
+				//如果下一个点是房屋，则判断开口，且如果不是终点，就不进房子
+				else if ((mapData[nexty][nextx] > '0') && (mapData[nexty][nextx] <= building_num + '0') && my_houses.is_door(i, mapData[nexty][nextx])) {
+					//printf("!!!%c\n", mapData[nexty][nextx]);
+					//如果找到了目的地
+					if (mapData[nexty][nextx] == house_type2 + '0') {
+						//printf("find success1\n");
+						is_navigation = true;
+						while (memory[fIndex] != -1) {
+							//printf("y:%d x:%d\n", qy[fIndex], qx[fIndex]);
+							mapNavigation[qy[fIndex]][qx[fIndex]] = true;
+							fIndex = memory[fIndex];
+						}
+						//printf("find success2\n");
+						return true;
+					}
+				}
+
+				
 
 				/*for (int i = 0; i < row; i++) {
 					for (int j = 0; j < column; j++) {
@@ -753,29 +802,19 @@ bool map::connect_houses(int house_type1, int house_type2){
 					}
 					printf("\n");
 				}*/
+				//printf("is_door(3,'4'):%d\n", my_houses.is_door(3, '4'));
+				//只有当inFlag和outFlag都为true的情况下，才能将下一个点纳入队列
+				//这种情况下一定不是目的地
+				if (inFlag && outFlag) {
+					//表示当前点已经被搜索过了
+					flag[nexty][nextx] = true;
+					qy[tail] = nexty;
+					qx[tail] = nextx;
+					memory[tail] = fIndex;
+					tail++;
 
-				//表示当前点已经被搜索过了
-				flag[nexty][nextx] = true;
-
-				
-				//如果找到了目的地
-				if (mapData[nexty][nextx] == house_type2 + '0') {
-					printf("find success1\n");
-					is_navigation = true;
-					while (memory[fIndex] != -1) {
-						//printf("y:%d x:%d\n", qy[fIndex], qx[fIndex]);
-						mapNavigation[qy[fIndex]][qx[fIndex]] = true;
-						fIndex = memory[fIndex];
-					}
-					printf("find success2\n");
-					return true;
+					
 				}
-
-				//不是目的地
-				qy[tail] = nexty;
-				qx[tail] = nextx;
-				memory[tail] = fIndex;
-				tail++;
 			}
 		}
 	}

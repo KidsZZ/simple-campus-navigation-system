@@ -91,7 +91,7 @@ private:
 	static std::string house_name;
 
 	//用building_num变量来对于此地图进行计数操作
-	int building_num;
+	int map_building_num;
 
 	//用building_position二维数组来存储每个房屋的纵横坐标
 	//从1开始算一直到4，与enum.lib中设定相同，方便应用
