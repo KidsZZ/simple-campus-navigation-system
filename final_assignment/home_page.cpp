@@ -56,6 +56,12 @@ home_page::home_page(int w, int h) :abstract_page(page_id::HOME_PAGE, w, h) {
 		set_next_id(page_id::EXIT); 
 		}));
 
+	//作品签名
+	sign = L"by 郑喆宇 李佳徽";
+	sign_font = 45;
+	settextstyle(sign_font, 0, L"微软雅黑");
+	signX = width - textwidth(sign.c_str());
+	signY = height - textheight(sign.c_str());
 }
 
 //接收鼠标信息
@@ -98,6 +104,12 @@ void home_page::draw() {
 	for (button* tbutton_ptr : my_button) {
 		tbutton_ptr->draw();
 	}
+
+	//绘制签名
+	settextcolor(BLACK);
+	settextstyle(sign_font, 0, L"微软雅黑");
+	outtextxy(signX, signY, sign.c_str());
+	
 }
 
 home_page::~home_page() {

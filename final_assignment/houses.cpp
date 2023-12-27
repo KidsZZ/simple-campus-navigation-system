@@ -21,14 +21,14 @@ houses::houses(std::wstring path, int n)
 	}
 
 	//图书馆,向下开
-	house_orientation[house_type::library][3] = true;
+	house_orientation[house_type::library][direction::down] = true;
 	//寝室，向右开
-	house_orientation[house_type::dorminory][2] = true;
+	house_orientation[house_type::dorminory][direction::right] = true;
 	//教室，向上开
-	house_orientation[house_type::teaching_building][0] = true;
-	//食堂，向两侧开
-	house_orientation[house_type::canteen][0] = true;
-	house_orientation[house_type::canteen][3] = true;
+	house_orientation[house_type::teaching_building][direction::up] = true;
+	//食堂，向上下开
+	house_orientation[house_type::canteen][direction::up] = true;
+	house_orientation[house_type::canteen][direction::down] = true;
 
 	house_img.push_back(nullptr);
 

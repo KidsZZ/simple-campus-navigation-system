@@ -46,6 +46,11 @@ private:
 	int button_width, button_height;
 	int first_button_x, first_button_y;
 	int second_button_x, second_button_y;
+	
+	//×÷Æ·Ç©Ãû
+	std::wstring sign;
+	int signX, signY;
+	int sign_font;
 
 };
 
