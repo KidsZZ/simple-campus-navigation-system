@@ -15,7 +15,7 @@ houses::houses(std::wstring path, int n)
 	{
 		for (int j = 0; j < 4; j++)
 		{
-			house_orientation[i][j] = false;
+			house_orientation[i][j] = true;
 		}
 		
 	}

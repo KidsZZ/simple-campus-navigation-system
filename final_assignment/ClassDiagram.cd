@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Widget" Collapsed="true">
+    <Position X="9.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAgAQAAAAAAQAQAACQAAAAAAAAAACAEAAAAAAAIA=</HashCode>
+      <FileName>Widget.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="abstract_page" Collapsed="true">
+    <Position X="3.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAEAAQAQAIABAAAAAAAAAYAAEAAAAAAAAg=</HashCode>
+      <FileName>abstract_page.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="home_page" Collapsed="true">
+    <Position X="5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAkQAAAQAIAEAAQAEQIwAgDAAAAIAAGAAAAAEAAAACg=</HashCode>
+      <FileName>home_page.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="map_editing_page" Collapsed="true">
+    <Position X="7.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAMAAEAAQIAkAgQAgAoDACAAACIYEAACAAAAAEAAAAA=</HashCode>
+      <FileName>map_editing_page.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="map_select_page" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAEYQIBkAAQAkSIgAAAABCIIAACOAAAAAUAAAEg=</HashCode>
+      <FileName>map_select_page.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="navigation_page" Collapsed="true">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAMAAEAAQIAkAAQAgAIDACAiADIIEAgCAAAAAEAAAAA=</HashCode>
+      <FileName>navigation_page.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="houses" Collapsed="true">
+    <Position X="11.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAIAAAAAAAIAAAAAgAAAIAAAAAAAAAACAAA=</HashCode>
+      <FileName>houses.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="map" Collapsed="true">
+    <Position X="13.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>RRCAkAACAAAAAAYQREMGAAASQQABEgAUAABkAgAACAg=</HashCode>
+      <FileName>map.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="maps" Collapsed="true">
+    <Position X="9.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BJAAgAAAAAAAQACCAAICAAACQQwBEgASEAAAAgBAAkA=</HashCode>
+      <FileName>maps.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="roads" Collapsed="true">
+    <Position X="13.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAIBAAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>roads.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="button" Collapsed="true">
+    <Position X="9.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QCACAABAAAACAAQAQAIAAAACAAhABAAIAABgAAAAQQQ=</HashCode>
+      <FileName>button.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="picture_button" Collapsed="true">
+    <Position X="11.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABgAAAAAABAQAQAIEAAACAEgAgEAAAABgCAAAAxA=</HashCode>
+      <FileName>picture_button.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="roads_direction" Collapsed="true">
+    <Position X="9.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEQQAAAAAQAAABEAAABAEAAAEAAAAAAAAAAEQAAAA=</HashCode>
+      <FileName>enum_lib.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="house_type" Collapsed="true">
+    <Position X="11.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAIAAAAAAAAACAAAIAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>enum_lib.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="direction" Collapsed="true">
+    <Position X="9.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAAAAAAAAAAAAAAIAAAAAAAAAgAAgAA=</HashCode>
+      <FileName>enum_lib.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="page_id" Collapsed="true">
+    <Position X="13.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIBAAAAAAAAAAAQAACAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>enum_lib.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Microsoft YaHei UI" Size="9" />
+</ClassDiagram>

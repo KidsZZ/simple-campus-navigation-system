@@ -26,8 +26,11 @@ navigation_page::navigation_page(int w, int h, maps& my_maps) :abstract_page(pag
 	map_real_y = (left_height - map_height) / 2;
 
 	// 返回按钮
-	return_button = new button(150, 50, 0, 0, L"返回", [this]() {
+	return_button = new button(150, 50, 0, 0, L"返回", [this,&my_maps]() {
 		set_next_id(page_id::MAP_SELECT_PAGE);
+		//关闭导航
+		now_select_building_num = 0;
+		my_maps.clear_connnect_houses();
 		});
 
 	//右边功能菜单设置

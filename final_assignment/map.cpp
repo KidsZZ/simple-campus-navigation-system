@@ -62,6 +62,7 @@ void map::read_file()
 			//不进行处理
 		}
 
+
 		else
 		{
 			//先读取第一行，检查row与column是否异常

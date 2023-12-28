@@ -1,12 +1,8 @@
-# Programing D final assignment
+# 简易校园导航系统
 
-## 项目名称
+## 主文件
 
-简易校园导航系统
-
-## 小组成员
-
-郑喆宇，李佳徽
+项目位于visual studio项目final_assignment下
 
 ## 配置
 
@@ -16,7 +12,7 @@ c++
 
 ### 图形库
 
-easyX
+easyX大暑版
 
 ### 开发工具
 
